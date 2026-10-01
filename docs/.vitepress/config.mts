@@ -29,12 +29,46 @@ export default defineConfig({
       { text: '正文', link: '/chapter_1' }
     ],
 
-    // 由 mdbook SUMMARY.md 结构映射而来；后续章节按 SUMMARY 继续追加
+    // 由 mdbook SUMMARY.md 结构映射而来；后续章节按 SUMMARY 继续追加。
+    // 基础篇 / 同步原语 / 并发模型 / 进阶主题收录已落盘的内容页（仅收录已存在文件，不挂死链）。
     sidebar: [
       {
         text: '正文',
         items: [
           { text: 'Chapter 1', link: '/chapter_1' }
+        ]
+      },
+      {
+        text: '基础篇',
+        items: [
+          { text: '并发基础概念', link: '/basics/concepts' },
+          { text: '线程与进程', link: '/basics/thread-process' },
+          { text: '临界区与互斥', link: '/basics/critical-section' },
+          { text: '死锁与活锁', link: '/basics/deadlock-livelock' }
+        ]
+      },
+      {
+        text: '同步原语',
+        items: [
+          { text: '锁', link: '/sync/locks' },
+          { text: '信号量', link: '/sync/semaphores' },
+          { text: '条件变量', link: '/sync/condition-variables' },
+          { text: '屏障', link: '/sync/barriers' }
+        ]
+      },
+      {
+        text: '并发模型',
+        items: [
+          { text: 'Actor 模型', link: '/models/actor' },
+          { text: 'CSP 模型', link: '/models/csp' },
+          { text: '数据流模型', link: '/models/dataflow' },
+          { text: 'STM 软件事务内存', link: '/models/stm' }
+        ]
+      },
+      {
+        text: '进阶主题',
+        items: [
+          { text: '无锁编程', link: '/advanced/lockfree' }
         ]
       }
     ],
