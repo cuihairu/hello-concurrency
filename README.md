@@ -1,4 +1,15 @@
-# hello-concurrency
+<div align="center">
+
+<!-- 品牌资产空位：logo.svg 到位后启用 -->
+<!-- <img src="docs/public/logo.svg" width="96" alt="hello-concurrency logo" /> -->
+
+# Hello Concurrency
+
+高并发知识体系 · [在线阅读](https://cuihairu.github.io/hello-concurrency/)
+
+</div>
+
+---
 
 编写一本关于高并发的书籍，涉及硬件和软件方面的设计，涵盖设计模式和常见设计，并参考《七周七并发》中的内容，可以按以下目录和内容简介进行规划：
 
