@@ -48,14 +48,16 @@ class RWCache<K,V> {
         w.lock();
         try {
             V v = map.get(key);
-            if (v != null) return v;
+            if (v != null) return v;       // 已有值：未取读锁，直接返回
             map.put(key, value);
-            // 降级：持有写锁获取读锁，释放写锁
-            r.lock();
-            return value;
-        } finally { 
-            w.unlock();  // 写锁释放后，读锁仍持有
+            r.lock();                       // 降级第一步：先获取读锁
+        } finally {
+            w.unlock();                     // 降级第二步：再释放写锁
         }
+        // 此刻仅持有读锁：并发读者能看到刚写入的值，后续写者被挡在读锁外，
+        // 不会出现「本线程读回旧值」的窗口（顺序若反，其他写者可能插队）
+        try { return map.get(key); }
+        finally { r.unlock(); }
     }
 }
 ```
@@ -88,24 +90,26 @@ class StampedCache<K,V> {
         finally { sl.unlockWrite(stamp); }
     }
 
-    // 升级：悲观读 → 写锁
+    // 读锁起步，必要时升级为写锁（tryConvertToWriteLock 无竞争时原地转换）
     V computeIfAbsent(K key, Function<K,V> fn) {
         long stamp = sl.readLock();
         try {
             V v = map.get(key);
             if (v != null) return v;
-            // 尝试升级
+            // 读→写不能原地升级：tryConvertToWriteLock 无竞争时直接转换（stamp 变为写戳）；
+            // 有竞争返回 0，此时必须先释放读锁、再按常规途径获取写锁
             long ws = sl.tryConvertToWriteLock(stamp);
-            if (ws != 0) {  // 升级成功
+            if (ws == 0L) {
+                sl.unlockRead(stamp);
+                stamp = sl.writeLock();
+            } else {
                 stamp = ws;
-                v = map.computeIfAbsent(key, fn);
-                return v;
             }
-            // 升级失败：释放读锁，重新获取写锁
-            sl.unlockRead(stamp);
-            stamp = sl.writeLock();
-            try { return map.computeIfAbsent(key, fn); }
-            finally { sl.unlockWrite(stamp); }
+            // 走到这里必持写锁；期间他方可能已写入同 key，
+            // computeIfAbsent 会先查再算，不会重复调用 fn
+            return map.computeIfAbsent(key, fn);
+        } finally {
+            sl.unlock(stamp);  // stamp 对应读锁或写锁，unlock 均能正确释放
         }
     }
 }
@@ -190,18 +194,22 @@ fn put(key: K, val: V) {
 ```
 - **Rust 类型系统**：编译期防止读锁持有期间修改、防止死锁
 
-## 性能对比 (典型 16 核、读 95% / 写 5%)
+## 性能对比 (读多写少场景)
 
-| 实现 | 吞吐 (ops/s) | p99 延迟 | 扩展性 | 复杂度 |
-|------|--------------|----------|--------|--------|
-| `synchronized` / `Mutex` | 1.2M | 500μs | 差 | 低 |
-| `ReentrantReadWriteLock` (非公平) | 8M | 80μs | 中 | 低 |
-| `ReentrantReadWriteLock` (公平) | 5M | 120μs | 中 | 低 |
-| `StampedLock` 乐观读 | 45M | 5μs | 极好 | 中 |
-| `ConcurrentHashMap` | 40M | 8μs | 极好 | 低 (库) |
-| `RwLock` + `HashMap` (Rust) | 30M | 10μs | 好 | 低 |
-| `dashmap` (分片 RWLock) | 50M | 5μs | 极好 | 低 (库) |
-| RCU / Immutable Snapshot | 100M+ | <1μs | 极好 | 中 (写放大) |
+各实现的**量级关系**是稳定的，但绝对数字随硬件、JDK/编译器版本、键分布与竞争程度大幅波动，照抄任何具体数字都会误导选型——需要精确数字时用 JMH（Java）/ criterion（Rust）在自己的负载上实测。下表只给定性判断：
+
+| 实现 | 读路径 | 写路径 | 扩展性 | 复杂度 |
+|------|--------|--------|--------|--------|
+| `synchronized` / `Mutex` | 互斥 | 互斥 | 差（单点串行） | 低 |
+| `ReentrantReadWriteLock` (非公平) | 读共享 | 独占 | 中 | 低 |
+| `ReentrantReadWriteLock` (公平) | 读共享 | 独占 | 中（吞吐略低于非公平） | 低 |
+| `StampedLock` 乐观读 | 无锁验证 | 独占 | 极好（读几乎线性） | 中 |
+| `ConcurrentHashMap` | 无锁 volatile 读 | 桶级细粒度 | 极好 | 低 (库) |
+| `RwLock` + `HashMap` (Rust) | 读共享 | 独占 | 好 | 低 |
+| `dashmap` (分片 RWLock) | 分片读共享 | 分片独占 | 极好 | 低 (库) |
+| RCU / Immutable Snapshot | 纯指针读、零同步 | 全量复制 + CAS 发布 | 极好（读） | 中 (写放大) |
+
+规律：互斥锁最慢一个量级；读写锁在读占比高时明显优于互斥；乐观读与分片/不可变方案能把读做到接近无锁；写路径的代价则相反（RCU 写最贵）。
 
 ## 选型决策树
 

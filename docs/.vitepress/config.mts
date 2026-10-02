@@ -17,7 +17,7 @@ export default defineConfig({
   // mdbook 遗留的目录文件保留在仓库作映射底稿，不作为页面构建
   srcExclude: ['**/SUMMARY.md'],
 
-  ignoreDeadLinks: true,
+
 
   themeConfig: {
     // 品牌资产空位：logo.svg 到位后启用
@@ -35,7 +35,7 @@ export default defineConfig({
       {
         text: '正文',
         items: [
-          { text: 'Chapter 1', link: '/chapter_1' }
+          { text: '引言', link: '/chapter_1' }
         ]
       },
       {
@@ -68,7 +68,19 @@ export default defineConfig({
       {
         text: '进阶主题',
         items: [
-          { text: '无锁编程', link: '/advanced/lockfree' }
+          { text: '无锁编程', link: '/advanced/lockfree' },
+          { text: '内存模型', link: '/advanced/memory-model' },
+          { text: '并发数据结构', link: '/advanced/data-structures' },
+          { text: '性能调优', link: '/advanced/performance' }
+        ]
+      },
+      {
+        text: '实战篇',
+        items: [
+          { text: '生产者-消费者', link: '/practice/producer-consumer' },
+          { text: '读者-写者', link: '/practice/reader-writer' },
+          { text: '线程池设计', link: '/practice/thread-pool' },
+          { text: '并发框架选型', link: '/practice/framework-selection' }
         ]
       }
     ],

@@ -57,7 +57,7 @@ int x = v;  // LoadLoad + LoadStore 屏障
 ```
 - **可见性**：写 HB 后续读
 - **有序性**：禁止 `volatile` 读写与普通读写重排
-- **不保证原子性**：`volatile long` 64 位非原子 (JDK 5+ 已修复)
+- **不保证复合操作原子性**：`v++` 是读-改-写三步，`volatile` 挡不住交错，计数用 `AtomicLong`/`LongAdder`；单次 `volatile long`/`double` 读写自 Java 5（JLS §17.7）起就是原子的，32 位平台也不例外
 
 ### final 语义
 ```java
@@ -178,7 +178,7 @@ if (ready) use(data);  // 可能读到 data=0
 ```java
 // JDK 5 前错误
 if (instance == null) {
-    synchronized { if (instance == null) instance = new T(); }
+    synchronized (Singleton.class) { if (instance == null) instance = new T(); }
 }
 // 修正：volatile instance
 ```

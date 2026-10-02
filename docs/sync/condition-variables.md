@@ -208,13 +208,13 @@ cond.L.Unlock()
 pthread_cond_wait(&cond, &mutex);  // mutex 未加锁
 ```
 
-### 错误 2：signal 前未持有锁
+### 错误 2：修改条件时未持锁
 ```c
-// 错误：竞态窗口
-condition = true;
-pthread_cond_signal(&cond);  // mutex 未加锁
+// 错误：条件修改与等待方的检查之间存在竞态 → 丢失唤醒
+condition = true;                   // 未持锁修改条件
+pthread_cond_signal(&cond);         // 等待方可能尚未进入 wait，信号蒸发
 ```
-**修正**：持有锁修改条件再 signal，保证原子性。
+**修正**：**修改条件**必须持有互斥锁（等待方在锁内检查条件，`pthread_cond_wait` 原子地「放锁 + 等待」）。注意区分：POSIX 下 `pthread_cond_signal` 本身**不持锁调用是合法的**，最多造成被唤醒线程立刻抢锁失败的无效唤醒（性能问题）；而 Java 的 `Condition.signal()` 相反，必须在锁内调用，否则抛 `IllegalMonitorStateException`。
 
 ### 错误 3：用 if 替代 while
 ```c
@@ -222,15 +222,15 @@ pthread_cond_signal(&cond);  // mutex 未加锁
 if (!condition) pthread_cond_wait(&cond, &mutex);
 ```
 
-### 错误 4：notify 后立即释放锁导致竞态
+### 错误 4：Java 中先释放锁再 signal
 ```java
-// 可接受但次优
+// 错误：Java 的 Condition.signal() 必须在持有锁时调用
 lock.lock();
 condition = true;
-lock.unlock();  // 释放锁
-cond.signal();  // 唤醒线程需竞争锁
+lock.unlock();   // 先放锁
+cond.signal();   // 此时已不持锁 → IllegalMonitorStateException
 ```
-**优化**：持有锁 signal，减少一次上下文切换。
+**修正**：在临界区内 signal、再释放锁。对比 POSIX pthread：signal 放在锁外也正确，且「锁外 signal」可避免被唤醒线程立刻撞锁（hurry-up-and-wait），是常见的微优化——两套 API 的约束方向正好相反，混用时最容易踩坑。
 
 ### 最佳实践清单
 1. **永远用 while 循环等待**

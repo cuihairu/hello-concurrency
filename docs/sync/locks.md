@@ -54,8 +54,9 @@
 | 超时 | 否 | `tryLock(timeout)` |
 | 公平性 | 非公平 | 可选公平/非公平 |
 | 条件变量 | `wait/notify` | `newCondition()` 多条件 |
-| 锁降级 | 不支持 | 支持（写锁→读锁） |
 | 性能 | 旧版本慢，JDK 6+ 优化后相当 | 稳定 |
+
+> 注意：「锁降级（写锁 → 读锁）」是**读写锁**（`ReentrantReadWriteLock` / `StampedLock`）的语义，与上表两把互斥锁无关——互斥锁没有读写之分，也就无所谓升降级。
 
 ### 锁优化演进
 1. **偏向锁**：无竞争时，CAS 记录线程 ID，后续零开销
@@ -114,7 +115,7 @@ void write() { std::unique_lock g(rw); }
 
 ### `Mutex<T>` / `RwLock<T>`
 - **锁保护数据所有权**：`lock()` 返回 `MutexGuard<T>`，解锁即 Drop
-- **编译期防死锸**：类型系统强制临界区作用域
+- **编译期防死锁**：类型系统强制临界区作用域
 - **Send + Sync**：自动推导线程安全性
 
 ```rust

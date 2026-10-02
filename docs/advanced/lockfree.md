@@ -123,7 +123,7 @@ bool dequeue(T& out) {
 | **Epoch-Based Reclamation (EBR)** | 全局纪元推进，两个纪元后回收 | 极低 (批量) | 高吞吐、可容忍延迟回收 |
 | **RCU (Read-Copy-Update)** | 读者无锁，写者复制修改，宽限期后回收 | 读零开销 | 读多写少、内核、数据库 |
 | **引用计数 / 共享指针** | 原子引用计数 | 高 (缓存行抖动) | 简单场景、C++ `shared_ptr` |
-| **垃圾回收器** | 运行时自动管理 | 不确定 | Java/Go/Rust (无 GC) 不适用 |
+| **垃圾回收器** | 运行时自动管理 | 不确定 | Java/Go 适用（GC 自动回收废弃节点）；Rust 无 GC，不适用，需上表手动方案 |
 
 ### Hazard Pointer 简述
 ```c

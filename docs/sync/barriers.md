@@ -124,7 +124,7 @@ phaser.arriveAndDeregister();
 |------|---------------|----------------|-------------|
 | Java | `java.util.concurrent.CyclicBarrier` | `CountDownLatch` | `Phaser` |
 | C++20 | `std::barrier` / `std::latch` | `std::latch` | `std::barrier` (灵活模板) |
-| Go | `sync.WaitGroup` (单次) / `sync.Cond` 实现 | `sync.WaitGroup` | 无标准库，第三方 |
+| Go | `sync.WaitGroup`（计数到零后可复用）/ `sync.Cond` 实现 | `sync.WaitGroup` | 无标准库，第三方 |
 | Rust | `std::sync::Barrier` | 无标准库 | `tokio::sync::Barrier` |
 | Python | `threading.Barrier` | 无标准库 | `asyncio.Barrier` |
 | C# | `Barrier` | `CountdownEvent` | 无直接等价 |

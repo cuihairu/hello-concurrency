@@ -16,7 +16,7 @@
 |----------|----------|----------|
 | **锁竞争** | CPU 低、上下文切换高、线程 BLOCKED | `perf sched`, `jstack`, `lockstat` |
 | **缓存争用** | 扩展性差、cache-miss 高、伪共享 | `perf c2c`, `perf mem`, `perf stat` |
-| **内存带宽** | 多核不加速、内存控制器饱和 | `perf stat -e memory_bandwidth` |
+| **内存带宽** | 多核不加速、内存控制器饱和 | `perf stat` uncore 指标、Intel PCM (`pcm-memory`)、`numastat` |
 | **CPU 饱和** | 运行队列长、load average 高 | `mpstat`, `pidstat`, `top` |
 | **I/O 等待** | CPU 低、iowait 高、磁盘/网络饱和 | `iostat`, `sar -n DEV`, `ss -s` |
 | **GC/内存分配** | STW 停顿、分配率高、老年代膨胀 | `jstat -gc`, `async-profiler`, GC 日志 |
@@ -94,7 +94,7 @@
 
 ### 2. 消除伪共享
 ```java
-// JDK 12+ @Contended
+// JDK 8+ @Contended（JEP 142；应用类需 -XX:-RestrictContended）
 @Contended class Counter { volatile long value; }
 
 // 手工 padding
@@ -133,14 +133,14 @@ ThreadPoolExecutor ioPool = new ThreadPoolExecutor(
 ### 5. JVM 并发调优参数
 | 参数 | 说明 | 典型值 |
 |------|------|--------|
-| `-XX:+UseBiasedLocking` | 偏向锁 (JDK 15 废弃) | 单线程重入场景 |
-| `-XX:BiasedLockingStartupDelay=0` | 偏向锁启动延迟 | 0 |
-| `-XX:+UseHeavyMonitors` | 重量级监视器优化 | JDK 16+ 默认开启 |
+| ~~`-XX:+UseBiasedLocking`~~ | 偏向锁：JDK 15 废弃（JEP 374）、JDK 18 移除；JDK 21 传入直接报 `Unrecognized VM option`，新版本不要再调 | 已移除 |
+| ~~`-XX:BiasedLockingStartupDelay=0`~~ | 同上，随偏向锁一并移除 | 已移除 |
+| `-XX:+UseHeavyMonitors` | 诊断开关：强制重量级监视器（调试用），**默认关闭**，并非「默认开启的优化」 | 调试 |
 | `-XX:+EliminateLocks` | 逃逸分析消除锁 | 默认开启 |
 | `-XX:+UseContainerSupport` | 容器感知 CPU/内存 | 默认开启 |
 | `-XX:ActiveProcessorCount=N` | 覆盖可用核数 | 容器限制时设置 |
 | `-XX:ParallelGCThreads=N` | GC 并行线程 | 核数 ≤ 8 全部，>8 约 5/8 |
-| `-XX:ConcGCThreads=N` | CMS/G1 并发线程 | 并行线程 / 2 |
+| `-XX:ConcGCThreads=N` | G1/ZGC 并发线程 | 默认 `(ParallelGCThreads + 2) / 4` |
 
 ## 全链路调优案例
 
@@ -184,7 +184,7 @@ async-profiler -d 60 -f flame.html -e cpu -p PID
 L = λ × W
 并发数 = 吞吐率 × 平均延迟
 ```
-- **线程池大小** ≈ 目标 QPS × 目标 p99 延迟 (秒)
+- **线程池大小** ≈ 目标 QPS × **平均**延迟 (秒)——注意取均值而非 p99：Little's Law 里的 W 是平均逗留时间，用 p99 会系统性高估并发数
 - **队列长度** ≈ 突发流量 × 处理时间
 
 ### 扩容触发阈值

@@ -150,13 +150,21 @@ class PriorityTask implements Runnable, Comparable<PriorityTask> {
 ### 4. 继承上下文
 ```java
 // MDC / TraceID / SecurityContext 传递
+// 注意：MDC.setContextMap 返回 void（不能当 try-with-resources 资源），
+// 备份/恢复需手工配对，放在 finally 里
 class ContextAwareExecutor extends ThreadPoolExecutor {
     @Override
     public void execute(Runnable command) {
         Map<String, String> ctx = MDC.getCopyOfContextMap();
         super.execute(() -> {
-            try (MDC.MDCCloseable ignored = ctx == null ? null : MDC.setContextMap(ctx)) {
+            Map<String, String> backup = MDC.getCopyOfContextMap();
+            if (ctx != null) MDC.setContextMap(ctx);
+            else MDC.clear();
+            try {
                 command.run();
+            } finally {
+                if (backup != null) MDC.setContextMap(backup);
+                else MDC.clear();
             }
         });
     }
@@ -165,13 +173,17 @@ class ContextAwareExecutor extends ThreadPoolExecutor {
 
 ## Go Worker Pool 模式
 
+关闭语义是这类池最容易写错的地方：**不要 close 任务队列**。`close` 与并发的 `ch <- task` 之间没有同步手段，一旦竞态就是 panic: send on closed channel。正确做法是用 `closed` 标志（锁保护）+ `context` 取消来广播停机，队列自始至终不关闭：
+
 ```go
 type WorkerPool struct {
-    workers   int
-    queue     chan Task
-    wg        sync.WaitGroup
-    ctx       context.Context
-    cancel    context.CancelFunc
+    workers int
+    queue   chan Task
+    wg      sync.WaitGroup
+    ctx     context.Context
+    cancel  context.CancelFunc
+    mu      sync.RWMutex // 保护 closed，杜绝「关闭后再 Submit」panic
+    closed  bool
 }
 
 func NewWorkerPool(workers, queueSize int) *WorkerPool {
@@ -191,11 +203,18 @@ func (p *WorkerPool) Start() {
             defer p.wg.Done()
             for {
                 select {
-                case task, ok := <-p.queue:
-                    if !ok { return }
+                case task := <-p.queue:
                     task.Execute()
                 case <-p.ctx.Done():
-                    return
+                    // 优雅收尾：把已入队的任务排空再退出（非阻塞排空）
+                    for {
+                        select {
+                        case task := <-p.queue:
+                            task.Execute()
+                        default:
+                            return
+                        }
+                    }
                 }
             }
         }(i)
@@ -203,29 +222,38 @@ func (p *WorkerPool) Start() {
 }
 
 func (p *WorkerPool) Submit(task Task) error {
+    p.mu.RLock()
+    defer p.mu.RUnlock()
+    if p.closed {
+        return ErrPoolClosed
+    }
     select {
     case p.queue <- task:
         return nil
     case <-p.ctx.Done():
         return ErrPoolClosed
     default:
-        return ErrQueueFull  // 非阻塞拒绝
+        return ErrQueueFull // 非阻塞拒绝
     }
 }
 
 func (p *WorkerPool) Shutdown(timeout time.Duration) error {
-    close(p.queue)
+    p.mu.Lock()
+    p.closed = true // 先挡住新 Submit，再取消，杜绝 close/send 竞态
+    p.mu.Unlock()
+    p.cancel() // 广播停机：worker 排空队列后退出
     done := make(chan struct{})
     go func() { p.wg.Wait(); close(done) }()
     select {
     case <-done:
         return nil
     case <-time.After(timeout):
-        p.cancel()  // 强制取消
-        return ErrShutdownTimeout
+        return ErrShutdownTimeout // goroutine 无法强杀，只能超时上报
     }
 }
 ```
+
+要点：`Submit` 持读锁期间 `Shutdown` 的写锁会等在途提交完成，二者不可能交错；worker 收到取消后先排空队列再退出，保证已接受的任务不丢。
 
 ## Rust 线程池
 
@@ -286,7 +314,7 @@ void gracefulShutdown(ThreadPoolExecutor pool, Duration timeout) {
 |------|------|------|
 | **容器 CPU 限额 < 宿主机核数** | `availableProcessors()` 返回宿主机核数，线程过多争抢 | `-XX:+UseContainerSupport` (JDK 10+ 默认开) / `-XX:ActiveProcessorCount=4` |
 | **cgroups v2 CPU quota** | CPU throttling 导致延迟抖动 | 监控 `cpu.throttled_us`、调整 quota/period |
-| **内存限颐 < 堆 + 线程栈** | OOM Killer 杀进程 | `-Xmx` + `-XX:ThreadStackSize=256k` × 最大线程数 < Memory Limit |
+| **内存限额 < 堆 + 线程栈** | OOM Killer 杀进程 | `-Xmx` + `-XX:ThreadStackSize=256k` × 最大线程数 < Memory Limit |
 
 ## 本章小结
 

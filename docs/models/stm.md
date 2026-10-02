@@ -107,20 +107,28 @@ withdraw acc amt = do
 ### 3. 交换律优化 (`commute`)
 ```clojure
 ;; 交换律操作：加法、集合合并、Map 更新键值
-(commute counter + 1)  -- 无冲突，直接应用
+(commute counter + 1)  ;; 无冲突，直接应用
 ```
 **原理**：交换律操作顺序不影响结果，可并行应用，大幅降低冲突。
 
 ### 4. 嵌套事务
 ```haskell
--- 内层事务提交仅对外层可见，外层回滚则全回滚
+-- 嵌套 = 组合：内层只是一段 STM 动作（类型 STM a），直接放进外层 do 块
+inner :: STM Int
+inner = do
+    a <- readTVar tvA
+    b <- readTVar tvB
+    pure (a + b)
+
+outer :: IO ()
 outer = atomically $ do
-    inner = atomically $ do  -- 仅记录读写集
-        ...
-    x <- inner
-    ...
+    x <- inner        -- 内层读写集并入外层事务
+    writeTVar tvC x
+
+-- 注意：atomically 里面再调用 atomically 会抛 NestedAtomically 异常；
+-- 「内层事务」的正确形态是组合 STM 动作，而不是嵌套 atomically
 ```
-**扁平化**：多数实现将嵌套事务扁平化为单一顶层事务。
+**扁平化**：多数实现将嵌套事务扁平化为单一顶层事务；内层的效果仅对外层可见，外层回滚则一并回滚。
 
 ## 性能特征
 

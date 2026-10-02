@@ -50,9 +50,24 @@ func consumer(in <-chan int) {
 
 ### 2. 扇出/扇入
 ```go
-// 扇出：分发到多工作者
+// 扇出：把每个值分发给一个工作者（竞争消费，每值恰好被处理一次）
 func fanOut(in <-chan int, workers int) []chan int {
     outs := make([]chan int, workers)
+    for i := range outs { outs[i] = make(chan int) }
+    go func() {
+        i := 0
+        for v := range in {
+            outs[i%len(outs)] <- v // 轮询分发
+            i++
+        }
+        for _, out := range outs { close(out) }
+    }()
+    return outs
+}
+
+// 对比：广播——每个值发给所有输出通道（每个订阅者都收到一份）
+func broadcast(in <-chan int, subs int) []chan int {
+    outs := make([]chan int, subs)
     for i := range outs { outs[i] = make(chan int) }
     go func() {
         for v := range in {
@@ -195,9 +210,10 @@ for _, task := range tasks {
 - 应用：T9000 处理器、火星探测器、铁路信号系统
 
 ### Go 静态分析
-- `go vet`：检测通道死锁、负缓冲、关闭已关闭通道
-- `staticcheck`：更深度并发 Bug 检测
-- `go test -race`：竞态检测器
+- `go vet`：捕获部分误用模式（如复制含锁结构 `copylocks`、`context` 取消函数被丢弃 `lostcancel`）；**不能**检测通道死锁、负缓冲、关闭已关闭通道——这类问题没有可靠的静态检查保证
+- `go test -race`：动态竞态检测（需要测试真正触发竞态路径）
+- `staticcheck` / `golangci-lint`：更广的静态可疑模式检查
+- 通道死锁/重复关闭主要靠运行时暴露：重复关闭直接 panic，死锁用 goroutine dump（`SIGQUIT` 或 pprof `/debug/pprof/goroutine`）定位
 
 ## CSP vs Actor 对比
 

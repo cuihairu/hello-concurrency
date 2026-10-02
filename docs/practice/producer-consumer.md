@@ -62,9 +62,11 @@ class BoundedBuffer<T> {
 class SemaphoreBuffer<T> {
     final Semaphore slots, items;
     final T[] buf;
+    final int cap;          // 构造参数需提为字段，供 put/take 取模使用
     int head, tail;
 
     SemaphoreBuffer(int cap) {
+        this.cap = cap;
         slots = new Semaphore(cap);
         items = new Semaphore(0);
         buf = (T[]) new Object[cap];
@@ -100,10 +102,15 @@ ch := make(chan Task, 1024)
 ch <- task             // 阻塞
 select { case ch <- task: default: }  // 非阻塞
 
-// Rust (crossbeam)
-let (s, r) = bounded(1024);
-s.send(task).await;    // 异步阻塞
-s.try_send(task);      // 非阻塞
+// Rust (crossbeam，同步 API)
+let (s, r) = crossbeam_channel::bounded(1024);
+s.send(task).unwrap(); // 满时阻塞当前线程
+s.try_send(task);      // 非阻塞，满时返回 Err
+
+// Rust (异步用 tokio)
+let (tx, mut rx) = tokio::sync::mpsc::channel(1024);
+tx.send(task).await;   // 满时让出执行权（异步等待）
+tx.try_send(task);     // 非阻塞
 ```
 
 ### 4. 无锁队列 (极致吞吐)
@@ -156,7 +163,8 @@ WorkerPool<Event> pool = new WorkerPool<>(ring, barrier, handler, workers);
                 → 消费者组B
 ```
 - 每条消息被**所有**订阅者处理
-- 实现：`SynchronousQueue` 广播、Redis Pub/Sub、Kafka 消费组
+- 实现：Redis Pub/Sub、Kafka 各消费组独立订阅、进程内监听器列表 + `CopyOnWriteArrayList`
+- 注意：`SynchronousQueue` 不是广播——它是 0 容量队列，每元素直接移交给一个等待者，一对一配对
 
 ### 3. 分片/有序分区
 ```
@@ -192,7 +200,7 @@ PriorityBlockingQueue<Task> pq = new PriorityBlockingQueue<>(1024,
 
 ### 3. 延迟/定时消费
 ```java
-// DelayQueue (JDK) / 时间轮 / Quartz / Quartz
+// DelayQueue (JDK) / 时间轮 / Quartz
 DelayQueue<DelayedTask> dq = new DelayQueue<>();
 dq.put(new DelayedTask(task, 5, SECONDS));
 // 消费者 take() 自动阻塞至到期

@@ -35,7 +35,7 @@
 
 | 场景 | 首选 | 备选 | 避坑 |
 |------|------|------|------|
-| **通用业务** | `CompletableFuture` / `ExecutorService` + `StructuredTaskScope` (JDK 21) | `Virtual Threads` (JDK 21) | 别在阻塞 IO 用虚拟线程池 |
+| **通用业务** | `CompletableFuture` / `ExecutorService` + `StructuredTaskScope` (JDK 21 预览，JEP 453，需 `--enable-preview`) | `Virtual Threads` (JDK 21) | 别在阻塞 IO 用虚拟线程池 |
 | **高并发服务** | **Virtual Threads** (JDK 21+) + Spring Boot 3.2+ | Quarkus / Helidon | 旧代码库逐步迁移、注意 pinning |
 | **响应式/流式** | **Project Reactor** (Spring WebFlux) / **Kotlin Flow** | RxJava 3 / Mutiny | 别混用阻塞 API、背压必通到底 |
 | **Actor/状态机** | **Akka Typed** (Scala) / **Akka Classic** (Java) | Proto.Actor / Orleans (.NET) | Akka 许可证变更 (BSL)，评估商业风险 |
