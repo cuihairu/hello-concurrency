@@ -51,13 +51,14 @@ class RWCache<K,V> {
             if (v != null) return v;       // 已有值：未取读锁，直接返回
             map.put(key, value);
             r.lock();                       // 降级第一步：先获取读锁
+            try {
+                return map.get(key);
+            } finally {
+                r.unlock();                 // 关键：一定要释放读锁，否则写锁降级为读锁后永久持有读锁，写者永久阻塞
+            }
         } finally {
             w.unlock();                     // 降级第二步：再释放写锁
         }
-        // 此刻仅持有读锁：并发读者能看到刚写入的值，后续写者被挡在读锁外，
-        // 不会出现「本线程读回旧值」的窗口（顺序若反，其他写者可能插队）
-        try { return map.get(key); }
-        finally { r.unlock(); }
     }
 }
 ```

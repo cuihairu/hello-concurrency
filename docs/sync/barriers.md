@@ -138,7 +138,7 @@ std::latch latch(N);  // 单次
 barrier.arrive_and_wait();  // 或 latch.count_down(); latch.wait();
 ```
 
-### Go sync.WaitGroup（单次屏障）
+### Go sync.WaitGroup（计数归零后可复用）
 ```go
 var wg sync.WaitGroup
 wg.Add(N)
@@ -150,6 +150,7 @@ for i := 0; i < N; i++ {
 }
 wg.Wait()  // 等待所有完成
 ```
+> 与 `CountDownLatch`/`std::latch` 的「一次性」不同：`Wait` 返回、计数归零后可再次 `Add` 复用（但禁止在计数未归零时并发 `Add` 与 `Wait`，且禁止复制使用中的 `WaitGroup`）。
 
 ## 典型应用场景
 
