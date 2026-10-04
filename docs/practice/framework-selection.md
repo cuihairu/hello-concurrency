@@ -128,7 +128,7 @@
 |------|------|
 | 单机/少量节点、Actor 天然 | **Akka Cluster** / **Orleans** / **Erlang/OTP** |
 | 分布式、需强一致、分片 | **Akka Cluster Sharding** / **Orleans** / **Temporal** |
-| 极致性能、C++/Rust | **Seastar** / **Actix** / 自研 |
+| 极致性能、C++/Rust | **Seastar** / **Actix** / 自行开发 |
 
 ## 避坑清单
 
