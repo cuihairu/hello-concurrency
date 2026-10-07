@@ -1,9 +1,10 @@
 <div align="center">
 
-<!-- 品牌资产空位：logo.svg 到位后启用 -->
-<!-- <img src="docs/public/logo.svg" width="96" alt="hello-concurrency logo" /> -->
+<p align="center"><img src="docs/public/logo.svg" width="64" height="64" alt="logo" /></p>
 
 # Hello Concurrency
+
+<p align="center"><img src="docs/public/badges/topic.svg" alt="topic" /> <img src="docs/public/badges/docs.svg" /> <img src="docs/public/badges/license.svg" alt="CC BY 4.0" alt="docs" /></p>
 
 高并发知识体系 · [在线阅读](https://cuihairu.github.io/hello-concurrency/)
 
@@ -142,7 +143,6 @@
 展望并发编程的新趋势、新硬件对并发的支持、量子计算与并发等前沿技术，帮助读者了解高并发的未来发展方向。
 
 这本书旨在全面覆盖高并发系统的方方面面，通过理论结合实战，帮助读者深入理解和掌握高并发编程的技术和技巧。
-<p align="center"><img src="docs/public/badges/topic.svg" alt="topic" /> <img src="docs/public/badges/docs.svg" /> <img src="docs/public/badges/license.svg" alt="CC BY 4.0" alt="docs" /></p>
 
 ## License
 
