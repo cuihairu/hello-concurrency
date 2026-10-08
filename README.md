@@ -1,5 +1,7 @@
 <div align="center">
 
+[English](README.md) | [中文](README.zh.md)
+
 <p align="center"><img src="docs/public/logo.svg" width="64" height="64" alt="logo" /> </p>
 
 # Hello Concurrency
@@ -11,144 +13,144 @@
   <img src="docs/public/badges/langs.svg" alt="langs" />
 </p>
 
-高并发知识体系 · [在线阅读](https://cuihairu.github.io/hello-concurrency/)
+High-Concurrency Knowledge Base · [Read Online](https://cuihairu.github.io/hello-concurrency/)
 
 </div>
 
 ---
 
-编写一本关于高并发的书籍，涉及硬件和软件方面的设计，涵盖设计模式和常见设计，并参考《七周七并发》中的内容，可以按以下目录和内容简介进行规划：
+Writing a book on high concurrency — covering hardware and software design, common design patterns and designs, with references to the content of *Seven Concurrency Models in Seven Weeks* — can be planned with the following table of contents and chapter summaries:
 
-### 目录
+### Table of Contents
 
-1. **引言**
-   - 1.1 高并发的定义与重要性
-   - 1.2 高并发系统的应用场景
-   - 1.3 本书的结构和阅读建议
+1. **Introduction**
+   - 1.1 Definition and Importance of High Concurrency
+   - 1.2 Application Scenarios of High-Concurrency Systems
+   - 1.3 Structure of This Book and Reading Suggestions
 
-2. **高并发系统的基础知识**
-   - 2.1 并发与并行的区别
-   - 2.2 线程与进程
-   - 2.3 同步与异步
-   - 2.4 硬件对并发的支持（多核处理器、GPU、内存架构）
+2. **Fundamentals of High-Concurrency Systems**
+   - 2.1 Concurrency vs. Parallelism
+   - 2.2 Threads and Processes
+   - 2.3 Synchronous vs. Asynchronous
+   - 2.4 Hardware Support for Concurrency (Multi-core Processors, GPUs, Memory Architecture)
 
-3. **硬件层面的高并发设计**
-   - 3.1 多核处理器架构
-   - 3.2 缓存一致性协议
-   - 3.3 硬件加速器（GPU、FPGA等）
-   - 3.4 存储系统与I/O设计
+3. **Hardware-Level High-Concurrency Design**
+   - 3.1 Multi-core Processor Architecture
+   - 3.2 Cache Coherence Protocols
+   - 3.3 Hardware Accelerators (GPU, FPGA, etc.)
+   - 3.4 Storage Systems and I/O Design
 
-4. **操作系统与并发**
-   - 4.1 操作系统中的并发机制
-   - 4.2 线程管理
-   - 4.3 调度算法
-   - 4.4 内存管理与虚拟内存
+4. **Operating Systems and Concurrency**
+   - 4.1 Concurrency Mechanisms in Operating Systems
+   - 4.2 Thread Management
+   - 4.3 Scheduling Algorithms
+   - 4.4 Memory Management and Virtual Memory
 
-5. **编程语言与并发支持**
-   - 5.1 并发编程的基本概念
-   - 5.2 Java中的并发支持
-   - 5.3 C++中的并发支持
-   - 5.4 Go语言中的并发支持
-   - 5.5 Python中的并发支持
+5. **Programming Languages and Concurrency Support**
+   - 5.1 Basic Concepts of Concurrent Programming
+   - 5.2 Concurrency Support in Java
+   - 5.3 Concurrency Support in C++
+   - 5.4 Concurrency Support in Go
+   - 5.5 Concurrency Support in Python
 
-6. **高并发设计模式**
-   - 6.1 生产者-消费者模式
-   - 6.2 线程池模式
-   - 6.3 未来模式（Future）
-   - 6.4 观察者模式
-   - 6.5 反应器模式（Reactor）
+6. **High-Concurrency Design Patterns**
+   - 6.1 Producer–Consumer Pattern
+   - 6.2 Thread Pool Pattern
+   - 6.3 Future Pattern
+   - 6.4 Observer Pattern
+   - 6.5 Reactor Pattern
 
-7. **常见的高并发技术**
-   - 7.1 异步编程模型
-   - 7.2 事件驱动架构
-   - 7.3 Actor模型
-   - 7.4 CSP（Communicating Sequential Processes）
-   - 7.5 并发数据结构（锁、无锁数据结构）
+7. **Common High-Concurrency Techniques**
+   - 7.1 Asynchronous Programming Models
+   - 7.2 Event-Driven Architecture
+   - 7.3 The Actor Model
+   - 7.4 CSP (Communicating Sequential Processes)
+   - 7.5 Concurrent Data Structures (Locks, Lock-Free Data Structures)
 
-8. **高并发框架与工具**
-   - 8.1 Java并发框架（Java Concurrency Framework）
-   - 8.2 Akka框架
-   - 8.3 Netty框架
-   - 8.4 Go并发工具包
-   - 8.5 Python并发库（asyncio、concurrent.futures）
+8. **High-Concurrency Frameworks and Tools**
+   - 8.1 Java Concurrency Framework
+   - 8.2 The Akka Framework
+   - 8.3 The Netty Framework
+   - 8.4 Go Concurrency Toolkits
+   - 8.5 Python Concurrency Libraries (asyncio, concurrent.futures)
 
-9. **高并发系统的性能优化**
-   - 9.1 性能瓶颈分析
-   - 9.2 性能调优技巧
-   - 9.3 负载均衡
-   - 9.4 缓存策略
-   - 9.5 压力测试与监控
+9. **Performance Optimization of High-Concurrency Systems**
+   - 9.1 Performance Bottleneck Analysis
+   - 9.2 Performance Tuning Techniques
+   - 9.3 Load Balancing
+   - 9.4 Caching Strategies
+   - 9.5 Stress Testing and Monitoring
 
-10. **高并发系统的可靠性设计**
-    - 10.1 容错机制
-    - 10.2 一致性与分布式锁
-    - 10.3 数据持久化与恢复
-    - 10.4 分布式事务
+10. **Reliability Design of High-Concurrency Systems**
+    - 10.1 Fault Tolerance Mechanisms
+    - 10.2 Consistency and Distributed Locks
+    - 10.3 Data Persistence and Recovery
+    - 10.4 Distributed Transactions
 
-11. **高并发系统的安全性**
-    - 11.1 并发中的安全问题
-    - 11.2 数据竞争与死锁
-    - 11.3 安全编程实践
-    - 11.4 安全工具与库
+11. **Security of High-Concurrency Systems**
+    - 11.1 Security Issues in Concurrency
+    - 11.2 Data Races and Deadlocks
+    - 11.3 Secure Programming Practices
+    - 11.4 Security Tools and Libraries
 
-12. **七周七并发实战**
-    - 12.1 第一周：Java中的并发编程
-    - 12.2 第二周：C++中的并发编程
-    - 12.3 第三周：Go语言中的并发编程
-    - 12.4 第四周：Python中的并发编程
-    - 12.5 第五周：Akka框架实战
-    - 12.6 第六周：Netty框架实战
-    - 12.7 第七周：综合案例分析
+12. **Seven Weeks of Hands-On Concurrency**
+    - 12.1 Week 1: Concurrent Programming in Java
+    - 12.2 Week 2: Concurrent Programming in C++
+    - 12.3 Week 3: Concurrent Programming in Go
+    - 12.4 Week 4: Concurrent Programming in Python
+    - 12.5 Week 5: Hands-On with the Akka Framework
+    - 12.6 Week 6: Hands-On with the Netty Framework
+    - 12.7 Week 7: Comprehensive Case Studies
 
-13. **前沿与未来**
-    - 13.1 并发编程的新趋势
-    - 13.2 新硬件对并发的支持
-    - 13.3 量子计算与并发
-    - 13.4 展望未来
+13. **Emerging Trends and the Future**
+    - 13.1 New Trends in Concurrent Programming
+    - 13.2 New Hardware Support for Concurrency
+    - 13.3 Quantum Computing and Concurrency
+    - 13.4 Looking Ahead
 
-### 内容简介
+### Chapter Summaries
 
-**引言**
-介绍高并发的基本概念，应用场景，以及本书的结构和阅读建议，帮助读者快速了解高并发的重要性和本书的内容布局。
+**Introduction**
+Introduces the basic concepts of high concurrency, application scenarios, and the structure of this book along with reading suggestions, helping readers quickly understand the importance of high concurrency and how the book is organized.
 
-**高并发系统的基础知识**
-详细讲解并发与并行、线程与进程、同步与异步等基础概念，以及硬件对并发的支持，奠定后续章节的基础。
+**Fundamentals of High-Concurrency Systems**
+Explains in detail fundamental concepts such as concurrency vs. parallelism, threads vs. processes, and synchronous vs. asynchronous, as well as hardware support for concurrency, laying the foundation for later chapters.
 
-**硬件层面的高并发设计**
-介绍多核处理器架构、缓存一致性协议、硬件加速器（如GPU、FPGA）和存储系统与I/O设计，展示硬件在高并发中的作用。
+**Hardware-Level High-Concurrency Design**
+Covers multi-core processor architecture, cache coherence protocols, hardware accelerators (such as GPUs and FPGAs), and storage systems and I/O design, showing the role hardware plays in high concurrency.
 
-**操作系统与并发**
-探讨操作系统中的并发机制，包括线程管理、调度算法和内存管理，帮助读者理解操作系统如何支持高并发。
+**Operating Systems and Concurrency**
+Explores concurrency mechanisms in operating systems, including thread management, scheduling algorithms, and memory management, helping readers understand how operating systems support high concurrency.
 
-**编程语言与并发支持**
-分析Java、C++、Go和Python等主流编程语言中的并发支持，展示不同语言在实现高并发时的特点和优势。
+**Programming Languages and Concurrency Support**
+Analyzes concurrency support in mainstream programming languages such as Java, C++, Go, and Python, showing the characteristics and advantages of different languages when implementing high concurrency.
 
-**高并发设计模式**
-详细介绍生产者-消费者、线程池、Future、观察者和Reactor等常见设计模式，帮助读者掌握高并发系统的设计技巧。
+**High-Concurrency Design Patterns**
+Provides a detailed introduction to common design patterns such as producer–consumer, thread pools, Future, observer, and Reactor, helping readers master the design techniques of high-concurrency systems.
 
-**常见的高并发技术**
-探讨异步编程模型、事件驱动架构、Actor模型、CSP和并发数据结构等高并发技术，展示实现高并发的多种方式。
+**Common High-Concurrency Techniques**
+Discusses high-concurrency techniques such as asynchronous programming models, event-driven architecture, the Actor model, CSP, and concurrent data structures, showing the many ways to achieve high concurrency.
 
-**高并发框架与工具**
-介绍Java并发框架、Akka、Netty、Go并发工具包和Python并发库，展示如何利用现有框架和工具构建高并发系统。
+**High-Concurrency Frameworks and Tools**
+Introduces the Java Concurrency Framework, Akka, Netty, Go concurrency toolkits, and Python concurrency libraries, showing how to build high-concurrency systems with existing frameworks and tools.
 
-**高并发系统的性能优化**
-讨论性能瓶颈分析、性能调优技巧、负载均衡、缓存策略以及压力测试与监控等内容，帮助读者提升高并发系统的性能。
+**Performance Optimization of High-Concurrency Systems**
+Covers performance bottleneck analysis, performance tuning techniques, load balancing, caching strategies, stress testing, and monitoring, helping readers improve the performance of high-concurrency systems.
 
-**高并发系统的可靠性设计**
-讲解容错机制、一致性与分布式锁、数据持久化与恢复和分布式事务，帮助读者构建可靠的高并发系统。
+**Reliability Design of High-Concurrency Systems**
+Explains fault tolerance mechanisms, consistency and distributed locks, data persistence and recovery, and distributed transactions, helping readers build reliable high-concurrency systems.
 
-**高并发系统的安全性**
-探讨并发中的安全问题、数据竞争与死锁、安全编程实践和安全工具与库，帮助读者提高高并发系统的安全性。
+**Security of High-Concurrency Systems**
+Explores security issues in concurrency, data races and deadlocks, secure programming practices, and security tools and libraries, helping readers improve the security of high-concurrency systems.
 
-**七周七并发实战**
-结合《七周七并发》中的内容，提供每周一个实战案例，涵盖Java、C++、Go、Python、Akka、Netty等技术，帮助读者通过实践掌握高并发编程。
+**Seven Weeks of Hands-On Concurrency**
+Drawing on the content of *Seven Concurrency Models in Seven Weeks*, it provides one hands-on case study per week, covering Java, C++, Go, Python, Akka, Netty, and other technologies, helping readers master concurrent programming through practice.
 
-**前沿与未来**
-展望并发编程的新趋势、新硬件对并发的支持、量子计算与并发等前沿技术，帮助读者了解高并发的未来发展方向。
+**Emerging Trends and the Future**
+Looks ahead at new trends in concurrent programming, new hardware support for concurrency, quantum computing and concurrency, and other frontier topics, helping readers understand where high concurrency is headed.
 
-这本书旨在全面覆盖高并发系统的方方面面，通过理论结合实战，帮助读者深入理解和掌握高并发编程的技术和技巧。
+This book aims to cover every aspect of high-concurrency systems. By combining theory with hands-on practice, it helps readers deeply understand and master the techniques of high-concurrency programming.
 
 ## License
 
-本作品采用 [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) 许可协议发布。
+This work is licensed under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license.
