@@ -61,7 +61,7 @@
 | `Striped64` (基类) | 伪共享消除、动态扩容 | - | - | 自定义分片聚合 |
 | `DoubleAdder` | 浮点分片累加 | 高 | 好 | 浮点指标 |
 
-**伪共享消除**：`@Contended` (JDK 8+，JEP 142；JDK 内部类直接生效，应用类需 `-XX:-RestrictContended`) / `alignas(64)` / `Cell` 数组每元素独占缓存行。
+**伪共享消除**：`@Contended` (JDK 8+，JEP 142；JDK 内部类直接生效，应用类需 `-XX:-RestrictContended`) / `alignas(64)` / `Cell` 数组每元素独占缓存行。伪共享的硬件成因——缓存行是搬运最小单位、一致性协议判定同行冲突——见[硬件与内存层次](./hardware.md)。
 
 ## 并发集合最佳实践
 

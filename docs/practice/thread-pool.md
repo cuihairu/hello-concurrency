@@ -325,7 +325,7 @@ void gracefulShutdown(ThreadPoolExecutor pool, Duration timeout) {
 4. **优雅停机**：shutdown → awaitTermination → shutdownNow → 补偿
 5. **容器感知**：`ActiveProcessorCount`、cgroups 监控
 
-下一章讲解**并发框架选型**——从库到架构的决策地图。
+下一章讲解**并发框架选型**——从库到架构的决策地图。Reactor 事件驱动结构里，耗时业务逻辑下沉的目标就是线程池，见 [Reactor 与事件驱动](./reactor.md)。
 
 ## 本章来源
 

@@ -108,6 +108,8 @@
 | 复杂聚合/投影 | Axon Framework / Eventuous / Akka Persistence |
 | 跨服务 Saga | Temporal / Camunda / 手工编排 + 补偿 |
 
+事件驱动的底层结构是 Reactor 模式（I/O 多路复用 + 事件分派），Netty、Node.js、Redis 都是它的实现，见 [Reactor 与事件驱动](./reactor.md)。
+
 ### 3. 实时流处理 / CEP
 | 场景 | 推荐 |
 |------|------|

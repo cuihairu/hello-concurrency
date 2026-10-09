@@ -22,6 +22,8 @@
 | **GC/内存分配** | STW 停顿、分配率高、老年代膨胀 | `jstat -gc`, `async-profiler`, GC 日志 |
 | **NUMA 远程访问** | 跨 Socket 延迟高 | `numastat`, `perf c2c` |
 
+缓存争用、内存带宽与 NUMA 三条的硬件成因——缓存层次与延迟阶梯、缓存一致性协议、NUMA 拓扑——见[硬件与内存层次](./hardware.md)。
+
 ## 测量工具箱
 
 ### Linux 系统级

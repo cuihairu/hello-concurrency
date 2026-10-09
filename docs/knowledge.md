@@ -144,6 +144,7 @@
 | 海量历史数据 + 实时查询并存 | [lambda-architecture.md](./models/lambda-architecture.md) |
 | 计数、延迟与容量规划 | [performance.md](./advanced/performance.md) |
 | 框架与架构选型 | [framework-selection.md](./practice/framework-selection.md) |
+| 高连接数、异步 I/O 事件分发 | [reactor.md](./practice/reactor.md) |
 
 ## 五、常见坑与误区
 
@@ -202,6 +203,8 @@
 71. **把并行归约的浮点差异当 bug**：浮点加法不满足严格结合律，树形归约与串行累加结果可能有舍入差，是固有属性，按容差验收。见 [data-parallel.md](./models/data-parallel.md)。
 
 72. **Lambda 架构同一逻辑写两遍**：批处理层与速度层用不同框架，聚合逻辑双实现，改口径要改两处；逻辑变更频繁时评估 Kappa（日志重放换单一代码路径）。见 [lambda-architecture.md](./models/lambda-architecture.md)。
+
+73. **Handler 里做阻塞调用**：事件循环单线程分派所有连接，任一 Handler 阻塞（DB 查询、磁盘 I/O、CPU 密集），整条循环上的连接一起卡；耗时操作必须下沉业务线程池。见 [reactor.md](./practice/reactor.md)。
 
 ## 六、来源与导航
 

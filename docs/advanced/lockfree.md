@@ -21,6 +21,8 @@ bool CAS(addr *ptr, old_val expected, new_val desired) {
 - **x86**：`LOCK CMPXCHG` (全缓存行锁定)
 - **ARM/RISC-V**：`LDXR/STXR` (Load-Linked/Store-Conditional)
 
+CAS 竞争激烈时吞吐骤降的硬件解释——写共享缓存行要先失效他人副本——见[硬件与内存层次](./hardware.md)。
+
 ### Load-Linked / Store-Conditional (LL/SC)
 ```asm
 // ARMv8
