@@ -1,6 +1,6 @@
 # Summary
 
-> VitePress 结构映射文件。对应 25 个真实页面，sidebar.json 为当前生成的导航结构，srcExclude 中保留 SUMMARY.md 仅作兼容性底稿。
+> VitePress 结构映射文件。对应 25 个真实页面，导航结构以 .vitepress/config.mts 的 sidebar 为准，本文件仅作兼容性底稿。
 
 - [引言](./chapter_1.md)
 - [基础篇]
