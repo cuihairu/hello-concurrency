@@ -89,6 +89,12 @@ export default defineConfig({
       {
         text: '知识点总纲',
         link: '/knowledge'
+      },
+      {
+        text: '调研底稿',
+        items: [
+          { text: '调研总览与来源总表', link: '/research/README' }
+        ]
       }
     ],
 

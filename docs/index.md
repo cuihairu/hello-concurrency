@@ -4,7 +4,7 @@ layout: home
 hero:
   name: Hello Concurrency
   text: 高并发知识体系
-  tagline: 从硬件基础到软件设计——并发模型、设计模式、主流框架与《七周七并发》实战，一章一章把高并发讲透。
+  tagline: 从并发基础到内存模型，从同步原语到七种并发模型——无锁、性能调优与工程实战，一章一章把高并发讲透。
   actions:
     - theme: brand
       text: 开始阅读
@@ -17,12 +17,12 @@ hero:
       link: https://github.com/cuihairu/hello-concurrency
 
 features:
-  - title: 基础与硬件
-    details: 并发与并行、线程与进程、同步与异步；多核架构、缓存一致性、硬件加速器与存储 I/O。
-  - title: 设计模式
-    details: 生产者-消费者、线程池、Future、观察者与 Reactor，高并发系统的常用套路。
-  - title: 语言与框架
-    details: Java、C++、Go、Python 的并发支持；Akka、Netty、asyncio 等主流框架与工具。
-  - title: 性能 · 可靠 · 安全
-    details: 瓶颈分析与调优、负载均衡与缓存、容错与分布式事务、数据竞争与死锁防治。
+  - title: 基础与同步原语
+    details: 并发与并行、线程与进程、临界区、死锁与活锁；锁、信号量、条件变量、屏障。
+  - title: 七种并发模型
+    details: Actor、CSP、数据流、STM 与 Clojure 之道、函数式并发、数据并行、Lambda 架构。
+  - title: 无锁与内存模型
+    details: CAS 与 LL/SC、内存回收、happens-before 与内存序；四份规范的数据竞争口径对照。
+  - title: 性能与实战
+    details: 并发数据结构、性能调优与容量规划；线程池、生产者-消费者、读者-写者、框架选型。
 ---
