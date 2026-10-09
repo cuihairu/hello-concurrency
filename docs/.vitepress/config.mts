@@ -71,6 +71,7 @@ export default defineConfig({
       {
         text: '进阶主题',
         items: [
+          { text: '硬件与内存层次', link: '/advanced/hardware' },
           { text: '无锁编程', link: '/advanced/lockfree' },
           { text: '内存模型', link: '/advanced/memory-model' },
           { text: '并发数据结构', link: '/advanced/data-structures' },
