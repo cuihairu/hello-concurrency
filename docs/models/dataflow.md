@@ -197,4 +197,4 @@ Publisher → Subscription → Subscriber
 - **可优化**：编译器/运行时全局视角优化
 - **可容错**：血统/检查点天然支持 Exactly-once
 
-工程选型：**Flink (重状态流)、Spark (批流一体)、Kafka Streams (轻量嵌入)、Beam (可移植)、TensorFlow/PyTorch (ML)**。下一章讲解 STM——软件事务内存，为共享内存并发带来数据库级 ACID。
+工程选型：**Flink (重状态流)、Spark (批流一体)、Kafka Streams (轻量嵌入)、Beam (可移植)、TensorFlow/PyTorch (ML)**。下一章讲解 STM——软件事务内存，为共享内存并发带来数据库级 ACID。数据流 DAG 放大到全量数据规模，就是 [Lambda 架构](./lambda-architecture.md)的批处理层与速度层两条路径。

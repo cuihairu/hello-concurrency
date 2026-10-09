@@ -10,6 +10,9 @@ hero:
       text: 开始阅读
       link: /chapter_1
     - theme: alt
+      text: 知识点总纲
+      link: /knowledge
+    - theme: alt
       text: GitHub
       link: https://github.com/cuihairu/hello-concurrency
 
