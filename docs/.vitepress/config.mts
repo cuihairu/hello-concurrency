@@ -62,7 +62,10 @@ export default defineConfig({
           { text: 'Actor 模型', link: '/models/actor' },
           { text: 'CSP 模型', link: '/models/csp' },
           { text: '数据流模型', link: '/models/dataflow' },
-          { text: 'STM 软件事务内存', link: '/models/stm' }
+          { text: 'STM 软件事务内存', link: '/models/stm' },
+          { text: '函数式并发', link: '/models/functional' },
+          { text: '数据并行', link: '/models/data-parallel' },
+          { text: 'Lambda 架构', link: '/models/lambda-architecture' }
         ]
       },
       {

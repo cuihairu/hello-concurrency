@@ -52,14 +52,14 @@
 | 章 | 中文 | 原文 | 本仓状态 |
 |----|------|------|----------|
 | 2 | 线程与锁 | Threads and Locks | 基础篇与同步原语六页已覆盖 |
-| 3 | 函数式编程 | Functional Programming | 未覆盖：原写「调研后补了」，核对时页面不存在，记在[差异表](./coverage-audit) G1 |
-| 4 | Clojure 之道：分离标识与状态 | The Clojure Way: Separating Identity from State | [STM](/models/stm) 覆盖了事务部分，atom/agent/持久化数据结构未覆盖（[差异表](./coverage-audit) G4） |
+| 3 | 函数式编程 | Functional Programming | [函数式并发](/models/functional) 已覆盖（G1 已补） |
+| 4 | Clojure 之道：分离标识与状态 | The Clojure Way: Separating Identity from State | [STM 与 Clojure 之道](/models/stm) 已覆盖：事务部分加 atom/agent/持久化数据结构（G4 已补） |
 | 5 | Actor | Actors | [Actor 模型](/models/actor) 已覆盖 |
 | 6 | 通信顺序进程 | Communicating Sequential Processes | [CSP 模型](/models/csp) 已覆盖 |
-| 7 | 数据并行 | Data Parallelism（GPGPU/OpenCL） | 未覆盖：原写「调研后补了」，核对时页面不存在，记在[差异表](./coverage-audit) G2 |
-| 8 | Lambda 架构 | Lambda Architecture（MapReduce/批处理层/速度层） | 未覆盖，记在[差异表](./coverage-audit)待办（G3） |
+| 7 | 数据并行 | Data Parallelism（GPGPU/OpenCL） | [数据并行](/models/data-parallel) 已覆盖（G2 已补） |
+| 8 | Lambda 架构 | Lambda Architecture（MapReduce/批处理层/速度层） | [Lambda 架构](/models/lambda-architecture) 已覆盖（G3 已补） |
 
-两点值得写下来。第一，中文版目录把第 3 章的第三天写成「函数式并发」，原版对应的是 Day 3 Dataflow Programming with Futures and Promises，也就是说数据流在书里是函数式章的第三天，不是独立的一章；本仓的 [数据流模型](/models/dataflow) 是自加的一页，跟这本书的七模型清单对不齐，核对时按这个口径处理。第二，第 4 章的 STM 只是「分离标识与状态」的一部分，atom 与持久化数据结构才是那章的主体，`stm.md` 覆盖不等于第 4 章已覆盖。
+两点值得写下来。第一，中文版目录把第 3 章的第三天写成「函数式并发」，原版对应的是 Day 3 Dataflow Programming with Futures and Promises，也就是说数据流在书里是函数式章的第三天，不是独立的一章；本仓的 [数据流模型](/models/dataflow) 是自加的一页，跟这本书的七模型清单对不齐，核对时按这个口径处理。第二，第 4 章的 STM 只是「分离标识与状态」的一部分，atom 与持久化数据结构才是那章的主体；`stm.md` 已补「Clojure 之道」一节，第 4 章按已覆盖计。
 
 ## 本仓怎么用这几本
 

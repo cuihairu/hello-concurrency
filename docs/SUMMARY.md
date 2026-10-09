@@ -1,6 +1,6 @@
 # Summary
 
-> VitePress 结构映射文件。对应 22 个真实页面，sidebar.json 为当前生成的导航结构，srcExclude 中保留 SUMMARY.md 仅作兼容性底稿。
+> VitePress 结构映射文件。对应 25 个真实页面，sidebar.json 为当前生成的导航结构，srcExclude 中保留 SUMMARY.md 仅作兼容性底稿。
 
 - [引言](./chapter_1.md)
 - [基础篇]
@@ -18,6 +18,9 @@
     - [CSP 模型](./models/csp.md)
     - [数据流模型](./models/dataflow.md)
     - [STM 软件事务内存](./models/stm.md)
+    - [函数式并发](./models/functional.md)
+    - [数据并行](./models/data-parallel.md)
+    - [Lambda 架构](./models/lambda-architecture.md)
 - [进阶主题]
     - [无锁编程](./advanced/lockfree.md)
     - [内存模型](./advanced/memory-model.md)
