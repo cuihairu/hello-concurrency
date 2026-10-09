@@ -182,6 +182,14 @@
 
 66. **优先级反转无防护**：高优先级等低优先级持有的锁，中优先级抢占 CPU，高优先级永久等待，靠优先级继承协议解。见 [deadlock-livelock.md](./basics/deadlock-livelock.md)。
 
+67. **假不可变**：闭包捕获可变对象，不可变外壳包着可变内核，照样竞争；只捕获不可变值，可变处走 STM 或 Actor。见 [functional.md](./models/functional.md)。
+
+68. **忽视 GPU 传输成本**：host↔device 走 PCIe，带宽远低于显存内部，数据来回搬会把计算收益吃光；数据驻留设备端、批量传输。见 [data-parallel.md](./models/data-parallel.md)。
+
+69. **把并行归约的浮点差异当 bug**：浮点加法不满足严格结合律，树形归约与串行累加结果可能有舍入差，是固有属性，按容差验收。见 [data-parallel.md](./models/data-parallel.md)。
+
+70. **Lambda 架构同一逻辑写两遍**：批处理层与速度层用不同框架，聚合逻辑双实现，改口径要改两处；逻辑变更频繁时评估 Kappa（日志重放换单一代码路径）。见 [lambda-architecture.md](./models/lambda-architecture.md)。
+
 ## 六、来源与导航
 
 调研底稿（逐条出处、抓取日期、核对记录）：
