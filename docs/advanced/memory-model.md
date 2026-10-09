@@ -27,7 +27,7 @@
 | 线程终止 | 线程内末动作 `hb Thread.join` |
 | 传递性 | `A hb B ∧ B hb C ⇒ A hb C` |
 
-**数据竞争定义**：两次冲突访问 (读写/写写) 无 HB 关系 → **未定义行为 (UB)**。
+**数据竞争定义**：两次冲突访问 (读写/写写) 无 HB 关系即构成数据竞争。后果按语言而异：C++/Rust 是未定义行为 (UB)；Java 脱离顺序一致保证，行为仍由 JMM 允许集合约束，不是 UB；Go 未消除竞争时 DRF-SC 保证失效。规范原文逐条核对见[官方内存模型规范核对](/research/memory-model-specs)。
 
 ### 顺序一致性 (SC)
 **最强模型**：所有线程操作存在全局单一总序，且与各线程程序顺序一致。
@@ -40,7 +40,7 @@
 |------|----------|----------|
 | **Java (JMM)** | HB + 因果性 | `volatile`、`final`、安全初始化 |
 | **C++11** | HB + `memory_order` | 细粒度序、无 `volatile` 线程语义 |
-| **Go** | HB + Channel 同步 | 通道通信建立 HB、无数据竞争保证 |
+| **Go** | HB + Channel 同步 | 通道通信建立 HB、无竞争时顺序一致 (DRF-SC) |
 | **Rust** | HB + 所有权类型系统 | 编译期防数据竞争、无 `volatile` 线程语义 |
 | **Python** | GIL + HB | GIL 序列化字节码、仅 C 扩展需关心 |
 | **JavaScript** | 单线程 + Worker | `SharedArrayBuffer` + `Atomics` 引入 HB |
@@ -214,11 +214,22 @@ if (cache == null) cache = new HashMap<>();
 5. **final/不可变优先**：编译期/运行时免疫重排
 6. **文档化同步约定**：哪个变量建立 HB、哪把锁保护哪些数据
 
+## 本章来源
+
+规范类结论以原文为准，四份内存模型规范的入口：
+
+- [JLS SE21 §17.4 Threads and Locks](https://docs.oracle.com/javase/specs/jls/se21/html/jls-17.html)：JMM、happens-before 与数据竞争定义 (§17.4.5)
+- [C++ 工作草案 [intro.races]](https://eel.is/c++draft/intro.races)：数据竞争即未定义行为的条文出处
+- [Rust Reference: Behavior considered undefined](https://doc.rust-lang.org/reference/behavior-considered-undefined.html)：UB 清单第一条，同样适用于 unsafe 块
+- [The Go Memory Model](https://go.dev/ref/mem)：DRF-SC 结论与「检测到竞争可报错终止」条款
+
+Rust 原子操作的内存模型沿用 C++20 规则、去掉 consume，见 [std::sync::atomic](https://doc.rust-lang.org/std/sync/atomic/index.html)；seq_cst 单一全序的条文在 [atomics.order](https://eel.is/c++draft/atomics.order)。逐条核对过程与四语言对照表在[官方内存模型规范核对](/research/memory-model-specs)。
+
 ## 本章小结
 
 内存模型是**并发程序与硬件/编译器优化的契约**。核心心法：
 - **HB 是推理工具**：画图、找链、验证可见性
-- **数据竞争 = UB**：零容忍，TSan/模型检查全覆盖
+- **数据竞争零容忍**：C++/Rust 是 UB，Java/Go 不判 UB 也必须消除，TSan/模型检查全覆盖
 - **弱序需显式同步**：`release/acquire`、`volatile`、锁、Channel
 - **库隐藏复杂性**：99% 场景用库，仅 1% 底层库需手写原子
 
