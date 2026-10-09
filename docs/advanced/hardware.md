@@ -63,7 +63,7 @@ NUMA 失配的表现是「核加了、吞吐没涨」，排查先看 `numastat` 
 
 - **DMA**：外设直接读写主存，CPU 不参与搬运，只处理完成通知；零拷贝（sendfile、mmap）进一步省掉用户态与内核态的来回
 - **页缓存**：读走缓存、写回写盘，`fsync` 才保证落盘——持久化语义的边界在这里，不在语言层
-- **高并发 I/O 多路复用**：epoll（Linux）、kqueue（BSD/macOS）、io_uring（Linux 5.1+ 的异步提交/完成环）把「等 I/O」从线程切换里拿出来，是 Netty、asyncio、Go runtime netpoller 的共同底座
+- **高并发 I/O 多路复用**：epoll（Linux）、kqueue（BSD/macOS）、io_uring（Linux 5.1+ 的异步提交/完成环）把「等 I/O」从线程切换里拿出来，是 Netty、asyncio、Go runtime netpoller 的共同底座，上层结构见 [Reactor 模式与事件驱动](../practice/reactor.md)
 - **SSD 与队列深度**：NVMe 支持高并发队列，单盘吞吐靠队列深度堆出来；并发度不够时延迟不降反升
 
 I/O 侧的关键认知：**CPU 与内存之间的一切优化，都可能在一次未命中的 I/O 前失效**，所以高并发系统的第一层设计往往是「别让请求等 I/O」。

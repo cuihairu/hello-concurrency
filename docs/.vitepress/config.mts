@@ -84,7 +84,8 @@ export default defineConfig({
           { text: '生产者-消费者', link: '/practice/producer-consumer' },
           { text: '读者-写者', link: '/practice/reader-writer' },
           { text: '线程池设计', link: '/practice/thread-pool' },
-          { text: '并发框架选型', link: '/practice/framework-selection' }
+          { text: '并发框架选型', link: '/practice/framework-selection' },
+          { text: 'Reactor 与事件驱动', link: '/practice/reactor' }
         ]
       },
       {
