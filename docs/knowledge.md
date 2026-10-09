@@ -142,47 +142,55 @@
 
 ## 五、常见坑与误区
 
+### 语言与内存模型
+
 47. **把「数据竞争 = UB」当四语言通用结论**：只对 C++/Rust 成立；Java 脱离顺序一致保证但行为仍有定义，Go 是 DRF-SC 保证失效。写跨语言对照时按四份规范分述。见 [memory-model.md](./advanced/memory-model.md)。
 
-48. **无界队列**：maxPoolSize 永不生效，任务堆积到 OOM 才暴露，线程池必须配显式拒绝策略。见 [thread-pool.md](./practice/thread-pool.md)。
+48. **volatile 挡不住复合操作**：v++ 是读-改-写三步，计数要用 AtomicLong/LongAdder；单次 volatile long 读写自 Java 5 起才是原子的。见 [memory-model.md](./advanced/memory-model.md)。
 
-49. **锁顺序不一致**：多锁场景不全局固定加锁顺序，死锁是必然不是偶发；嵌套锁能避就避，必要时用 std::lock 同时获取。见 [critical-section.md](./basics/critical-section.md)、[locks.md](./sync/locks.md)。
+49. **Go worker pool 直接 close 任务队列**：close 与并发的 ch <- task 之间没有同步手段，竞态就是 panic: send on closed channel；正确做法是 closed 标志加 context 取消，队列自始至终不关闭。见 [thread-pool.md](./practice/thread-pool.md)。
 
-50. **条件变量用 if 替代 while**：虚假唤醒与信号丢失都会让等待方错过条件变化，wait 必须包在 while 循环里。见 [condition-variables.md](./sync/condition-variables.md)。
+50. **调偏向锁参数**：JDK 15 废弃、JDK 18 移除，JDK 21 传入直接报 Unrecognized VM option。见 [performance.md](./advanced/performance.md)。
 
-51. **Java 在锁外 signal**：Java 的 Condition.signal() 必须在持锁时调用，否则抛 IllegalMonitorStateException；POSIX 相反，锁外 signal 合法且是常见微优化。两套 API 约束方向相反，混用最容易踩。见 [condition-variables.md](./sync/condition-variables.md)。
+51. **容器里按宿主机核数配线程**：cgroup CPU 限额小于宿主机核数时线程过多争抢，用 ActiveProcessorCount 或 UseContainerSupport。见 [thread-pool.md](./practice/thread-pool.md)。
 
-52. **Go worker pool 直接 close 任务队列**：close 与并发的 ch <- task 之间没有同步手段，竞态就是 panic: send on closed channel；正确做法是 closed 标志加 context 取消，队列自始至终不关闭。见 [thread-pool.md](./practice/thread-pool.md)。
+### 锁与同步原语
 
-53. **StampedLock 当重入锁用**：它不可重入、不支持 Condition，同线程二次获取直接死锁；乐观读失败率持续高于 5% 就该退回悲观读。见 [reader-writer.md](./practice/reader-writer.md)。
+52. **锁顺序不一致**：多锁场景不全局固定加锁顺序，死锁是必然不是偶发；嵌套锁能避就避，必要时用 std::lock 同时获取。见 [critical-section.md](./basics/critical-section.md)、[locks.md](./sync/locks.md)。
 
-54. **读写锁升级**：读锁升写锁会死锁，ReentrantReadWriteLock 只支持降级；StampedLock 的 tryConvertToWriteLock 有竞争时返回 0，必须先放读锁再取写锁。见 [reader-writer.md](./practice/reader-writer.md)。
+53. **条件变量用 if 替代 while**：虚假唤醒与信号丢失都会让等待方错过条件变化，wait 必须包在 while 循环里。见 [condition-variables.md](./sync/condition-variables.md)。
 
-55. **volatile 挡不住复合操作**：v++ 是读-改-写三步，计数要用 AtomicLong/LongAdder；单次 volatile long 读写自 Java 5 起才是原子的。见 [memory-model.md](./advanced/memory-model.md)。
+54. **Java 在锁外 signal**：Java 的 Condition.signal() 必须在持锁时调用，否则抛 IllegalMonitorStateException；POSIX 相反，锁外 signal 合法且是常见微优化。两套 API 约束方向相反，混用最容易踩。见 [condition-variables.md](./sync/condition-variables.md)。
 
-56. **锁里做网络调用**：临界区包含 I/O、睡眠、日志，吞吐断崖式下跌，临界区只留共享数据访问。见 [critical-section.md](./basics/critical-section.md)。
+55. **StampedLock 当重入锁用**：它不可重入、不支持 Condition，同线程二次获取直接死锁；乐观读失败率持续高于 5% 就该退回悲观读。见 [reader-writer.md](./practice/reader-writer.md)。
 
-57. **活锁用固定退避**：双方同步退避会同步重试、永久冲突，随机退避或队列化才打破对称。见 [deadlock-livelock.md](./basics/deadlock-livelock.md)。
+56. **读写锁升级**：读锁升写锁会死锁，ReentrantReadWriteLock 只支持降级；StampedLock 的 tryConvertToWriteLock 有竞争时返回 0，必须先放读锁再取写锁。见 [reader-writer.md](./practice/reader-writer.md)。
 
-58. **无锁节点立即 free**：其他线程可能仍在访问，必须走 Hazard Pointer、EBR 或 RCU 回收。见 [lockfree.md](./advanced/lockfree.md)。
+57. **锁里做网络调用**：临界区包含 I/O、睡眠、日志，吞吐断崖式下跌，临界区只留共享数据访问。见 [critical-section.md](./basics/critical-section.md)。
 
-59. **CAS 的 ABA**：pop 期间 head A→B→A，CAS 误判成功；指针打标签或加版本号。见 [lockfree.md](./advanced/lockfree.md)。
+58. **活锁用固定退避**：双方同步退避会同步重试、永久冲突，随机退避或队列化才打破对称。见 [deadlock-livelock.md](./basics/deadlock-livelock.md)。
 
-60. **Little's Law 用 p99 算线程数**：W 是平均逗留时间，用 p99 会系统性高估并发需求。见 [performance.md](./advanced/performance.md)。
+59. **信号量 P/V 不配对**：计数器漂移导致死锁或泄漏，用 RAII 封装；信号量当互斥锁用会丢所有权保护。见 [semaphores.md](./sync/semaphores.md)。
 
-61. **调偏向锁参数**：JDK 15 废弃、JDK 18 移除，JDK 21 传入直接报 Unrecognized VM option。见 [performance.md](./advanced/performance.md)。
+60. **优先级反转无防护**：高优先级等低优先级持有的锁，中优先级抢占 CPU，高优先级永久等待，靠优先级继承协议解。见 [deadlock-livelock.md](./basics/deadlock-livelock.md)。
 
-62. **Actor 无界邮箱**：慢消费者拖垮 actor，邮箱要有上限、流控、Pull 模式。见 [actor.md](./models/actor.md)。
+### 无锁与并发模型
 
-63. **忽略幂等**：分布式 actor 只能保证至少一次投递，重复消息靠幂等键去重。见 [actor.md](./models/actor.md)。
+61. **无锁节点立即 free**：其他线程可能仍在访问，必须走 Hazard Pointer、EBR 或 RCU 回收。见 [lockfree.md](./advanced/lockfree.md)。
 
-64. **容器里按宿主机核数配线程**：cgroup CPU 限额小于宿主机核数时线程过多争抢，用 ActiveProcessorCount 或 UseContainerSupport。见 [thread-pool.md](./practice/thread-pool.md)。
+62. **CAS 的 ABA**：pop 期间 head A→B→A，CAS 误判成功；指针打标签或加版本号。见 [lockfree.md](./advanced/lockfree.md)。
 
-65. **信号量 P/V 不配对**：计数器漂移导致死锁或泄漏，用 RAII 封装；信号量当互斥锁用会丢所有权保护。见 [semaphores.md](./sync/semaphores.md)。
+63. **Actor 无界邮箱**：慢消费者拖垮 actor，邮箱要有上限、流控、Pull 模式。见 [actor.md](./models/actor.md)。
 
-66. **优先级反转无防护**：高优先级等低优先级持有的锁，中优先级抢占 CPU，高优先级永久等待，靠优先级继承协议解。见 [deadlock-livelock.md](./basics/deadlock-livelock.md)。
+64. **忽略幂等**：分布式 actor 只能保证至少一次投递，重复消息靠幂等键去重。见 [actor.md](./models/actor.md)。
 
-67. **假不可变**：闭包捕获可变对象，不可变外壳包着可变内核，照样竞争；只捕获不可变值，可变处走 STM 或 Actor。见 [functional.md](./models/functional.md)。
+65. **假不可变**：闭包捕获可变对象，不可变外壳包着可变内核，照样竞争；只捕获不可变值，可变处走 STM 或 Actor。见 [functional.md](./models/functional.md)。
+
+### 实战与架构
+
+66. **无界队列**：maxPoolSize 永不生效，任务堆积到 OOM 才暴露，线程池必须配显式拒绝策略。见 [thread-pool.md](./practice/thread-pool.md)。
+
+67. **Little's Law 用 p99 算线程数**：W 是平均逗留时间，用 p99 会系统性高估并发需求。见 [performance.md](./advanced/performance.md)。
 
 68. **忽视 GPU 传输成本**：host↔device 走 PCIe，带宽远低于显存内部，数据来回搬会把计算收益吃光；数据驻留设备端、批量传输。见 [data-parallel.md](./models/data-parallel.md)。
 
