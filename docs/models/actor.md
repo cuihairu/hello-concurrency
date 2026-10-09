@@ -171,3 +171,9 @@ Actor 模型以**「共享内存即通信」→「通信即共享内存」**反�
 - **弹性伸缩**：轻量 Actor 支持百万级并发
 
 工程选型建议：**JVM 生态首选 Akka，.NET 首选 Orleans，跨语言/轻量首选 Proto.Actor，极致可用性选 Erlang/OTP**。下一章讲解 CSP 模型——通信顺序进程。Actor 的反面是数据并行：任务彼此独立、不需要长驻状态时，[函数式并发](./functional.md)与[数据并行](./data-parallel.md)的开销远低于建 actor 系统。
+
+## 本章来源
+
+- 《七周七并发模型》第 5 章 Actor，版本信息见[权威书籍调研](../research/books.md)
+- 实现对比表与生命周期部分以各项目官方文档为准（[Akka](https://akka.io/)、[Erlang/OTP](https://www.erlang.org/)、[Orleans](https://learn.microsoft.com/dotnet/orleans/)、[Proto.Actor](https://proto.actor/)）
+- 示例代码现写，不抄书

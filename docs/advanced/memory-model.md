@@ -214,6 +214,16 @@ if (cache == null) cache = new HashMap<>();
 5. **final/不可变优先**：编译期/运行时免疫重排
 6. **文档化同步约定**：哪个变量建立 HB、哪把锁保护哪些数据
 
+## 本章小结
+
+内存模型是**并发程序与硬件/编译器优化的契约**。核心心法：
+- **HB 是推理工具**：画图、找链、验证可见性
+- **数据竞争零容忍**：C++/Rust 是 UB，Java/Go 不判 UB 也必须消除，TSan/模型检查全覆盖
+- **弱序需显式同步**：`release/acquire`、`volatile`、锁、Channel
+- **库隐藏复杂性**：99% 场景用库，仅 1% 底层库需手写原子
+
+下一章讲解**并发数据结构**——内存模型之上的工程化构建块。
+
 ## 本章来源
 
 规范类结论以原文为准，四份内存模型规范的入口：
@@ -224,13 +234,3 @@ if (cache == null) cache = new HashMap<>();
 - [The Go Memory Model](https://go.dev/ref/mem)：DRF-SC 结论与「检测到竞争可报错终止」条款
 
 Rust 原子操作的内存模型沿用 C++20 规则、去掉 consume，见 [std::sync::atomic](https://doc.rust-lang.org/std/sync/atomic/index.html)；seq_cst 单一全序的条文在 [atomics.order](https://eel.is/c++draft/atomics.order)。逐条核对过程与四语言对照表在[官方内存模型规范核对](/research/memory-model-specs)。
-
-## 本章小结
-
-内存模型是**并发程序与硬件/编译器优化的契约**。核心心法：
-- **HB 是推理工具**：画图、找链、验证可见性
-- **数据竞争零容忍**：C++/Rust 是 UB，Java/Go 不判 UB 也必须消除，TSan/模型检查全覆盖
-- **弱序需显式同步**：`release/acquire`、`volatile`、锁、Channel
-- **库隐藏复杂性**：99% 场景用库，仅 1% 底层库需手写原子
-
-下一章讲解**并发数据结构**——内存模型之上的工程化构建块。

@@ -198,3 +198,9 @@ Publisher → Subscription → Subscriber
 - **可容错**：血统/检查点天然支持 Exactly-once
 
 工程选型：**Flink (重状态流)、Spark (批流一体)、Kafka Streams (轻量嵌入)、Beam (可移植)、TensorFlow/PyTorch (ML)**。下一章讲解 STM——软件事务内存，为共享内存并发带来数据库级 ACID。数据流 DAG 放大到全量数据规模，就是 [Lambda 架构](./lambda-architecture.md)的批处理层与速度层两条路径。
+
+## 本章来源
+
+- 本页是本仓自加的一页：书里数据流编程是第 3 章的第三天，不是独立一章，口径见[权威书籍调研](../research/books.md)
+- 框架部分以各项目官方文档为准（[Apache Flink](https://flink.apache.org/)、[Spark](https://spark.apache.org/)、[Kafka Streams](https://kafka.apache.org/documentation/streams/)、[Beam](https://beam.apache.org/)）
+- 示例代码现写，不抄书

@@ -264,3 +264,9 @@ STM 为共享内存并发提供了 **ACID 语义**，核心价值：
 - **简化推理**：顺序代码思维写并发
 
 **工程现状**：Haskell/Clojure 生产级成熟；JVM 有 ScalaSTM/Multiverse；其他语言多实验性。**主流选择**：简单场景用锁/原子变量/Channel；复杂不变量、组合性需求强时考虑 STM。并发模型篇还剩两页：[函数式并发](./functional.md)换一条路线——先消可变性再谈并发；[数据并行](./data-parallel.md)与[Lambda 架构](./lambda-architecture.md)把并行推到异构硬件与全量数据。进阶主题（无锁编程、内存模型、并发数据结构、性能调优）见侧边栏。
+
+## 本章来源
+
+- 《七周七并发模型》第 4 章 Clojure 之道：分离标识与状态（STM 是其中 ref 一部分），版本信息见[权威书籍调研](../research/books.md)
+- 语言 API 以官方参考为准（[Clojure 参考文档](https://clojure.org/reference/refs)、[GHC STM 文档](https://hackage.haskell.org/package/stm)）
+- 示例代码现写，不抄书
