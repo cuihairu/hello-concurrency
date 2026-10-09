@@ -13,7 +13,7 @@
   <img src="docs/public/badges/langs.svg" alt="langs" />
 </p>
 
-High-Concurrency Knowledge Base · [Read Online](https://cuihairu.github.io/hello-concurrency/)
+High-Concurrency Knowledge Base · [Read Online](https://cuihairu.github.io/hello-concurrency/) · [Knowledge map](https://cuihairu.github.io/hello-concurrency/knowledge)
 
 </div>
 

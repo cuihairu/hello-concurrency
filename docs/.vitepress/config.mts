@@ -82,6 +82,10 @@ export default defineConfig({
           { text: '线程池设计', link: '/practice/thread-pool' },
           { text: '并发框架选型', link: '/practice/framework-selection' }
         ]
+      },
+      {
+        text: '知识点总纲',
+        link: '/knowledge'
       }
     ],
 

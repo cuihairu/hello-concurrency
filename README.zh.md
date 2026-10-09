@@ -13,7 +13,7 @@
   <img src="docs/public/badges/langs.svg" alt="langs" />
 </p>
 
-高并发知识体系 · [在线阅读](https://cuihairu.github.io/hello-concurrency/)
+高并发知识体系 · [在线阅读](https://cuihairu.github.io/hello-concurrency/) · [知识点总纲](https://cuihairu.github.io/hello-concurrency/knowledge)
 
 </div>
 
