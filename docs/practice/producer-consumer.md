@@ -261,3 +261,8 @@ if (redis.setnx(idempotentKey, "1", 24, HOURS)) {
 - **监控全链路**：积压、速率、延迟、失败率四件套
 
 下一章讲解**读者-写者**——读多写少场景的并发优化经典。
+
+## 本章来源
+
+- 《Java Concurrency in Practice》阻塞队列一节同源，对应关系见[权威书籍调研](../research/books.md)
+- BlockingQueue 行为以 [JDK 文档](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/BlockingQueue.html)为准

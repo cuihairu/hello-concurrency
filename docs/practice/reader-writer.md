@@ -253,3 +253,9 @@ fn put(key: K, val: V) {
 - **避免手写 RWLock**：极易死锁、饥饿、升级降级错误
 
 下一章讲解**线程池设计**——并发执行的资源管理中枢。
+
+## 本章来源
+
+- ReentrantReadWriteLock 与 StampedLock 行为以 [JDK 文档](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/locks/StampedLock.html)为准
+- POSIX 读写锁以 [pthread_rwlock_rdlock(3p)](https://man7.org/linux/man-pages/man3/pthread_rwlock_rdlock.3p.html) 系列为准
+- 读者优先/写者优先/公平轮转三变体是操作系统教科书通用内容

@@ -225,3 +225,9 @@ L = λ × W
 5. **文档化权衡**：吞吐 vs 延迟、一致性 vs 性能、复杂度 vs 收益
 
 **终极心法**：过早优化是万恶之源；**不优化是万恶不灭之源**。在正确性基础上，对瓶颈无情优化，对非瓶颈仁慈放过。
+
+## 本章来源
+
+- Little's Law 出自 J. D. C. Little, *A Proof for the Queuing Formula L = λW*, Operations Research 9(3), 1961
+- USE 方法与火焰图读法见 [Brendan Gregg: USE Method](https://www.brendangregg.com/usemethod.html) 与 [Flame Graphs](https://www.brendangregg.com/flamegraphs.html)
+- 偏向锁停用并废弃出自 [JEP 374](https://openjdk.org/jeps/374)（JDK 15），JDK 18 起移除

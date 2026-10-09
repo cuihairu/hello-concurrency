@@ -115,3 +115,9 @@ L 持有锁期间，临时继承 H 的优先级，抢占 M 运行，释放锁后
 | 饥饿 | 调度不公 | 公平锁、优先级继承、配额 |
 
 死锁预防胜于检测，检测胜于恢复。工程上**固定加锁顺序 + 带超时锁 + 死锁监控**是性价比最高的组合拳。
+
+## 本章来源
+
+- 死锁四必要条件出自 E. G. Coffman, M. J. Elphick, A. Shoshani, *System Deadlocks*, Computing Surveys 3(2), 1971
+- 优先级反转与优先级继承协议出自 L. Sha, R. Rajkumar, J. P. Lehoczky, *Priority Inheritance Protocols*, IEEE Transactions on Computers 39(9), 1990
+- 活锁随机退避与队列化是通用工程实践总结，未依托单一文献

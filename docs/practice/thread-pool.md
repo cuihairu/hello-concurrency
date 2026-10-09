@@ -326,3 +326,8 @@ void gracefulShutdown(ThreadPoolExecutor pool, Duration timeout) {
 5. **容器感知**：`ActiveProcessorCount`、cgroups 监控
 
 下一章讲解**并发框架选型**——从库到架构的决策地图。
+
+## 本章来源
+
+- 《Java Concurrency in Practice》任务执行与线程池章，对应关系见[权威书籍调研](../research/books.md)
+- ThreadPoolExecutor 参数与拒绝策略语义以 [JDK 文档](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ThreadPoolExecutor.html)为准

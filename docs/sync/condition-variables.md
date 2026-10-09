@@ -253,3 +253,8 @@ cond.signal();   // 此时已不持锁 → IllegalMonitorStateException
 ## 本章小结
 
 条件变量是**任意谓词等待/通知**的基础设施，配合互斥锁可构建任意复杂的同步协议。核心铁律：**while 循环 + 持有锁修改条件 + signal**。工程上优先使用语言库提供的高级并发工具，仅在底层协议实现时直接操作 CV。下一章讲解屏障——多线程协同推进的同步点。
+
+## 本章来源
+
+- POSIX 条件变量语义（虚假唤醒、锁外 signal 合法）以 [pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) 为准
+- Java Condition 必须持锁 signal 的约束以 [JDK 文档](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/locks/Condition.html)为准

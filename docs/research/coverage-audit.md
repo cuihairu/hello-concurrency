@@ -43,6 +43,7 @@
 | R2 | `advanced/memory-model.md` 全页没有一条规范引用。已补「本章来源」一节，JMM、C++、Rust、Go 四份规范各给一条入口链接 | 已完成 |
 | R3 | books 七模型表两行的「调研后补了」与页面现状不符。已改为未覆盖并指向本表 G1、G2，第 4、8 章两行补 G3、G4 指向 | 已完成 |
 | R4 | G1–G4 四个缺口一次补齐：新增 `models/functional.md`、`models/data-parallel.md`、`models/lambda-architecture.md` 三页，`models/stm.md` 增 Clojure 之道一节；books 七模型表第 3、4、7、8 章状态改为已覆盖，`chapter_1.md`、`barriers.md`、`stm.md` 的模型枚举与篇末指向同步更新 | 已完成 |
+| R5 | 全站来源标注补齐：models 四页（actor/csp/stm/dataflow）与进阶、实战篇共 13 页补「本章来源」。依据分三类——书目映射页按 books.md 对应章引用（thread-pool/producer-consumer/data-structures/lockfree/locks）；API 行为页引官方文档（semaphores/condition-variables/barriers/reader-writer/performance 的 JDK 文档、man7、pkg.go.dev、JEP 374、Brendan Gregg）；算法出处页引原始论文（deadlock-livelock 的 Coffman 1971、Sha/Rajkumar/Lehoczky 1990；lockfree 的 Treiber 1986、Michael-Scott 1996、Hazard Pointer 2004；performance 的 Little 1961）。`basics/thread-process`、`basics/critical-section` 无专项调研支撑，维持无来源节（宁缺毋假）；concepts 页只引 Amdahl 出处（books.md 记录）。selection 类页面（framework-selection）标注为选型经验框架而非文献综述 | 已完成 |
 
 ## 待办
 

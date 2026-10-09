@@ -222,3 +222,8 @@ end.await();  // 全部完成
 | Phaser | 动态成员、分层、阶段号 | 复杂动态并发编排 |
 
 屏障将**时序耦合**显式化，是并行算法工程化的关键基建。下一章进入并发模型篇，讲解 Actor、CSP、数据流、STM、函数式并发、数据并行等高层抽象。
+
+## 本章来源
+
+- CyclicBarrier、CountDownLatch、Phaser 行为以 [JDK 并发包文档](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/package-summary.html)为准
+- Go WaitGroup 的计数与复用语义以 [pkg.go.dev/sync](https://pkg.go.dev/sync) 为准

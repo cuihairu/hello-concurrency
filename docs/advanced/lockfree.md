@@ -207,3 +207,9 @@ uint64_t local_epoch = global_epoch.load(acquire);
 - 多数业务代码**不需要**无锁，锁 + 良好设计已足够
 
 下一章讲解**内存模型**——并发正确性的形式化基石。
+
+## 本章来源
+
+- 《C++ Concurrency in Action》无锁数据结构与内存序章，对应关系见[权威书籍调研](../research/books.md)
+- 算法原始出处：Treiber 栈（1986 技术报告）、Michael-Scott 队列（PODC 1996）、Hazard Pointer（Michael, TPDS 2004）、RCU（McKenney 等）
+- ABA 与延迟回收的工程解法部分是通用实践总结

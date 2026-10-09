@@ -149,3 +149,9 @@ let m = Mutex::new(0);
 ## 本章小结
 
 锁是并发控制的基石。掌握**锁分类、内存语义、语言特有 API、性能优化与反模式**，是写出正确高效并发代码的必修功。下一章讲解信号量、条件变量等更灵活的同步原语。
+
+## 本章来源
+
+- 《C++ Concurrency in Action》同步操作章（`std::lock` 多锁获取），对应关系见[权威书籍调研](../research/books.md)
+- Rust 所有权与锁一节以 [The Rustonomicon](https://doc.rust-lang.org/nomicon/) 与 Rust 标准库文档为准
+- Java 锁的内存语义（unlock happens-before lock）条文在 [JLS §17.4](https://docs.oracle.com/javase/specs/jls/se21/html/jls-17.html)

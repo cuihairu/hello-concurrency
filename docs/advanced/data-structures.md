@@ -191,3 +191,8 @@ public void throughput(QueueState s) {
 - **测试**：JMH + `perf` + 压测 + 模型检查
 
 下一章讲解**性能调优**——从微基准到全链路调优的系统方法论。
+
+## 本章来源
+
+- 《Java Concurrency in Practice》基础构建模块章（并发容器、原子变量），对应关系见[权威书籍调研](../research/books.md)
+- ConcurrentHashMap、LongAdder 等行为以 [JDK 并发包文档](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/package-summary.html)为准

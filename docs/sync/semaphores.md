@@ -199,3 +199,9 @@ philosopher(i):
 ## 本章小结
 
 信号量是**计数器 + 等待队列**的优雅抽象，统一了互斥、资源计数、线程同步三大场景。工程实践中，**优先使用更高级的并发工具（队列、Latch、Channel、线程池）**，仅在需要精细计数控制时直接用信号量。下一章讲解条件变量——更灵活的等待/通知机制。
+
+## 本章来源
+
+- POSIX 信号量语义以 [sem_overview(7)](https://man7.org/linux/man-pages/man7/sem_overview.7.html) 为准
+- Java Semaphore 的 acquire/release 与许可语义以 [JDK 文档](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/Semaphore.html)为准
+- 信号量与互斥锁的所有权辨析是操作系统教科书通用内容
