@@ -35,6 +35,9 @@ jobs:
       - name: Build VitePress site
         run: npm run docs:build
 
+      - name: Audit internal links and anchors
+        run: npm run docs:audit
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
