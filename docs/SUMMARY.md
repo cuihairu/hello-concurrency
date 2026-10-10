@@ -29,6 +29,7 @@
     - [并发数据结构](./advanced/data-structures.md)
     - [性能调优](./advanced/performance.md)
     - [编程语言与并发支持](./advanced/languages.md)
+    - [并发与安全](./advanced/security.md)
 - [实战篇]
     - [生产者-消费者](./practice/producer-consumer.md)
     - [读者-写者](./practice/reader-writer.md)
