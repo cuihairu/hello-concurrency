@@ -56,6 +56,8 @@
 | R15 | 选题续写：`advanced/performance.md` 补齐 README 规划目录 9.3–9.5 三节——负载均衡（四策略对照、一致性哈希、健康检查误判/重试放大/黏性与扩容三成本）、缓存策略（四种读写模式、穿透/击穿/雪崩修法、失效通知可靠性）、压测与监控（建模到故障演练五阶段、RED/USE 加 PSI）；本章小结补两级放大器段，来源加 Karger 1997 与 Memcache NSDI'13 两条。knowledge.md 新增条目 29（扩容与缓存）与坑清单两条（热点过期裸奔、重试放大），编号 1–86 连续，场景映射表加负载均衡缓存行；无新页面，不改侧栏 | 已完成 |
 | R16 | 选题续写：新增 `advanced/trends.md`（前沿趋势与展望：档位三分法、硬件五方向、语言运行时三条收敛线、架构层并发单元上移、量子单列澄清），对应 README 规划目录第 13 章「新兴趋势与未来」，此前全仓空缺；挂侧栏「进阶主题」组末位、SUMMARY（正文 33 页口径同步）与 chapter_1.md 1.3 进阶主题清单；knowledge.md 新增条目 38（前沿趋势与展望），编号 1–91 连续，场景映射表加趋势档位行。来源以 JEP 444/453、CXL Consortium、Rust Reference Send/Sync、Shapiro CRDT 2011、Nielsen & Chuang 为准，档位划分为本仓判断 | 已完成 |
 
+| R16 | 选题续写：新增 `advanced/trends.md`（前沿趋势与展望：硬件/工程/论文三档判据、硬件层五方向 big.LITTLE/CXL/PMem/DPU/加速器、语言与运行时三条收敛线——结构化并发、虚拟线程、Rust 编译期竞争检查、架构层四方向事件溯源/Kappa/CRDT/WASM、量子并行与经典并发的区分），对应 README 规划目录第 13 章「新兴趋势与未来」，此前全仓空缺；挂侧栏「进阶主题」组末位、SUMMARY（正文 33 页口径同步）与 chapter_1.md 1.3 进阶主题清单；knowledge.md 新增条目 38（趋势三档与三条收敛线）与场景映射表趋势行，编号 1–90 连续；回链补 hardware（新硬件档位）、languages（虚拟线程与结构化并发档位）两条。来源以 JEP 444/453、CXL Consortium、Rust Reference Send/Sync、Shapiro CRDT（INRIA 2011）、Nielsen & Chuang 为准；档位划分标注为本仓判断 | 已完成 |
+
 ## 待办
 
 G1–G4 已全部销账，本页无待办。后续新增调研引用若出现「只有提法没有文件」的页面，按本页口径记新缺口编号（G5 起）。
