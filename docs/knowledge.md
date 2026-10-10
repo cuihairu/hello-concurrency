@@ -1,6 +1,6 @@
 # 高并发知识点主文档
 
-本文把散在正文三十一页与 docs/research/ 四份调研（权威书籍、官方内存模型规范、应用场景、覆盖核对差异表）里的知识点收拢成一页，只留结论与导航，取证过程在底稿里。
+本文把散在正文三十二页与 docs/research/ 四份调研（权威书籍、官方内存模型规范、应用场景、覆盖核对差异表）里的知识点收拢成一页，只留结论与导航，取证过程在底稿里。
 
 来源标注规则：规范类结论以 2026-10-08 抓取的四份规范原文为准（JLS SE21、C++ 工作草案、Rust Reference、Go Memory Model），逐条核对过程在 [memory-model-specs.md](./research/memory-model-specs.md)；书目元数据取自出版社与豆瓣条目；场景要点取自公开工程文章与项目 README，出处都在 research/ 对应页。调研自己的判断标「调研结论」。截至成文日（2026-10-10），本文没有查无实据的条目，后续补充若无出处会就地标「来源未考」。
 
@@ -88,6 +88,8 @@
 
 36. **可靠性设计**：可靠性不是「不出错」而是「出错还能正确地服务」。三条主线：失败是常态，超时重试降级是常态代码；超时不等于失败，重试前先答「重复执行有没有害」——幂等键先于重试、fencing token 先于信任租约；强一致要用代价换，一致性级别是业务决策不是技术默认。分布式锁不是 SETNX 加过期，锁服务要多数派、写路径要校验 token。见 [practice/reliability.md](./practice/reliability.md)。
 
+37. **并发与安全**：攻击者会主动制造交错，所以「竞态概率低」不是安全论证。竞态变漏洞的三种形态——TOCTOU 与 double-fetch 用「检查与使用同原子」根治，资源耗尽（锁、队列、连接）用「每个共享资源显式有界」根治，时序与缓存侧信道用常量时间比较与隔离压制。见 [advanced/security.md](./advanced/security.md)。
+
 ## 二、权威书籍要点
 
 四本书撑起本仓骨架，完整版本、章节结构与本仓对应关系见 [books.md](./research/books.md)。
@@ -159,6 +161,7 @@
 | 框架与架构选型 | [framework-selection.md](./practice/framework-selection.md) |
 | 高连接数、异步 I/O 事件分发 | [reactor.md](./practice/reactor.md) |
 | 容错、分布式锁与事务 | [reliability.md](./practice/reliability.md) |
+| 竞态漏洞、资源耗尽与侧信道 | [security.md](./advanced/security.md) |
 | 异步结果组合、响应式背压与取消传播 | [async.md](./practice/async.md) |
 
 ## 五、常见坑与误区
@@ -236,6 +239,10 @@
 86. **热点缓存过期瞬间裸奔回源**：单个热点 key 过期，海量请求同时打库（击穿）；热点不过期或异步重建，回源加单飞。见 [performance.md](./advanced/performance.md)。
 
 87. **多层各自重试放大**：一次下游失败在网关、服务、客户端各重试一次，下游收到的是指数级请求；重试要收敛（预算、退避、幂等），配合熔断切断。见 [performance.md](./advanced/performance.md)。
+
+88. **拿 `str` 比较比较密钥**：字符串比较提前返回，比较耗时与密钥前缀相关，时序攻击能逐字节猜出密钥；安全比较用固定时间函数（`MessageDigest.isEqual`、`CRYPTO_memcmp`）。见 [security.md](./advanced/security.md)。
+
+89. **权限检查后重新打开文件**：检查用一个路径、使用再打开一次，两步之间路径可被换成 symlink（TOCTOU）；一次 open 拿 fd，之后只用 fd，或用 `O_NOFOLLOW`。见 [security.md](./advanced/security.md)。
 
 ## 六、来源与导航
 
