@@ -5,7 +5,7 @@
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:audit": "node scripts/audit-links.mjs",
+    "docs:audit": "node scripts/audit-links.mjs && node scripts/audit-structure.mjs",
     "docs:preview": "vitepress preview docs"
   },
   "devDependencies": {
