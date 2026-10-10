@@ -145,7 +145,7 @@ WorkerPool<Event> pool = new WorkerPool<>(ring, barrier, handler, workers);
 | **动态扩容** | 无界队列 / 扩容阻塞队列 | 吸收突发 | OOM 风险、延迟失控 | 批处理、非实时 |
 | **Reactive Streams** | `request(n)` 显式拉取 | 端到端背压、标准化 | API 复杂 | 微服务流式、响应式架构 |
 
-事件驱动结构里的背压靠写缓冲水位线实现（高水位停写、低水位恢复），是这张表在 Reactor 场景的具体化，见 [Reactor 与事件驱动](./reactor.md)。
+事件驱动结构里的背压靠写缓冲水位线实现（高水位停写、低水位恢复），是这张表在 Reactor 场景的具体化，见 [Reactor 与事件驱动](./reactor.md)；流式编程模型（request(n) 拉取、响应式流 API）见 [异步编程与 Future](./async.md)。
 
 ## 多消费者模式
 

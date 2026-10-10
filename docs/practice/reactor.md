@@ -62,6 +62,7 @@ Reactor 是「就绪通知」：事件到了通知你去读。Proactor 是「完
 | epoll/io_uring 的内核侧原理 | [硬件与内存层次](../advanced/hardware.md) |
 | 业务线程池的参数与拒绝策略 | [线程池设计](./thread-pool.md) |
 | 背压：事件循环被生产速率压垮 | [生产者-消费者](./producer-consumer.md) |
+| Future/async/await 与响应式流的编程模型 | [异步编程与 Future](./async.md) |
 | 与 Actor/CSP 的选型对比 | [并发框架选型](./framework-selection.md) |
 | 异步等待的同步原语 | [条件变量](../sync/condition-variables.md) |
 

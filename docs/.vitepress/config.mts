@@ -87,7 +87,8 @@ export default defineConfig({
           { text: '读者-写者', link: '/practice/reader-writer' },
           { text: '线程池设计', link: '/practice/thread-pool' },
           { text: '并发框架选型', link: '/practice/framework-selection' },
-          { text: 'Reactor 与事件驱动', link: '/practice/reactor' }
+          { text: 'Reactor 与事件驱动', link: '/practice/reactor' },
+          { text: '异步编程与 Future', link: '/practice/async' }
         ]
       },
       {
