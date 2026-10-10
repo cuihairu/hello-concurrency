@@ -91,7 +91,9 @@ export default defineConfig({
           { text: '并发框架选型', link: '/practice/framework-selection' },
           { text: 'Reactor 与事件驱动', link: '/practice/reactor' },
           { text: '异步编程与 Future', link: '/practice/async' },
-          { text: '可靠性设计', link: '/practice/reliability' }
+          { text: '并发框架与工具', link: '/practice/frameworks' },
+          { text: '可靠性设计', link: '/practice/reliability' },
+          { text: '七周实战路线', link: '/practice/seven-weeks' }
         ]
       },
       {
