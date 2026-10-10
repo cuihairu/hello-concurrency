@@ -60,6 +60,7 @@ C++ 把并发全交给标准库与程序员：`std::thread` 1:1 映射内核线�
 | 线程模型与上下文切换成本 | [线程与进程](../basics/thread-process.md) |
 | 框架（Netty/Akka/TBB/asyncio）层选型 | [并发框架选型](../practice/framework-selection.md) |
 | goroutine 与 channel 的语义 | [CSP 模型](../models/csp.md) |
+| 虚拟线程与结构化并发的趋势档位 | [前沿趋势与展望](./trends.md) |
 
 ## 陷阱
 

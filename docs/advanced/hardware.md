@@ -89,6 +89,7 @@ I/O 侧的关键认知：**CPU 与内存之间的一切优化，都可能在一�
 | 延迟与容量规划、火焰图与 perf | [性能调优](./performance.md) |
 | GPU 执行模型与 OpenCL | [数据并行](../models/data-parallel.md) |
 | 原子指令与 CAS 的算法用法 | [无锁编程](./lockfree.md) |
+| CXL、DPU、big.LITTLE 等新硬件的档位判断 | [前沿趋势与展望](./trends.md) |
 
 ## 本章小结
 
