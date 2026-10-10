@@ -76,7 +76,8 @@ export default defineConfig({
           { text: '无锁编程', link: '/advanced/lockfree' },
           { text: '内存模型', link: '/advanced/memory-model' },
           { text: '并发数据结构', link: '/advanced/data-structures' },
-          { text: '性能调优', link: '/advanced/performance' }
+          { text: '性能调优', link: '/advanced/performance' },
+          { text: '编程语言与并发支持', link: '/advanced/languages' }
         ]
       },
       {

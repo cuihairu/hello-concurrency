@@ -35,6 +35,8 @@
 | 内核级线程 | 内核调度，阻塞不影响其他线程，切换开销大 | pthreads, Windows threads |
 | 两级模型 | 结合两者优点，用户线程映射到内核线程 | Go goroutines, Java 虚拟线程 |
 
+两级模型在各语言里的落地（goroutine、虚拟线程）见[编程语言与并发支持](../advanced/languages.md)。
+
 ## 线程 vs 进程对比
 
 | 维度 | 进程 | 线程 |
