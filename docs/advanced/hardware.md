@@ -84,6 +84,7 @@ I/O 侧的关键认知：**CPU 与内存之间的一切优化，都可能在一�
 | 问题 | 去哪页 |
 |------|--------|
 | happens-before、内存序语义、数据竞争后果 | [内存模型](./memory-model.md) |
+| 调度、抢占、上下文切换与虚拟内存的内核侧成因 | [操作系统与并发](./os.md) |
 | 伪共享的软件解法、分片计数器 | [并发数据结构](./data-structures.md) |
 | 延迟与容量规划、火焰图与 perf | [性能调优](./performance.md) |
 | GPU 执行模型与 OpenCL | [数据并行](../models/data-parallel.md) |

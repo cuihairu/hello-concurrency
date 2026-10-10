@@ -36,6 +36,8 @@
 | `vmstat / pidstat / mpstat` | 系统/进程/CPU 核指标 | `pidstat -w -p PID 1` (上下文切换) |
 | `numastat` | NUMA 本地/远程访问 | `numastat -p PID` |
 
+调度延迟、抢占与上下文切换的内核侧成因（调度类、亲和性、cgroup 限额）见 [操作系统与并发](./os.md)。
+
 ### JVM 专用
 | 工具 | 用途 |
 |------|------|

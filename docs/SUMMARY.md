@@ -1,6 +1,6 @@
 # Summary
 
-> VitePress 结构映射文件。对应正文 27 个页面与调研底稿 5 页，导航结构以 .vitepress/config.mts 的 sidebar 为准，本文件仅作兼容性底稿。
+> VitePress 结构映射文件。对应正文 28 个页面与调研底稿 5 页，导航结构以 .vitepress/config.mts 的 sidebar 为准，本文件仅作兼容性底稿。
 
 - [引言](./chapter_1.md)
 - [基础篇]
@@ -23,6 +23,7 @@
     - [Lambda 架构](./models/lambda-architecture.md)
 - [进阶主题]
     - [硬件与内存层次](./advanced/hardware.md)
+    - [操作系统与并发](./advanced/os.md)
     - [无锁编程](./advanced/lockfree.md)
     - [内存模型](./advanced/memory-model.md)
     - [并发数据结构](./advanced/data-structures.md)
