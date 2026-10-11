@@ -5,6 +5,9 @@ hero:
   name: Hello Concurrency
   text: 高并发知识体系
   tagline: 从并发基础到内存模型，从同步原语到七种并发模型——无锁、性能调优与工程实战，一章一章把高并发讲透。
+  image:
+    src: /illustrations/hero.png
+    alt: hello-concurrency hero illustration
   actions:
     - theme: brand
       text: 开始阅读
