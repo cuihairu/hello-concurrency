@@ -71,3 +71,19 @@ README 里承诺讲应用场景，`chapter_1.md` 的 1.2 只给了一张六行�
 - [腾讯云开发者社区：Skynet 设计原理与使用](https://cloud.tencent.com/developer/article/2519632)
 - [腾讯云开发者社区：限流、熔断、降级、预热、背压](https://cloud.tencent.com/developer/article/1887928)
 - [Scaling Memcache at Facebook（NSDI '13）](https://www.usenix.org/conference/nsdi13/technical-sessions/presentation/nishtala)
+
+## 参考资料
+
+- [MapReduce 论文](https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf)
+- [Raft 共识](https://raft.github.io/)
+- [Lambda 架构](https://en.wikipedia.org/wiki/Lambda_architecture)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [performance](/advanced/performance.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [reliability](/practice/reliability.md)
+- [README](README.md)
+- [coverage-audit](coverage-audit.md)

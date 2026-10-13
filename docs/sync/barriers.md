@@ -227,3 +227,15 @@ end.await();  // 全部完成
 
 - CyclicBarrier、CountDownLatch、Phaser 行为以 [JDK 并发包文档](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/package-summary.html)为准
 - Go WaitGroup 的计数与复用语义以 [pkg.go.dev/sync](https://pkg.go.dev/sync) 为准
+
+## 参考资料
+
+- [维基 · 屏障](https://en.wikipedia.org/wiki/Barrier_(computer_science))
+- [OpenMP 规范](https://www.openmp.org/specifications/)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [frameworks](/practice/frameworks.md)

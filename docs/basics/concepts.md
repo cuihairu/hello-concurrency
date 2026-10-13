@@ -52,3 +52,20 @@
 
 - Amdahl 定律在并发书里的出处取自 JCiP 书站推荐语，见[权威书籍调研](../research/books.md)
 - 并发/并行、同步/异步为通行概念口径，本页未做专项文献调研；后续补充若无出处会就地标「来源未考」
+
+## 参考资料
+
+- [POSIX 线程（man7）](https://man7.org/linux/man-pages/man7/pthreads.7.html)
+- [Java 并发教程](https://docs.oracle.com/javase/tutorial/essential/concurrency/)
+- [维基 · 竞态条件](https://en.wikipedia.org/wiki/Race_condition)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [hardware](/advanced/hardware.md)
+- [chapter_1](/chapter_1.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [data-parallel](/models/data-parallel.md)
+- [functional](/models/functional.md)
+- [books](/research/books.md)

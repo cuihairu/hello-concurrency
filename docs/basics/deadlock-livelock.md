@@ -121,3 +121,16 @@ L 持有锁期间，临时继承 H 的优先级，抢占 M 运行，释放锁后
 - 死锁四必要条件出自 E. G. Coffman, M. J. Elphick, A. Shoshani, *System Deadlocks*, Computing Surveys 3(2), 1971
 - 优先级反转与优先级继承协议出自 L. Sha, R. Rajkumar, J. P. Lehoczky, *Priority Inheritance Protocols*, IEEE Transactions on Computers 39(9), 1990
 - 活锁随机退避与队列化是通用工程实践总结，未依托单一文献
+
+## 参考资料
+
+- [维基 · 死锁](https://en.wikipedia.org/wiki/Deadlock)
+- [维基 · 活锁](https://en.wikipedia.org/wiki/Livelock)
+- [维基 · 哲学家就餐](https://en.wikipedia.org/wiki/Dining_philosophers_problem)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [reliability](/practice/reliability.md)

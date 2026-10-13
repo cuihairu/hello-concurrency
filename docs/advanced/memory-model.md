@@ -234,3 +234,23 @@ if (cache == null) cache = new HashMap<>();
 - [The Go Memory Model](https://go.dev/ref/mem)：DRF-SC 结论与「检测到竞争可报错终止」条款
 
 Rust 原子操作的内存模型沿用 C++20 规则、去掉 consume，见 [std::sync::atomic](https://doc.rust-lang.org/std/sync/atomic/index.html)；seq_cst 单一全序的条文在 [atomics.order](https://eel.is/c++draft/atomics.order)。逐条核对过程与四语言对照表在[官方内存模型规范核对](/research/memory-model-specs)。
+
+## 参考资料
+
+- [Go 内存模型](https://go.dev/ref/mem)
+- [Java 内存模型（JLS 17）](https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html)
+- [C++ 内存序](https://en.cppreference.com/w/cpp/atomic/memory_order)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [hardware](hardware.md)
+- [languages](languages.md)
+- [security](security.md)
+- [trends](trends.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [functional](/models/functional.md)
+- [frameworks](/practice/frameworks.md)
+- [seven-weeks](/practice/seven-weeks.md)
+- [memory-model-specs](/research/memory-model-specs.md)

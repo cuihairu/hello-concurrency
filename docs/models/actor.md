@@ -179,3 +179,24 @@ Actor 模型以**「共享内存即通信」→「通信即共享内存」**反�
 - 《七周七并发模型》第 5 章 Actor，版本信息见[权威书籍调研](../research/books.md)
 - 实现对比表与生命周期部分以各项目官方文档为准（[Akka](https://akka.io/)、[Erlang/OTP](https://www.erlang.org/)、[Orleans](https://learn.microsoft.com/dotnet/orleans/)、[Proto.Actor](https://proto.actor/)）
 - 示例代码现写，不抄书
+
+## 参考资料
+
+- [维基 · Actor 模型](https://en.wikipedia.org/wiki/Actor_model)
+- [Erlang 并发编程](https://www.erlang.org/doc/getting_started/conc_prog.html)
+- [Akka 官网](https://akka.io/)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [security](/advanced/security.md)
+- [trends](/advanced/trends.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [data-parallel](data-parallel.md)
+- [functional](functional.md)
+- [frameworks](/practice/frameworks.md)
+- [reliability](/practice/reliability.md)
+- [seven-weeks](/practice/seven-weeks.md)
+- [applications](/research/applications.md)
+- [books](/research/books.md)

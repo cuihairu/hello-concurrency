@@ -82,3 +82,23 @@ C++ 把并发全交给标准库与程序员：`std::thread` 1:1 映射内核线�
 - Go 并发语义以 [The Go Memory Model](https://go.dev/ref/mem) 为准，容器感知 GOMAXPROCS 以 [Go 1.25 发布说明](https://go.dev/doc/go1.25)为准
 - Python GIL 以 [CPython 官方文档](https://docs.python.org/3/glossary.html#term-GIL)为准，无 GIL 构建以 [PEP 703](https://peps.python.org/pep-0703/) 为准
 - 本页对应 README 规划目录第 5 章「编程语言与并发支持」，是[权威书籍调研](../research/books.md)之外自加的一页
+
+## 参考资料
+
+- [Go 语言文档](https://go.dev/doc/)
+- [Rust 并发章节](https://doc.rust-lang.org/book/ch16-00-concurrency.html)
+- [Erlang 文档](https://www.erlang.org/docs)
+- [C++ 多线程](https://en.cppreference.com/w/cpp/language/multithread)
+- [.NET 托管线程](https://learn.microsoft.com/en-us/dotnet/standard/threading/managed-threading-basics)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [memory-model](memory-model.md)
+- [security](security.md)
+- [trends](trends.md)
+- [thread-process](/basics/thread-process.md)
+- [knowledge](/knowledge.md)
+- [framework-selection](/practice/framework-selection.md)
+- [frameworks](/practice/frameworks.md)
+- [seven-weeks](/practice/seven-weeks.md)

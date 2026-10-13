@@ -49,3 +49,21 @@ Rust 那一格的原文值得单独记一句：「Rust atomics currently follow 
 1. `advanced/memory-model.md` 的通用小节里「数据竞争 = 未定义行为」必须限定到 C++/Rust，Java 与 Go 的表述另写，已按 R1 修订。
 2. 页面补「本章来源」一节，四份规范各给一条入口链接，已按 R2 落地。
 3. Rust 在 `memory-model.md` 只有一行表格，展开的材料以 Reference 的 UB 清单与 `std::sync::atomic` 的内存模型一节为准，需要时再开独立章节。
+
+## 参考资料
+
+- [Go 内存模型](https://go.dev/ref/mem)
+- [Java 内存模型（JLS 17）](https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html)
+- [C++ 内存序](https://en.cppreference.com/w/cpp/atomic/memory_order)
+- [C11 内存序](https://en.cppreference.com/w/c/atomic/memory_order)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [languages](/advanced/languages.md)
+- [memory-model](/advanced/memory-model.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [README](README.md)
+- [books](books.md)
+- [coverage-audit](coverage-audit.md)

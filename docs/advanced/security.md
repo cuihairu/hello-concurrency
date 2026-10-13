@@ -119,3 +119,16 @@ write(fd, data)
 - 保护机制原则：J. Saltzer & M. Schroeder, *The Protection of Information in Computer Systems*（Proc. IEEE, 1975）
 - 检测工具：[ThreadSanitizer 文档](https://clang.llvm.org/docs/ThreadSanitizer.html)、[jcstress 文档](https://openjdk.org/projects/code-tools/jcstress/)、[Helgrind 手册](https://valgrind.org/docs/manual/hg-manual.html)
 - 本页对应 README 规划目录第 11 章「高并发系统的安全」，此前全仓空缺；示例代码现写，不抄书
+
+## 参考资料
+
+- [维基 · TOCTOU](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use)
+- [维基 · 竞态条件](https://en.wikipedia.org/wiki/Race_condition)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [frameworks](/practice/frameworks.md)
+- [seven-weeks](/practice/seven-weeks.md)

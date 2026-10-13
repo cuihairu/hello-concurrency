@@ -29,3 +29,8 @@ features:
   - title: 性能与实战
     details: 并发数据结构、性能调优与容量规划；线程池、生产者-消费者、读者-写者、框架选型。
 ---
+
+## 参考资料
+
+- [Go 内存模型](https://go.dev/ref/mem)
+- [Java 并发教程](https://docs.oracle.com/javase/tutorial/essential/concurrency/)

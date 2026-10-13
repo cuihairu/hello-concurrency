@@ -78,3 +78,19 @@ GIL 之下的多线程既不是真并行也不是纯开销——I/O 等待时会
 - Go 并发原语以 [Go 文档](https://go.dev/doc/)与 [context 包文档](https://pkg.go.dev/context)为准
 - Python 三路线以 [asyncio 文档](https://docs.python.org/3/library/asyncio-task.html)、[concurrent.futures 文档](https://docs.python.org/3/library/concurrent.futures.html)与 [PEP 703](https://peps.python.org/pep-0703/) 为准
 - 本页对应 README 规划目录第 8 章「高并发框架与工具」；写法是地图不是 API 手册（调研结论：API 手册易过期，原理与边界长青），各工具的原理出处在被链接的页面
+
+## 参考资料
+
+- [Akka 官网](https://akka.io/)
+- [Tokio 教程](https://tokio.rs/tokio/tutorial)
+- [Erlang 文档](https://www.erlang.org/docs)
+- [Java 并发工具包](https://docs.oracle.com/en/java/javase/21/api/java.base/java/util/concurrent/package-summary.html)
+- [Boost.Thread](https://www.boost.org/doc/libs/release/doc/html/thread.html)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [csp](/models/csp.md)
+- [semaphores](/sync/semaphores.md)

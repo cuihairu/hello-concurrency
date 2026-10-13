@@ -81,3 +81,19 @@ Lambda 架构把「算不完」拆成「慢而全」与「快而增量」两条�
 
 - 《七周七并发模型》第 8 章，版本信息见[权威书籍调研](../research/books.md)
 - Lambda 架构原始定义见 Nathan Marz 与 James Warren *Big Data*（Manning, 2015）一书的配套站点 [lambda-architecture.net](http://lambda-architecture.net/)；Kappa 架构出自 Jay Kreps 2014 年文章 *Questioning the Lambda Architecture*（O'Reilly Radar）
+
+## 参考资料
+
+- [维基 · Lambda 架构](https://en.wikipedia.org/wiki/Lambda_architecture)
+- [MapReduce 论文](https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [trends](/advanced/trends.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [data-parallel](data-parallel.md)
+- [dataflow](dataflow.md)
+- [stm](stm.md)
+- [books](/research/books.md)

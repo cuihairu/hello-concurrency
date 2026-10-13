@@ -205,3 +205,16 @@ philosopher(i):
 - POSIX 信号量语义以 [sem_overview(7)](https://man7.org/linux/man-pages/man7/sem_overview.7.html) 为准
 - Java Semaphore 的 acquire/release 与许可语义以 [JDK 文档](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/Semaphore.html)为准
 - 信号量与互斥锁的所有权辨析是操作系统教科书通用内容
+
+## 参考资料
+
+- [维基 · 信号量](https://en.wikipedia.org/wiki/Semaphore_(programming))
+- [The Little Book of Semaphores](https://greenteapress.com/wp/semaphores/)
+- [Dijkstra · EWD108](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD01xx/EWD108.html)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [frameworks](/practice/frameworks.md)

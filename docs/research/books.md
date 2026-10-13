@@ -64,3 +64,35 @@
 ## 本仓怎么用这几本
 
 写页面时的引用口径：概念定义与陷阱清单参考书，能落到规范条文的（数据竞争后果、内存序语义）以规范原文为准，书与规范冲突时按规范写并在页面注明来源。四本书只提供结构和解释，示例代码一律现写，不抄书。
+
+## 参考资料
+
+- [七周七并发模型](https://pragprog.com/titles/pb7con/seven-concurrency-models-in-seven-weeks/)
+- [The Little Book of Semaphores](https://greenteapress.com/wp/semaphores/)
+- [Java Concurrency in Practice](https://jcip.net/)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [data-structures](/advanced/data-structures.md)
+- [hardware](/advanced/hardware.md)
+- [languages](/advanced/languages.md)
+- [lockfree](/advanced/lockfree.md)
+- [os](/advanced/os.md)
+- [concepts](/basics/concepts.md)
+- [knowledge](/knowledge.md)
+- [actor](/models/actor.md)
+- [csp](/models/csp.md)
+- [data-parallel](/models/data-parallel.md)
+- [dataflow](/models/dataflow.md)
+- [functional](/models/functional.md)
+- [lambda-architecture](/models/lambda-architecture.md)
+- [stm](/models/stm.md)
+- [async](/practice/async.md)
+- [producer-consumer](/practice/producer-consumer.md)
+- [reactor](/practice/reactor.md)
+- [seven-weeks](/practice/seven-weeks.md)
+- [thread-pool](/practice/thread-pool.md)
+- [README](README.md)
+- [coverage-audit](coverage-audit.md)
+- [locks](/sync/locks.md)

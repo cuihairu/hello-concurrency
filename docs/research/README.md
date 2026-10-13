@@ -37,3 +37,12 @@
 ## 下一步
 
 差异与处置在[覆盖核对差异表](./coverage-audit)，已补的缺口与已修订的条目在同一页逐条列出，待办项也留在那里，不藏在别处。
+
+## 参考资料
+
+- [Raft 共识](https://raft.github.io/)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [knowledge](/knowledge.md)

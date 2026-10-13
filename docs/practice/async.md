@@ -69,3 +69,22 @@ Observer 把「数据变了」做成推送：被观察者维护订阅者列表�
 - 背压与非阻塞规范以 [Reactive Streams 规范](https://www.reactive-streams.org/)为准
 - 结构化并发以 [JEP 453](https://openjdk.org/jeps/453)（JDK 21 预览）为准，取消传播以 [Go context 包文档](https://pkg.go.dev/context)与 [Kotlin 协程指南](https://kotlinlang.org/docs/coroutines-guide.html)为参考
 - 本页对应 README 规划目录 6.3（Future 模式）、6.4（Observer 模式）与 7.1（异步编程模型），是[权威书籍调研](../research/books.md)之外自加的一页
+
+## 参考资料
+
+- [Rust 异步书](https://rust-lang.github.io/async-book/)
+- [Tokio 教程](https://tokio.rs/tokio/tutorial)
+- [Python asyncio](https://docs.python.org/3/library/asyncio.html)
+- [Node.js 异步编程](https://nodejs.org/en/learn/asynchronous-work/javascript-asynchronous-programming-and-callbacks)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [trends](/advanced/trends.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [csp](/models/csp.md)
+- [frameworks](frameworks.md)
+- [producer-consumer](producer-consumer.md)
+- [reactor](reactor.md)
+- [seven-weeks](seven-weeks.md)

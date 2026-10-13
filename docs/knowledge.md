@@ -264,3 +264,17 @@
 - [research/memory-model-specs.md](./research/memory-model-specs.md) — 四份规范逐条核对与四语言对照
 - [research/applications.md](./research/applications.md) — 两类场景拆解与章节映射
 - [research/coverage-audit.md](./research/coverage-audit.md) — 覆盖核对差异表（缺口 G1–G4 已全部销账）
+
+- [术语速查：术语表](./glossary.md)（中英对照、一句话定义、权威出处与相关页）。
+
+## 参考资料
+
+- [Go 内存模型](https://go.dev/ref/mem)
+- [Java 内存模型（JLS 17）](https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html)
+- [C/C++ 内存序](https://en.cppreference.com/w/cpp/atomic/memory_order)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [reliability](/practice/reliability.md)
+- [seven-weeks](/practice/seven-weeks.md)

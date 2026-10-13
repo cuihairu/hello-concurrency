@@ -62,3 +62,16 @@
 - CRDT：M. Shapiro 等，*A Comprehensive Study of Convergent and Commutative Replicated Data Types*（INRIA, 2011）
 - 量子并行与经典并发的区分：Nielsen & Chuang, *Quantum Computation and Quantum Information*（剑桥大学出版社）；本页只作区分，不作预测
 - 本页对应 README 规划目录第 13 章「新兴趋势与未来」，此前全仓空缺；档位划分是本仓判断（调研结论），不引用预测性文章
+
+## 参考资料
+
+- [Rust 异步书](https://rust-lang.github.io/async-book/)
+- [Tokio 教程](https://tokio.rs/tokio/tutorial)
+- [Go 内存模型](https://go.dev/ref/mem)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [hardware](hardware.md)
+- [languages](languages.md)
+- [knowledge](/knowledge.md)

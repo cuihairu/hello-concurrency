@@ -270,3 +270,16 @@ STM 为共享内存并发提供了 **ACID 语义**，核心价值：
 - 《七周七并发模型》第 4 章 Clojure 之道：分离标识与状态（STM 是其中 ref 一部分），版本信息见[权威书籍调研](../research/books.md)
 - 语言 API 以官方参考为准（[Clojure 参考文档](https://clojure.org/reference/refs)、[GHC STM 文档](https://hackage.haskell.org/package/stm)）
 - 示例代码现写，不抄书
+
+## 参考资料
+
+- [Clojure refs（STM）](https://clojure.org/reference/refs)
+- [维基 · 软件事务内存](https://en.wikipedia.org/wiki/Software_transactional_memory)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [functional](functional.md)
+- [books](/research/books.md)

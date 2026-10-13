@@ -105,3 +105,24 @@
 - Saga 模式的原始出处：H. Garcia-Molina & K. Salem, *Sagas*（ACM SIGMOD 1987）；2PC 阻塞特性见 J. Gray, *Concurrency Control and Recovery in Database Systems*（1987）
 - 线性一致的定义：M. Herlihy & J. Wing, *Linearizability: A Correctness Condition for Concurrent Objects*（ACM TOPLAS 1990），与本仓[无锁编程](../advanced/lockfree.md)页的进度保证同源
 - 本页对应 README 规划目录第 10 章「可靠性设计」，此前全仓空缺；Memcache lease 的场景细节见[应用场景调研](../research/applications.md)
+
+## 参考资料
+
+- [维基 · CAP 定理](https://en.wikipedia.org/wiki/CAP_theorem)
+- [Brewer · CAP 演讲稿](https://www.eecs.berkeley.edu/~brewer/cs262b-2004/PODC-keynote.pdf)
+- [Raft 共识](https://raft.github.io/raft.pdf)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [os](/advanced/os.md)
+- [security](/advanced/security.md)
+- [trends](/advanced/trends.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [actor](/models/actor.md)
+- [framework-selection](framework-selection.md)
+- [frameworks](frameworks.md)
+- [seven-weeks](seven-weeks.md)
+- [applications](/research/applications.md)
+- [locks](/sync/locks.md)

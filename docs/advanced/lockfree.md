@@ -215,3 +215,21 @@ uint64_t local_epoch = global_epoch.load(acquire);
 - 《C++ Concurrency in Action》无锁数据结构与内存序章，对应关系见[权威书籍调研](../research/books.md)
 - 算法原始出处：Treiber 栈（1986 技术报告）、Michael-Scott 队列（PODC 1996）、Hazard Pointer（Michael, TPDS 2004）、RCU（McKenney 等）
 - ABA 与延迟回收的工程解法部分是通用实践总结
+
+## 参考资料
+
+- [维基 · 无锁与无等待算法](https://en.wikipedia.org/wiki/Lock-free_and_wait-free_algorithms)
+- [维基 · CAS](https://en.wikipedia.org/wiki/Compare-and-swap)
+- [C++ 原子与内存序](https://en.cppreference.com/w/cpp/atomic/memory_order)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [hardware](hardware.md)
+- [languages](languages.md)
+- [os](os.md)
+- [security](security.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [reliability](/practice/reliability.md)
+- [seven-weeks](/practice/seven-weeks.md)

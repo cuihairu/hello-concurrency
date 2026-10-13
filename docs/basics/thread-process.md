@@ -66,3 +66,17 @@
 2. **CPU 密集型**：线程数约等于 CPU 核心数，避免过度切换
 3. **避免线程泄漏**：使用线程池管理生命周期
 4. **线程局部存储**：ThreadLocal 存放线程私有数据，避免同步开销
+
+## 参考资料
+
+- [维基 · 线程](https://en.wikipedia.org/wiki/Thread_(computing))
+- [POSIX 线程（man7）](https://man7.org/linux/man-pages/man7/pthreads.7.html)
+- [Linux 内核文档](https://www.kernel.org/doc/html/latest/)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [languages](/advanced/languages.md)
+- [os](/advanced/os.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)

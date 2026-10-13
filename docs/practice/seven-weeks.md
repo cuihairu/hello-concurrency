@@ -84,3 +84,12 @@ README 规划目录第 12 章安排「每周一个实战案例」。本仓是知
 - 各周工具入口（jcstress、TSan、Relacy、`-race`）以各自官方文档为准，链接在正文各节
 - 验收标准是本仓按各页陷阱清单反推的工程口径（调研结论），非原书内容
 - 本页对应 README 规划目录第 12 章「七周并发实战」；本仓为知识库不附代码仓库，练习在读者侧完成
+
+## 参考资料
+
+- [七周七并发模型（PragProg）](https://pragprog.com/titles/pb7con/seven-concurrency-models-in-seven-weeks/)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [knowledge](/knowledge.md)

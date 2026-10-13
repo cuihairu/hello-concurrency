@@ -247,3 +247,22 @@ CSP 以**通道同步通信**替代共享内存，将并发协调显式化为数
 - 《七周七并发模型》第 6 章通信顺序进程，版本信息见[权威书籍调研](../research/books.md)
 - 原始理论出处为 C. A. R. Hoare, *Communicating Sequential Processes*, CACM 1978；Go 侧语义以 [Go 官方文档](https://go.dev/doc/)与语言规范为准
 - 示例代码现写，不抄书
+
+## 参考资料
+
+- [维基 · CSP](https://en.wikipedia.org/wiki/Communicating_sequential_processes)
+- [Go 内存模型（通道可见性）](https://go.dev/ref/mem)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [languages](/advanced/languages.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [data-parallel](data-parallel.md)
+- [functional](functional.md)
+- [async](/practice/async.md)
+- [frameworks](/practice/frameworks.md)
+- [seven-weeks](/practice/seven-weeks.md)
+- [applications](/research/applications.md)
+- [books](/research/books.md)

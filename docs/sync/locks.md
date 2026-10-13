@@ -157,3 +157,19 @@ let m = Mutex::new(0);
 - 《C++ Concurrency in Action》同步操作章（`std::lock` 多锁获取），对应关系见[权威书籍调研](../research/books.md)
 - Rust 所有权与锁一节以 [The Rustonomicon](https://doc.rust-lang.org/nomicon/) 与 Rust 标准库文档为准
 - Java 锁的内存语义（unlock happens-before lock）条文在 [JLS §17.4](https://docs.oracle.com/javase/specs/jls/se21/html/jls-17.html)
+
+## 参考资料
+
+- [维基 · 监视器](https://en.wikipedia.org/wiki/Monitor_(synchronization))
+- [POSIX pthread.h（mutex）](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+- [Java 并发锁包](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/locks/package-summary.html)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [os](/advanced/os.md)
+- [security](/advanced/security.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [frameworks](/practice/frameworks.md)
+- [reliability](/practice/reliability.md)

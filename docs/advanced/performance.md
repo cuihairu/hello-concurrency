@@ -285,3 +285,21 @@ L = λ × W
 - 一致性哈希出自 D. Karger 等, *Consistent Hashing and Random Trees*（STOC 1997）
 - 缓存失效与单飞回源的工程出处：P. Nishtala 等, *Scaling Memcache at Facebook*（NSDI 2013），拆解在[应用场景调研](../research/applications.md)
 - 偏向锁停用并废弃出自 [JEP 374](https://openjdk.org/jeps/374)（JDK 15），JDK 18 起移除
+
+## 参考资料
+
+- [维基 · Amdahl 定律](https://en.wikipedia.org/wiki/Amdahl%27s_law)
+- [维基 · Little 定律](https://en.wikipedia.org/wiki/Little%27s_law)
+- [维基 · 顺序一致性](https://en.wikipedia.org/wiki/Sequential_consistency)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [hardware](hardware.md)
+- [os](os.md)
+- [trends](trends.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [reliability](/practice/reliability.md)
+- [seven-weeks](/practice/seven-weeks.md)
+- [applications](/research/applications.md)

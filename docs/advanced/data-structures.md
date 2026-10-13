@@ -196,3 +196,21 @@ public void throughput(QueueState s) {
 
 - 《Java Concurrency in Practice》基础构建模块章（并发容器、原子变量），对应关系见[权威书籍调研](../research/books.md)
 - ConcurrentHashMap、LongAdder 等行为以 [JDK 并发包文档](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/package-summary.html)为准
+
+## 参考资料
+
+- [维基 · 并发数据结构](https://en.wikipedia.org/wiki/Concurrent_data_structure)
+- [Java 并发工具包](https://docs.oracle.com/en/java/javase/21/api/java.base/java/util/concurrent/package-summary.html)
+- [维基 · 线性一致性](https://en.wikipedia.org/wiki/Linearizability)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [hardware](hardware.md)
+- [languages](languages.md)
+- [os](os.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [frameworks](/practice/frameworks.md)
+- [seven-weeks](/practice/seven-weeks.md)
+- [applications](/research/applications.md)

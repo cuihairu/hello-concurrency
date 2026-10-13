@@ -205,3 +205,21 @@
 
 - 本页是选型经验框架，不是文献综述：涉及框架的事实以各项目官方文档为准（Akka、Orleans、skynet、Flink 等）
 - 问题域、一致性、团队栈、运维成熟度四维权衡是本仓调研结论
+
+## 参考资料
+
+- [七周七并发模型](https://pragprog.com/titles/pb7con/seven-concurrency-models-in-seven-weeks/)
+- [Go 内存模型](https://go.dev/ref/mem)
+- [Rust 并发章节](https://doc.rust-lang.org/book/ch16-00-concurrency.html)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [languages](/advanced/languages.md)
+- [trends](/advanced/trends.md)
+- [knowledge](/knowledge.md)
+- [frameworks](frameworks.md)
+- [reactor](reactor.md)
+- [reliability](reliability.md)
+- [seven-weeks](seven-weeks.md)
+- [applications](/research/applications.md)

@@ -87,3 +87,23 @@ Reactor 把「等待」从线程里拿出来交给内核，用事件分发把 I/
 - Proactor 与 IOCP 对照见 Schmidt 的 Proactor 论文；io_uring 见[内核文档](https://kernel.dk/io_uring.pdf)
 - Netty 线程模型与水位线以 [Netty 官方文档](https://netty.io/wiki/user-guide-for-4.x.html)为准
 - 本页对应 README 规划目录 6.5 与 7.2（Reactor 模式、事件驱动架构），是[权威书籍调研](../research/books.md)之外自加的一页
+
+## 参考资料
+
+- [Reactor 模式（Schmidt）](https://www.dre.vanderbilt.edu/~schmidt/PDF/Reactor.pdf)
+- [Proactor 模式（Schmidt）](https://www.dre.vanderbilt.edu/~schmidt/PDF/Proactor.pdf)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [hardware](/advanced/hardware.md)
+- [languages](/advanced/languages.md)
+- [performance](/advanced/performance.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [async](async.md)
+- [framework-selection](framework-selection.md)
+- [frameworks](frameworks.md)
+- [producer-consumer](producer-consumer.md)
+- [seven-weeks](seven-weeks.md)
+- [thread-pool](thread-pool.md)

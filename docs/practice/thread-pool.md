@@ -331,3 +331,25 @@ void gracefulShutdown(ThreadPoolExecutor pool, Duration timeout) {
 
 - 《Java Concurrency in Practice》任务执行与线程池章，对应关系见[权威书籍调研](../research/books.md)
 - ThreadPoolExecutor 参数与拒绝策略语义以 [JDK 文档](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ThreadPoolExecutor.html)为准
+
+## 参考资料
+
+- [维基 · 线程池](https://en.wikipedia.org/wiki/Thread_pool)
+- [Java 并发工具包（Executor）](https://docs.oracle.com/en/java/javase/21/api/java.base/java/util/concurrent/package-summary.html)
+- [维基 · 工作窃取](https://en.wikipedia.org/wiki/Work_stealing)
+- [维基 · Fork/Join](https://en.wikipedia.org/wiki/Fork%E2%80%93join_model)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [languages](/advanced/languages.md)
+- [os](/advanced/os.md)
+- [security](/advanced/security.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [functional](/models/functional.md)
+- [async](async.md)
+- [frameworks](frameworks.md)
+- [reactor](reactor.md)
+- [seven-weeks](seven-weeks.md)
+- [applications](/research/applications.md)

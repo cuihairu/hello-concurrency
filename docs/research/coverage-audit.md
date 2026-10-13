@@ -62,3 +62,14 @@
 ## 待办
 
 G1–G4 已全部销账，本页无待办。README 规划目录 1–13 章至此全部有对应落盘页（第 8 章框架工具由 framework-selection 覆盖、第 2/4 章部分小节由 basics 与 hardware/os 覆盖，口径见 R17 及各条）。后续新增调研引用若出现「只有提法没有文件」的页面，按本页口径记新缺口编号（G5 起）。
+
+## 参考资料
+
+- [Go 内存模型](https://go.dev/ref/mem)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [knowledge](/knowledge.md)
+- [README](README.md)
+- [memory-model-specs](memory-model-specs.md)

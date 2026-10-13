@@ -258,3 +258,18 @@ cond.signal();   // 此时已不持锁 → IllegalMonitorStateException
 
 - POSIX 条件变量语义（虚假唤醒、锁外 signal 合法）以 [pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) 为准
 - Java Condition 必须持锁 signal 的约束以 [JDK 文档](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/locks/Condition.html)为准
+
+## 参考资料
+
+- [POSIX pthread.h（条件变量）](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+- [维基 · 监视器](https://en.wikipedia.org/wiki/Monitor_(synchronization))
+- [Java 并发锁包](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/locks/package-summary.html)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [os](/advanced/os.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [async](/practice/async.md)
+- [reactor](/practice/reactor.md)

@@ -101,3 +101,24 @@ I/O 侧的关键认知：**CPU 与内存之间的一切优化，都可能在一�
 - 弱序模型与屏障指令以 [Arm 架构参考手册](https://developer.arm.com/documentation)为准
 - I/O 多路复用与 io_uring 以 [io_uring 内核文档](https://kernel.dk/io_uring.pdf)与 Linux man 页为准
 - 本页对应 README 规划目录第 3 章「硬件层面的高并发设计」，是[权威书籍调研](../research/books.md)之外自加的一页，未依托单一教材
+
+## 参考资料
+
+- [维基 · 缓存一致性](https://en.wikipedia.org/wiki/Cache_coherence)
+- [维基 · MESI 协议](https://en.wikipedia.org/wiki/MESI_protocol)
+- [维基 · 内存屏障](https://en.wikipedia.org/wiki/Memory_barrier)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [data-structures](data-structures.md)
+- [languages](languages.md)
+- [lockfree](lockfree.md)
+- [memory-model](memory-model.md)
+- [os](os.md)
+- [performance](performance.md)
+- [trends](trends.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [data-parallel](/models/data-parallel.md)
+- [reactor](/practice/reactor.md)

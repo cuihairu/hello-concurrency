@@ -74,3 +74,23 @@ Linux 按调度类分层，实时类永远优先于公平类：
 - 虚拟内存、缺页与 OOM 以 M. Gorman, *Understanding the Linux Virtual Memory Manager*（O'Reilly, 2004）为参考
 - 两级调度的运行时实现以 [OpenJDK JEP 444（Virtual Threads）](https://openjdk.org/jeps/444)与 Go 官方 FAQ 的 goroutine 一节（[go.dev](https://go.dev/doc/faq#goroutines)）为准
 - 本页对应 README 规划目录第 4 章「操作系统与并发」，此前全仓空缺，是[权威书籍调研](../research/books.md)之外自加的一页
+
+## 参考资料
+
+- [Linux 内核文档](https://www.kernel.org/doc/html/latest/)
+- [POSIX 线程（man7）](https://man7.org/linux/man-pages/man7/pthreads.7.html)
+- [维基 · 监视器](https://en.wikipedia.org/wiki/Monitor_(synchronization))
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [hardware](hardware.md)
+- [languages](languages.md)
+- [performance](performance.md)
+- [trends](trends.md)
+- [thread-process](/basics/thread-process.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [async](/practice/async.md)
+- [reliability](/practice/reliability.md)
+- [locks](/sync/locks.md)

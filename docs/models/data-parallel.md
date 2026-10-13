@@ -105,3 +105,23 @@ kernel 是跑在设备上的函数，每个 work-item 用自己的全局 id 算�
 
 - 《七周七并发模型》第 7 章，版本信息见[权威书籍调研](../research/books.md)
 - OpenCL 概念对照以 [Khronos OpenCL 规范](https://www.khronos.org/opencl/)为准；CUDA 术语以 [NVIDIA CUDA 文档](https://docs.nvidia.com/cuda/)为准
+
+## 参考资料
+
+- [CUDA 工具包](https://developer.nvidia.com/cuda-toolkit)
+- [OpenMP 规范](https://www.openmp.org/specifications/)
+- [MPI 文档](https://www.mpi-forum.org/docs/)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [hardware](/advanced/hardware.md)
+- [trends](/advanced/trends.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [actor](actor.md)
+- [csp](csp.md)
+- [functional](functional.md)
+- [lambda-architecture](lambda-architecture.md)
+- [stm](stm.md)
+- [books](/research/books.md)

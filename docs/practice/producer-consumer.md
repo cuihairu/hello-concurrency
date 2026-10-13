@@ -268,3 +268,20 @@ if (redis.setnx(idempotentKey, "1", 24, HOURS)) {
 
 - 《Java Concurrency in Practice》阻塞队列一节同源，对应关系见[权威书籍调研](../research/books.md)
 - BlockingQueue 行为以 [JDK 文档](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/BlockingQueue.html)为准
+
+## 参考资料
+
+- [维基 · 生产者-消费者问题](https://en.wikipedia.org/wiki/Producer%E2%80%93consumer_problem)
+- [维基 · 队列](https://en.wikipedia.org/wiki/Queue_(abstract_data_type))
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [security](/advanced/security.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [async](async.md)
+- [frameworks](frameworks.md)
+- [reactor](reactor.md)
+- [seven-weeks](seven-weeks.md)
+- [applications](/research/applications.md)

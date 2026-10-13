@@ -259,3 +259,15 @@ fn put(key: K, val: V) {
 - ReentrantReadWriteLock 与 StampedLock 行为以 [JDK 文档](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/locks/StampedLock.html)为准
 - POSIX 读写锁以 [pthread_rwlock_rdlock(3p)](https://man7.org/linux/man-pages/man3/pthread_rwlock_rdlock.3p.html) 系列为准
 - 读者优先/写者优先/公平轮转三变体是操作系统教科书通用内容
+
+## 参考资料
+
+- [维基 · 读写锁](https://en.wikipedia.org/wiki/Readers%E2%80%93writer_lock)
+- [Java 并发锁包](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/locks/package-summary.html)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [applications](/research/applications.md)

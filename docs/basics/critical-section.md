@@ -101,3 +101,19 @@ class Account {
 ## 本章小结
 
 互斥是解决临界区问题的核心手段。掌握锁的分类、特性、选型原则与常见陷阱，是编写正确并发程序的前提。下一章将讲解信号量、条件变量等更丰富的同步原语。
+
+## 参考资料
+
+- [Dijkstra · 互斥（EWD108）](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD01xx/EWD108.html)
+- [维基 · 信号量](https://en.wikipedia.org/wiki/Semaphore_(programming))
+- [POSIX pthread.h](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [os](/advanced/os.md)
+- [security](/advanced/security.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [frameworks](/practice/frameworks.md)
+- [reliability](/practice/reliability.md)

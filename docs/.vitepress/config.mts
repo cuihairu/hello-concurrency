@@ -101,6 +101,10 @@ export default defineConfig({
         link: '/knowledge'
       },
       {
+        text: '术语表',
+        link: '/glossary'
+      },
+      {
         text: '调研底稿',
         items: [
           { text: '调研总览与来源总表', link: '/research/README' }

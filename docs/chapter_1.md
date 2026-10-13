@@ -38,3 +38,13 @@
 ---
 
 接下来从[并发基础概念](/basics/concepts)开始。
+
+## 参考资料
+
+- [并发维基 · 竞态条件](https://en.wikipedia.org/wiki/Race_condition)
+- [POSIX 线程（man7）](https://man7.org/linux/man-pages/man7/pthreads.7.html)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [glossary](glossary.md)

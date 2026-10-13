@@ -204,3 +204,17 @@ Publisher → Subscription → Subscriber
 - 本页是本仓自加的一页：书里数据流编程是第 3 章的第三天，不是独立一章，口径见[权威书籍调研](../research/books.md)
 - 框架部分以各项目官方文档为准（[Apache Flink](https://flink.apache.org/)、[Spark](https://spark.apache.org/)、[Kafka Streams](https://kafka.apache.org/documentation/streams/)、[Beam](https://beam.apache.org/)）
 - 示例代码现写，不抄书
+
+## 参考资料
+
+- [维基 · 数据流编程](https://en.wikipedia.org/wiki/Dataflow_programming)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [data-parallel](data-parallel.md)
+- [functional](functional.md)
+- [lambda-architecture](lambda-architecture.md)
+- [books](/research/books.md)

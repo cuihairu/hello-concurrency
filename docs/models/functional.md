@@ -112,3 +112,21 @@ future/promise 把控制流写成数据流图：每个 future 是一个节点，
 
 - 《七周七并发模型》第 3 章，版本信息与七天结构见[权威书籍调研](../research/books.md)；第三天标题以原版 Day 3 Dataflow Programming with Futures and Promises 为准，中文版目录写作「函数式并发」
 - 示例代码现写（Clojure 1.11 语法），不抄书；`r/fold` 与 `pmap` 语义以 [clojure.org 参考文档](https://clojure.org/reference/reducers)为准
+
+## 参考资料
+
+- [Clojure refs（持久数据结构 + STM）](https://clojure.org/reference/refs)
+- [Scala Futures](https://docs.scala-lang.org/overviews/core/futures.html)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [security](/advanced/security.md)
+- [trends](/advanced/trends.md)
+- [glossary](/glossary.md)
+- [knowledge](/knowledge.md)
+- [actor](actor.md)
+- [data-parallel](data-parallel.md)
+- [lambda-architecture](lambda-architecture.md)
+- [stm](stm.md)
+- [books](/research/books.md)
