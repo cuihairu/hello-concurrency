@@ -238,6 +238,13 @@ L = λW：系统中平均数 = 到达率 × 停留时间。
 **出处**：[维基 · TOCTOU](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use)
 **相关页**：[advanced/security](/advanced/security)
 
+## 本章来源
+
+- 本表不设集中出处表：每条术语的权威出处已内联在该条的「出处」一行，可逐条点击核对
+- 表内出处共四类——官方规范与语言文档（[Go 内存模型](https://go.dev/ref/mem)、Java 语言规范 JLS 17、C++ 参考手册的 [memory_order](https://en.cppreference.com/w/cpp/atomic/memory_order)、C11 内存序）；原始论文（C. A. R. Hoare 的 CSP 1978、Schmidt 的 Reactor/Proactor、Dijkstra 的信号量与 [EWD108](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD01xx/EWD108.html)、[Paxos Made Simple](https://lamport.azurewebsites.net/pubs/paxos-simple.pdf)、[Raft 论文](https://raft.github.io/raft.pdf)）；教材与手册（《The Little Book of Semaphores》、Effective Go 附带章节）；维基百科条目（用于快速定位定义）
+- 规范性与定义性表述以官方规范和原始论文为准，维基条目不承担规范性依据
+- 条目分组依本站章节结构划分，术语取舍与[知识点总纲](knowledge.md)及各条「相关页」互链对账
+
 ---
 
 **维护口径**：新增条目必须给出可点的权威出处；查不到就写「未找到权威出处（待核）」，不得凭印象编造链接。

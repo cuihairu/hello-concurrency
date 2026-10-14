@@ -1,6 +1,6 @@
 # Summary
 
-> VitePress 结构映射文件。对应正文 35 个页面与调研底稿 5 页，导航结构以 .vitepress/config.mts 的 sidebar 为准，本文件仅作兼容性底稿。
+> VitePress 结构映射文件。对应正文 36 个页面与调研底稿 5 页，导航结构以 .vitepress/config.mts 的 sidebar 为准，本文件仅作兼容性底稿。
 
 - [引言](./chapter_1.md)
 - [基础篇]
@@ -42,6 +42,7 @@
     - [可靠性设计](./practice/reliability.md)
     - [七周实战路线](./practice/seven-weeks.md)
 - [知识点总纲](./knowledge.md)
+- [并发术语表](./glossary.md)
 - [调研底稿]
     - [调研总览与来源总表](./research/README.md)
     - [权威书籍调研](./research/books.md)
