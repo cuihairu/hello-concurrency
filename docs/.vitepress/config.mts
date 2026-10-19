@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   lang: 'zh-CN',
   title: 'Hello Concurrency',
-  description: '高并发知识体系——从硬件基础到设计模式、主流框架与七周实战',
+  description: '个人并发学习笔记、心得与工程经验分享，从游戏开发者视角记录',
   base: '/hello-concurrency/',
   cleanUrls: true,
   lastUpdated: true,
@@ -29,7 +29,7 @@ export default defineConfig({
       { text: '正文', link: '/chapter_1' }
     ],
 
-    // 由 mdbook SUMMARY.md 结构映射而来；后续章节按 SUMMARY 继续追加。
+    // Sidebar 是站点导航唯一真源；SUMMARY.md 仅保留为兼容映射，需随 sidebar 同步。
     // 基础篇 / 同步原语 / 并发模型 / 进阶主题收录已落盘的内容页（仅收录已存在文件，不挂死链）。
     sidebar: [
       {
@@ -107,7 +107,8 @@ export default defineConfig({
       {
         text: '调研底稿',
         items: [
-          { text: '调研总览与来源总表', link: '/research/README' }
+          { text: '调研总览与来源总表', link: '/research/README' },
+          { text: '结构审计报告', link: '/review/structure-audit-2026-10-19' }
         ]
       }
     ],
