@@ -1,6 +1,6 @@
 # 权威书籍调研
 
-四本书撑起这本书的骨架：三本是指定的《Java 并发编程实战》《C++ Concurrency in Action》《The Rustonomicon》，第四本是 README 里点名要参考的《七周七并发模型》。下面按「版本 → 结构 → 对本仓的用法」逐本核对。
+我用四本书作为并发笔记的参考： 《Java 并发编程实战》《C++ Concurrency in Action》《The Rustonomicon》，以及《七周七并发模型》。下面记录版本、结构和它们与本仓主题的对应关系。
 
 ## Java Concurrency in Practice
 
@@ -51,7 +51,7 @@
 
 | 章 | 中文 | 原文 | 本仓状态 |
 |----|------|------|----------|
-| 2 | 线程与锁 | Threads and Locks | 基础篇与同步原语六页已覆盖 |
+| 2 | 线程与锁 | Threads and Locks | 基础主题与同步原语六页已覆盖 |
 | 3 | 函数式编程 | Functional Programming | [函数式并发](/models/functional) 已覆盖（G1 已补） |
 | 4 | Clojure 之道：分离标识与状态 | The Clojure Way: Separating Identity from State | [STM 与 Clojure 之道](/models/stm) 已覆盖：事务部分加 atom/agent/持久化数据结构（G4 已补） |
 | 5 | Actor | Actors | [Actor 模型](/models/actor) 已覆盖 |

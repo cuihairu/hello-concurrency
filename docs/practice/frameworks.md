@@ -82,7 +82,7 @@ GIL 之下的多线程既不是真并行也不是纯开销——I/O 等待时会
 ## 参考资料
 
 - [Akka 官网](https://akka.io/)
-- [Tokio 教程](https://tokio.rs/tokio/tutorial)
+- [Tokio 教程（外部链接）](https://tokio.rs/tokio/tutorial)
 - [Erlang 文档](https://www.erlang.org/docs)
 - [Java 并发工具包](https://docs.oracle.com/en/java/javase/21/api/java.base/java/util/concurrent/package-summary.html)
 - [Boost.Thread](https://www.boost.org/doc/libs/release/doc/html/thread.html)

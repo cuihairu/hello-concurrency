@@ -92,7 +92,7 @@
 
 38. **前沿趋势与展望**：读趋势先分档——硬件已就位（虚拟线程、io_uring）、工程已验证（结构化并发、Rust async、CRDT）、论文/早期（量子并发、CXL 池化），三档的行动含义完全不同。三条收敛线：结构化并发取代裸任务提交、虚拟线程让阻塞变便宜、Rust 把数据竞争移进编译期。量子并行与经典并发不是一回事，对并发工程直接输入目前为零。见 [advanced/trends.md](./advanced/trends.md)。
 
-39. **七周实战路线**：每周一个主题与可验收产出——Java 线程池与原子复合、C++ 无锁与内存序、Go 流水线与背压、Python 的 GIL 边界、Actor 监督树、Netty 事件循环纪律、综合压测与故障演练。公共纪律：先写竞态测试再谈并发，每次只引入一个新概念，做完回跳总纲对号入座。见 [practice/seven-weeks.md](./practice/seven-weeks.md)。
+39. **七周并发练习记录**：按周整理 Java 线程池与原子复合、C++ 无锁与内存序、Go 流水线与背压、Python 的 GIL 边界、Actor 监督树、Netty 事件循环纪律，以及综合压测与故障演练。见 [practice/seven-weeks.md](./practice/seven-weeks.md)。
 
 40. **框架与工具的五种责任边界**：五个生态五种答案——Java 只给原语、调度自理，Akka 把状态与调度都收走只留消息，Netty 只管事件循环、业务纪律归你，Go 把并发做进语言、纪律留给人，Python 把并行交给进程、异步交给事件循环。工具换不掉原理：临界区、有界缓冲、内存模型三条在每个生态里都成立。见 [practice/frameworks.md](./practice/frameworks.md)。
 

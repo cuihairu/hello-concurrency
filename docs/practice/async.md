@@ -73,7 +73,7 @@ Observer 把「数据变了」做成推送：被观察者维护订阅者列表�
 ## 参考资料
 
 - [Rust 异步书](https://rust-lang.github.io/async-book/)
-- [Tokio 教程](https://tokio.rs/tokio/tutorial)
+- [Tokio 教程（外部链接）](https://tokio.rs/tokio/tutorial)
 - [Python asyncio](https://docs.python.org/3/library/asyncio.html)
 - [Node.js 异步编程](https://nodejs.org/en/learn/asynchronous-work/javascript-asynchronous-programming-and-callbacks)
 

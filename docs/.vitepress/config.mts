@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   lang: 'zh-CN',
   title: 'Hello Concurrency',
-  description: '个人并发学习笔记、心得与工程经验分享，从游戏开发者视角记录',
+  description: '游戏开发者的并发项目笔记与工程经验，记录问题、取舍和踩坑过程',
   base: '/hello-concurrency/',
   cleanUrls: true,
   lastUpdated: true,
@@ -26,20 +26,20 @@ export default defineConfig({
 
     nav: [
       { text: '首页', link: '/' },
-      { text: '正文', link: '/chapter_1' }
+      { text: '项目笔记', link: '/chapter_1' }
     ],
 
     // Sidebar 是站点导航唯一真源；SUMMARY.md 仅保留为兼容映射，需随 sidebar 同步。
-    // 基础篇 / 同步原语 / 并发模型 / 进阶主题收录已落盘的内容页（仅收录已存在文件，不挂死链）。
+    // 基础主题 / 同步原语 / 并发模型 / 进阶主题收录已落盘的内容页（仅收录已存在文件，不挂死链）。
     sidebar: [
       {
-        text: '正文',
+        text: '项目笔记',
         items: [
           { text: '引言', link: '/chapter_1' }
         ]
       },
       {
-        text: '基础篇',
+        text: '基础主题',
         items: [
           { text: '并发基础概念', link: '/basics/concepts' },
           { text: '线程与进程', link: '/basics/thread-process' },
@@ -83,7 +83,7 @@ export default defineConfig({
         ]
       },
       {
-        text: '实战篇',
+        text: '工程实践',
         items: [
           { text: '生产者-消费者', link: '/practice/producer-consumer' },
           { text: '读者-写者', link: '/practice/reader-writer' },
@@ -93,7 +93,7 @@ export default defineConfig({
           { text: '异步编程与 Future', link: '/practice/async' },
           { text: '并发框架与工具', link: '/practice/frameworks' },
           { text: '可靠性设计', link: '/practice/reliability' },
-          { text: '七周实战路线', link: '/practice/seven-weeks' }
+          { text: '七周并发练习记录', link: '/practice/seven-weeks' }
         ]
       },
       {

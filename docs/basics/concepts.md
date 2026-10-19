@@ -1,6 +1,6 @@
 # 并发基础概念
 
-并发编程是现代软件开发的核心技能之一。随着多核处理器的普及，单线程程序已无法充分利用硬件资源，掌握并发编程成为构建高性能、高可用系统的必修课。
+多核处理器让并发成为常见的工程议题。单线程程序无法充分利用多核资源，但并发也会引入竞态、死锁和可见性问题；这里记录我理解这些问题时用到的概念与判断。
 
 ## 什么是并发
 
@@ -46,7 +46,7 @@
 
 ## 本章小结
 
-并发编程的本质是**在共享资源约束下协调多执行流正确、高效运行**。后续章节将系统讲解同步原语、并发模型、内存模型及工程实践，帮你构建完整的并发知识体系。
+并发编程的本质是**在共享资源约束下协调多执行流正确、高效运行**。后续页面分别记录同步原语、并发模型、内存模型与工程实践中的问题和取舍。
 
 ## 本章来源
 
@@ -56,7 +56,7 @@
 ## 参考资料
 
 - [POSIX 线程（man7）](https://man7.org/linux/man-pages/man7/pthreads.7.html)
-- [Java 并发教程](https://docs.oracle.com/javase/tutorial/essential/concurrency/)
+- [Java 并发教程（外部链接）](https://docs.oracle.com/javase/tutorial/essential/concurrency/)
 - [维基 · 竞态条件](https://en.wikipedia.org/wiki/Race_condition)
 
 <!-- BACKLINKS-AUTO -->

@@ -13,7 +13,7 @@
 
 ## Java：平台线程之外多出虚拟线程
 
-`java.util.concurrent` 是四个语言里最完整的标准并发库：AQS 抽象出锁与同步器的骨架，线程池、并发容器、原子类覆盖了本仓实战篇的大部分页面（见[线程池设计](../practice/thread-pool.md)、[并发数据结构](./data-structures.md)）。
+`java.util.concurrent` 是四个语言里最完整的标准并发库：AQS 抽象出锁与同步器的骨架，线程池、并发容器、原子类覆盖了本仓工程实践的大部分页面（见[线程池设计](../practice/thread-pool.md)、[并发数据结构](./data-structures.md)）。
 
 - **平台线程**：与内核线程 1:1，数量受内核调度与栈内存约束
 - **虚拟线程**（[JEP 444](https://openjdk.org/jeps/444)，JDK 21 转正）：阻塞点 mount/unmount，百万级并发单元；适合 IO 密集，**不加速 CPU 密集**——载体线程数仍由核数决定

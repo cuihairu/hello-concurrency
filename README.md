@@ -19,7 +19,7 @@ Concurrency Notes & Engineering Experience · [Read Online](https://cuihairu.git
 
 ---
 
-Personal notes, takeaways, and engineering experience about concurrency, written from a game developer’s perspective. This repository is a collection of working notes and references, not a course or a prescribed study plan.
+I keep these concurrency notes from the perspective of a game developer, recording project experience, tradeoffs, and problems I have run into. The repository groups those notes and references by topic.
 
 The VitePress sidebar in [`docs/.vitepress/config.mts`](docs/.vitepress/config.mts) is the authoritative site navigation. The current notes are grouped by topic: [fundamentals](docs/basics/), [synchronization primitives](docs/sync/), [concurrency models](docs/models/), [advanced topics](docs/advanced/), and [engineering practice](docs/practice/). The [knowledge map](docs/knowledge.md), [glossary](docs/glossary.md), and [research notes](docs/research/README.md) are cross-cutting references.
 

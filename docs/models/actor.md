@@ -172,7 +172,7 @@ Actor 模型以**「共享内存即通信」→「通信即共享内存」**反�
 
 监管树给出的是进程内容错的骨架；跨节点之后，至少一次投递的幂等、故障检测与切换要靠[可靠性设计](../practice/reliability.md)补上。
 
-工程选型建议：**JVM 生态首选 Akka，.NET 首选 Orleans，跨语言/轻量首选 Proto.Actor，极致可用性选 Erlang/OTP**。下一章讲解 CSP 模型——通信顺序进程。Actor 的反面是数据并行：任务彼此独立、不需要长驻状态时，[函数式并发](./functional.md)与[数据并行](./data-parallel.md)的开销远低于建 actor 系统。
+工程选型建议：**JVM 生态首选 Akka，.NET 首选 Orleans，跨语言/轻量首选 Proto.Actor，极致可用性选 Erlang/OTP**。相关页面见 CSP 模型——通信顺序进程。Actor 的反面是数据并行：任务彼此独立、不需要长驻状态时，[函数式并发](./functional.md)与[数据并行](./data-parallel.md)的开销远低于建 actor 系统。
 
 ## 本章来源
 

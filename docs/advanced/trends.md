@@ -66,7 +66,7 @@
 ## 参考资料
 
 - [Rust 异步书](https://rust-lang.github.io/async-book/)
-- [Tokio 教程](https://tokio.rs/tokio/tutorial)
+- [Tokio 教程（外部链接）](https://tokio.rs/tokio/tutorial)
 - [Go 内存模型](https://go.dev/ref/mem)
 
 <!-- BACKLINKS-AUTO -->

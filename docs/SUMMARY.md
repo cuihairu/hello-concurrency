@@ -3,7 +3,7 @@
 > 兼容性页面映射，内容派生自 `.vitepress/config.mts` 的 sidebar；sidebar 是站点导航唯一真源，手工改本文件不会改变站点导航。新增、改名或移除页面时，先更新 sidebar，再同步本文件的映射并运行 `pnpm docs:audit`。当前可构建页面共 44 篇（含首页、引言、总纲、术语表、调研页及两份审计报告；不含本映射文件）。
 
 - [引言](./chapter_1.md)
-- [基础篇]
+- [基础主题]
     - [并发基础概念](./basics/concepts.md)
     - [线程与进程](./basics/thread-process.md)
     - [临界区与互斥](./basics/critical-section.md)
@@ -31,7 +31,7 @@
     - [编程语言与并发支持](./advanced/languages.md)
     - [并发与安全](./advanced/security.md)
     - [前沿趋势与展望](./advanced/trends.md)
-- [实战篇]
+- [工程实践]
     - [生产者-消费者](./practice/producer-consumer.md)
     - [读者-写者](./practice/reader-writer.md)
     - [线程池设计](./practice/thread-pool.md)
@@ -40,7 +40,7 @@
     - [异步编程与 Future](./practice/async.md)
     - [并发框架与工具](./practice/frameworks.md)
     - [可靠性设计](./practice/reliability.md)
-    - [七周实战路线](./practice/seven-weeks.md)
+    - [七周并发练习记录](./practice/seven-weeks.md)
 - [知识点总纲](./knowledge.md)
 - [并发术语表](./glossary.md)
 - [调研底稿]

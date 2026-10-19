@@ -19,7 +19,7 @@
 
 ---
 
-这里是个人关于并发的学习笔记、心得与工程经验，以游戏开发者的视角记录和分享。仓库是一组持续整理的笔记与参考资料，不是教程，也不规定学习顺序。
+这里记录我作为游戏开发者在并发问题上的项目经验、技术取舍和踩坑过程，按主题整理成笔记与参考资料，供遇到类似问题时查阅。
 
 站点导航以 [`docs/.vitepress/config.mts`](docs/.vitepress/config.mts) 中的 VitePress sidebar 为准。现有笔记按主题分为：[基础](docs/basics/)、[同步原语](docs/sync/)、[并发模型](docs/models/)、[进阶主题](docs/advanced/)和[工程实践](docs/practice/)。[知识点总纲](docs/knowledge.md)、[术语表](docs/glossary.md)与[调研底稿](docs/research/README.md)是横向参考入口。
 
