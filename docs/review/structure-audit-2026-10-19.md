@@ -10,16 +10,17 @@
 
 | docs 下一级目录 | .md 数量 | 总行数 | 说明 |
 |---|---:|---:|---|
-| 根目录 | 5 | 672 | 含 `SUMMARY.md`、首页、知识总纲、术语表、引言 |
-| advanced | 9 | 1,547 | 进阶主题 |
+| 根目录 | 5 | 675 | 含 `SUMMARY.md`、首页、知识总纲、术语表、引言 |
+| advanced | 9 | 1,549 | 进阶主题 |
 | basics | 4 | 408 | 基础篇 |
 | models | 7 | 1,333 | 并发模型 |
-| practice | 9 | 1,658 | 实战内容与路线 |
+| practice | 9 | 1,662 | 实战内容与路线 |
 | research | 5 | 379 | 调研底稿 |
+| review | 2 | 182 | 结构审计与内容复核报告（复核报告 56 行） |
 | sync | 4 | 911 | 同步原语 |
-| **合计** | **43** | **6,908** | 含 SUMMARY；可构建内容页 42 篇 |
+| **合计** | **45** | **7,099** | 含 SUMMARY；可构建内容页 44 篇 |
 
-统计复核命令：遍历 `docs/*.md` 和 `docs/*/*.md` 后逐文件计算行数。`docs/SUMMARY.md:3` 对页面数的描述是“正文 36 个页面与调研底稿 5 页”；现有实际正文主题目录为 33 页，另有引言、知识总纲、术语表、首页，调研 5 页，合计 42 个可构建页面，故该描述口径需要更新或解释首页等页面是否计入（中，事实口径过时；此处不改原文件）。
+统计口径：遍历 `docs/*.md` 和 `docs/*/*.md` 后逐文件计算行数。当前实际正文主题目录为 33 页，另有引言、知识总纲、术语表、首页、调研 5 页和两份审计报告，合计 44 个可构建页面；另有不参与构建的 SUMMARY 映射底稿 1 份。
 
 ### 组织轴盘点
 
@@ -50,7 +51,7 @@
 3. **中：同类概念有刻意交叉覆盖，边界需靠互链解释。** 有界队列/背压横跨 `docs/practice/producer-consumer.md:137-149`、`docs/practice/thread-pool.md:40-46`、`docs/practice/reactor.md:62-66`；资源耗尽与故障/安全分别见 `docs/practice/reliability.md:5-17,73-84`、`docs/advanced/security.md:31-43,87-96`；STM 的书籍章节追溯和模型正文汇合在 `docs/models/stm.md:83-121` 与 `docs/research/books.md:42-62`。现有交叉链接和关系章节缓解了重复，证据不足以直接删并章节；重构前应定清“概念主讲页 vs 场景引用”。
 4. **低：命名样式有历史/用途差异。** `chapter_1.md` 用下划线和英文前缀（`docs/chapter_1.md`）；`seven-weeks.md`、`data-parallel.md` 用短横线；`README.md` 大写且在根和 `research/` 各有一份；主题 slug 小写。证据：`docs/` 根目录文件名及 `docs/research/README.md`。这是少量例外，不影响构建或链接，不建议仅为统一而批量改名。
 5. **低：README 与 docs 首页用途需保持区分。** 根目录同时有 `README.md`（英文）和 `README.zh.md`（中文），两者通过互链提供双语仓库介绍（`README.md:3`、`README.zh.md:3`）；另有 `docs/index.md` 作为站点首页。它们不是重复文件，但中文读者若把 README 和站点首页理解成重复入口，容易产生歧义。证据：`README.md:16`、`README.zh.md:16`、`docs/index.md`。属于定位提示问题，不是删除依据。
-6. **低：SUMMARY 的描述统计与当前页面数口径不一致。** 见上方统计和 `docs/SUMMARY.md:3`。该文件被配置明确作为 mdBook 遗留映射底稿而非站点导航（`docs/.vitepress/config.mts:17-18`），保留本身合理，但过期数字可能误导维护者。
+6. **低（已修）：统计口径曾过时。** 本次复核重新计数后，已同步修正本报告统计表及 `docs/SUMMARY.md:3`；当前为 44 个可构建页面、另有 SUMMARY 映射底稿 1 份。SUMMARY 由配置明确作为 mdBook 遗留映射而非站点导航（`docs/.vitepress/config.mts:17-18`）。
 
 ### 侧边栏对账
 
@@ -61,12 +62,12 @@
 | 配置了但目标文件不存在 | 0 | 无 |
 | 文件存在但未进入侧边栏 | 5（不足 10） | `docs/index.md`（首页由 `/` 路由承载）；`docs/research/applications.md`；`docs/research/books.md`；`docs/research/coverage-audit.md`；`docs/research/memory-model-specs.md` |
 
-核对方式：将 sidebar 路由与 `docs/*.md`、`docs/*/*.md`（排除 SUMMARY 映射底稿）对应。未进侧边栏不等于死页：仓库结构脚本确认 43/43 页可达（含排除构建的 SUMMARY 底稿口径），SUMMARY 双向核对也通过；具体四篇调研页由 `research/README.md` 链入。
+核对方式：将 sidebar 路由与 `docs/*.md`、`docs/*/*.md`（排除 SUMMARY 映射底稿）对应。未进侧边栏不等于死页：仓库结构脚本确认 45/45 个 Markdown 路由可达（含不参与构建的 SUMMARY 底稿），SUMMARY 双向核对也通过；具体四篇调研页由 `research/README.md` 链入。
 
 ### 死链与构建
 
-- `npm run docs:audit`：通过。输出：`audit-links: 检查 2818 条站内链接，43 个页面；全部通过`；`audit-structure: 侧栏/导航 39 条，可达页面 43/43，SUMMARY 对账 41 条，knowledge 编号 93 条，来源节 32 页；全部通过`。
-- 链接脚本 `scripts/audit-links.mjs` 扫描 `docs/.vitepress/dist` 构建产物。当前 `npm run docs:build` 未能运行：shell 报 `vitepress: not found`（`package.json:6-7`），本地依赖未安装。因此链接通过结果是针对仓库现存的 dist 产物，不能证明它与当前源码完全同版；**当前源码重建后的死链未核实**。报告不把它表述为源码构建验证。
+- 复核时重新执行 `pnpm docs:build` 与 `pnpm docs:audit` 均通过。最新结果见 `docs/review/content-review-2026-10-19.md`；链接 HTML 数包含 404 页面，结构脚本路由数包含不参与构建的 SUMMARY 映射底稿。
+- 链接脚本 `scripts/audit-links.mjs` 扫描 `docs/.vitepress/dist` 构建产物。本次复核已从当前源码成功构建（VitePress 1.6.4），随后重新执行站内链接与结构审计；源码重建后的链接检查通过。
 
 ### 根目录杂散文件
 
@@ -102,7 +103,7 @@
 
 - VitePress sidebar（`docs/.vitepress/config.mts`）是站点导航唯一真源；`docs/SUMMARY.md` 保留兼容映射，并明确其派生关系与更新顺序。手工改 SUMMARY 不改变站点导航；改 sidebar 后同步 SUMMARY。
 - 实查 sidebar 内部路由无重复（重复数 0）；顶部 nav 的首页/正文链接不计入侧栏，跨组路由复用也不视为重复。调研底稿仍由侧栏总览和 `research/README.md` 索引承载。
-- 页面计数校正：43 个可构建 Markdown 页面（首页、引言、33 个主题页、知识总纲、术语表、5 篇 research、结构审计报告），另有 SUMMARY 映射底稿 1 份。
+- 页面计数校正：43 个可构建 Markdown 页面（首页、引言、33 个主题页、知识总纲、术语表、5 篇 research、结构审计报告；这是当时的计数），另有 SUMMARY 映射底稿 1 份。
 
 ### B：跨轴重复逐组判断
 

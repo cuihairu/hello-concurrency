@@ -108,7 +108,8 @@ export default defineConfig({
         text: '调研底稿',
         items: [
           { text: '调研总览与来源总表', link: '/research/README' },
-          { text: '结构审计报告', link: '/review/structure-audit-2026-10-19' }
+          { text: '结构审计报告', link: '/review/structure-audit-2026-10-19' },
+          { text: '内容复核报告', link: '/review/content-review-2026-10-19' }
         ]
       }
     ],

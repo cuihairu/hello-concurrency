@@ -1,6 +1,6 @@
 # Summary
 
-> 兼容性页面映射，内容派生自 `.vitepress/config.mts` 的 sidebar；sidebar 是站点导航唯一真源，手工改本文件不会改变站点导航。新增、改名或移除页面时，先更新 sidebar，再同步本文件的映射并运行 `pnpm docs:audit`。当前可构建页面共 43 篇（含首页、引言、总纲、术语表、调研页及本结构审计报告；不含本映射文件）。
+> 兼容性页面映射，内容派生自 `.vitepress/config.mts` 的 sidebar；sidebar 是站点导航唯一真源，手工改本文件不会改变站点导航。新增、改名或移除页面时，先更新 sidebar，再同步本文件的映射并运行 `pnpm docs:audit`。当前可构建页面共 44 篇（含首页、引言、总纲、术语表、调研页及两份审计报告；不含本映射文件）。
 
 - [引言](./chapter_1.md)
 - [基础篇]
@@ -51,3 +51,4 @@
     - [覆盖核对差异表](./research/coverage-audit.md)
 
 - [结构审计报告](./review/structure-audit-2026-10-19.md)
+- [内容复核报告](./review/content-review-2026-10-19.md)
