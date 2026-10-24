@@ -1,50 +1,50 @@
-# 引言
+# Introduction
 
-并发是同一台机器上「同时处理多件事」的编程问题：多个执行流共享内存、CPU 与 IO，彼此交错推进。它带来两样东西——**能力**（用满多核、覆盖 IO 等待）与**麻烦**（竞态、死锁、可见性）。这些笔记围绕这对矛盾，记录硬件基础、同步原语、并发模型和工程取舍。
+Concurrency is the programming problem of "handling many things at once" on a single machine: several streams of execution share memory, CPU and IO, and make progress interleaved. It brings two things at once — **capability** (saturating many cores, hiding IO waits) and **trouble** (races, deadlocks, visibility). These notes revolve around that contradiction, recording the hardware foundations, synchronization primitives, concurrency models and engineering tradeoffs.
 
-## 1.1 高并发的定义与重要性
+## 1.1 What "high concurrency" means and why it matters
 
-「高并发」指系统在单位时间内需要处理大量同时到达的请求或任务。摩尔定律的免费午餐结束后，单核主频停滞，性能来源从「更高的时钟」转向「更多的核心」——并行不再是可选优化，而是利用硬件的基本形态。
+"High concurrency" means the system must handle a large volume of requests or tasks arriving at the same time. After Moore's law stopped being a free lunch, single-core clock speed plateaued, and the source of performance moved from "higher clocks" to "more cores" — parallelism is no longer an optional optimization, but the basic shape of how hardware is used.
 
-并发的重要性体现在三个层面：
+Concurrency matters at three levels:
 
-1. **资源利用率**：IO 等待（磁盘、网络）动辄毫秒级，是 CPU 周期的数万倍。单线程串行等待等于把整台机器闲置；并发让等待彼此重叠。
-2. **吞吐与延迟**：服务多请求并行处理提高吞吐；长任务拆分并行推进缩短延迟。
-3. **结构化表达**： GUI 事件循环、后台任务、流式处理，本质都是并发结构——即使单核，并发模型也是组织程序的方式。
+1. **Resource utilization**: IO waits (disk, network) run to the millisecond, tens of thousands of times a CPU cycle. A single thread waiting serially means the whole machine sits idle; concurrency lets waits overlap each other.
+2. **Throughput and latency**: handling many requests in parallel raises throughput; splitting long jobs and pushing them forward in parallel lowers latency.
+3. **Structured expression**: GUI event loops, background jobs, streaming — all of these are concurrent structures at their core, and even on a single core, a concurrency model is a way of organizing a program.
 
-## 1.2 高并发系统的应用场景
+## 1.2 Where high-concurrency systems show up
 
-| 场景 | 并发形态 | 典型挑战 |
-|------|----------|----------|
-| Web 服务 / 微服务 | 线程池 + 异步 IO | 连接数、背压、优雅停机 |
-| 数据库 / 存储引擎 | 读写锁 + 无锁结构 + MVCC | 缓存争用、伪共享、持久化一致性 |
-| 消息系统 / 流处理 | 生产者-消费者 + 分区 | 积压治理、顺序性与恰好一次 |
-| 游戏 / 仿真 | Actor / 定步长循环 | 状态同步、帧率稳定 |
-| 编译器 / 构建工具 | 工作窃取线程池 | 任务粒度、依赖图调度 |
-| 操作系统内核 | 中断 + 锁 + RCU | 优先级反转、临界区长度 |
+| Scenario | Concurrency shape | Typical challenges |
+|----------|-------------------|--------------------|
+| Web services / microservices | Thread pool + async IO | Connection counts, backpressure, graceful shutdown |
+| Databases / storage engines | Read–write locks + lock-free structures + MVCC | Cache contention, false sharing, persistence consistency |
+| Message systems / stream processing | Producer–consumer + partitioning | Backlog control, ordering and exactly-once |
+| Games / simulation | Actors / fixed-step loops | State synchronization, frame-rate stability |
+| Compilers / build tools | Work-stealing thread pool | Task granularity, dependency-graph scheduling |
+| OS kernels | Interrupts + locks + RCU | Priority inversion, critical-section length |
 
-## 1.3 这些笔记覆盖什么
+## 1.3 What these notes cover
 
-内容按「原理 → 原语 → 模型 → 工程实践」分组，方便按手头问题查阅：
+Content is grouped as "principles → primitives → models → engineering practice", so you can look up whatever problem you are holding:
 
-- **基础主题**：并发与并行的区别、线程与进程、临界区与互斥、死锁与活锁——概念与问题定义。
-- **同步原语**：锁、信号量、条件变量、屏障——操作系统与语言层面给出的工具箱。
-- **并发模型**：Actor、CSP、数据流、STM、函数式并发、数据并行、Lambda 架构——在原语之上的编程范式与系统形态，决定程序的结构。
-- **进阶主题**：硬件与内存层次、操作系统与并发、无锁编程、内存模型、并发数据结构、性能调优、编程语言与并发支持、并发与安全、前沿趋势与展望——深入硬件、内核、编译器与语言运行时行为。
-- **工程实践**：生产者-消费者、读者-写者、线程池设计、并发框架选型、Reactor 与事件驱动、异步编程与 Future、并发框架与工具、可靠性设计，以及一份七周练习安排。
+- **Fundamentals**: the difference between concurrency and parallelism, threads and processes, critical sections and mutual exclusion, deadlock and livelock — the concepts and the problem definitions.
+- **Synchronization primitives**: locks, semaphores, condition variables, barriers — the toolbox the OS and the languages hand you.
+- **Concurrency models**: Actors, CSP, dataflow, STM, functional concurrency, data parallelism, Lambda architecture — programming paradigms and system shapes built on top of the primitives, which decide the shape of the program.
+- **Advanced topics**: hardware and the memory hierarchy, the OS and concurrency, lock-free programming, memory models, concurrent data structures, performance tuning, language support, concurrency and security, trends and outlook — digging into hardware, kernel, compiler and runtime behavior.
+- **Engineering practice**: producer–consumer, readers–writers, thread pool design, framework selection, Reactor and event-driven, async programming and Futures, frameworks and tools, reliability design, plus a seven-week practice log.
 
-我整理时把基础、同步、模型和工程实践分组；项目里遇到具体问题，可以直接从对应主题开始，再沿页面链接回看相关概念。选型表和陷阱清单记录了我认为值得留意的取舍。代码示例覆盖 Java / Go / Rust / C++，对照着看能分辨语言特性与并发共性。
+While organizing this, I grouped fundamentals, synchronization, models and engineering practice separately. When you hit a specific problem on a project, start from the matching topic and follow the page links back to the related concepts. The selection tables and the trap checklists record the tradeoffs I think are worth noticing. Code examples cover Java / Go / Rust / C++; reading them side by side helps separate language features from things that are true of concurrency in general.
 
 ---
 
-并发基础概念页记录了术语和常见误区，适合作为相关页面的索引入口：[并发基础概念](/basics/concepts)。
+The concurrency basics page holds the terminology and the common misconceptions, and works as an index into the related pages: [Concurrency Basics](/basics/concepts).
 
-## 参考资料
+## References
 
-- [并发维基 · 竞态条件](https://en.wikipedia.org/wiki/Race_condition)
-- [POSIX 线程（man7）](https://man7.org/linux/man-pages/man7/pthreads.7.html)
+- [Wikipedia · Race condition](https://en.wikipedia.org/wiki/Race_condition)
+- [POSIX threads (man7)](https://man7.org/linux/man-pages/man7/pthreads.7.html)
 
 <!-- BACKLINKS-AUTO -->
-## 相关页面
+## Related pages
 
 - [glossary](glossary.md)

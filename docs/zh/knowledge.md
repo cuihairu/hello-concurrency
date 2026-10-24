@@ -1,0 +1,280 @@
+# 高并发知识点主文档
+
+本文把散在正文三十五页与 docs/research/ 四份调研（权威书籍、官方内存模型规范、应用场景、覆盖核对差异表）里的知识点收拢成一页，只留结论与导航，取证过程在底稿里。
+
+来源标注规则：规范类结论以 2026-10-08 抓取的四份规范原文为准（JLS SE21、C++ 工作草案、Rust Reference、Go Memory Model），逐条核对过程在 [memory-model-specs.md](./research/memory-model-specs.md)；书目元数据取自出版社与豆瓣条目；场景要点取自公开工程文章与项目 README，出处都在 research/ 对应页。调研自己的判断标「调研结论」。截至成文日（2026-10-10），本文没有查无实据的条目，后续补充若无出处会就地标「来源未考」。
+
+## 一、核心概念
+
+### 基础与同步原语
+
+1. **并发与并行**：并发是同一时间段内交替处理多任务，并行是同一时刻物理上同时执行；单核靠时间片轮转，多核才有真并行。IO 等待动辄毫秒级，是 CPU 周期的数万倍，并发的第一价值是让等待彼此重叠。见 [basics/concepts.md](./basics/concepts.md)。
+
+2. **线程与进程**：进程是资源分配的基本单位，线程是 CPU 调度的基本单位。线程共享地址空间，切换不刷 TLB，刷 TLB 是进程切换的事；线程模型分用户级、内核级、两级，goroutine 与 Java 虚拟线程属两级。见 [basics/thread-process.md](./basics/thread-process.md)。
+
+3. **临界区与互斥**：临界区三要素是共享资源、临界区代码、互斥机制；互斥的实现分硬件原子指令（TSL、CAS、LL/SC）、操作系统原语（mutex、spinlock、semaphore）、语言库抽象三层。见 [basics/critical-section.md](./basics/critical-section.md)。
+
+4. **锁的内存语义**：获取锁是 acquire 语义，释放锁是 release 语义，unlock hb lock 构成完整的 happens-before 链。互斥锁 = 二值信号量 + 所有权，所有权是两者最要紧的差别。见 [sync/locks.md](./sync/locks.md)、[sync/semaphores.md](./sync/semaphores.md)。
+
+5. **条件变量**：条件变量不保护数据，只协调时序，必须配互斥锁。铁律三条：wait 包在 while 循环里（防虚假唤醒与信号丢失）、修改条件与 signal 在同一临界区、默认用 signal 仅全局状态变化用 broadcast。见 [sync/condition-variables.md](./sync/condition-variables.md)。
+
+6. **屏障**：CyclicBarrier 可重用、带屏障动作，适合迭代并行；CountDownLatch 一次性，适合启动与关闭同步。Phaser 支持动态注册与分层树，Go 的 WaitGroup 计数归零后可复用，与 latch 的一次性不同。见 [sync/barriers.md](./sync/barriers.md)。
+
+7. **死锁、活锁与饥饿**：死锁四必要条件（Coffman）是互斥、请求与保持、不可剥夺、循环等待，破坏任一即可预防；活锁的根因是重试策略同步，解法是随机退避与队列化；饥饿的极端形态是优先级反转，靠优先级继承协议解。见 [basics/deadlock-livelock.md](./basics/deadlock-livelock.md)。
+
+### 并发模型
+
+8. **Actor**（Hewitt 1973）：一切皆 Actor，状态私有、异步消息、单 Actor 内顺序处理。消息投递三语义里工程现实是「至少一次」，业务层必须幂等。见 [models/actor.md](./models/actor.md)。
+
+9. **CSP**（Hoare 1978）：进程经通道同步通信，不共享内存。无缓冲通道的会合点是隐式屏障，背压自动传导；发送 happens-before 接收。Go 把 CSP 做成了语言内置。见 [models/csp.md](./models/csp.md)。
+
+10. **STM 与 Clojure 之道**：把数据库事务引入内存并发，乐观执行、冲突检测、自动重试；消除死锁、可组合，但事务内不能做 I/O，高竞争写热点与实时场景不如锁。第 4 章的主体是分离标识与状态：值不可变，标识指向值，ref 协调多标识联动，atom 单标识 CAS，agent 异步排队更新，持久化数据结构靠结构共享撑起「改出快照」。见 [models/stm.md](./models/stm.md)。
+
+11. **数据流**：把计算建成 DAG，输入就绪即触发，相同输入必得相同输出，无共享可变状态，背压沿边传导。书里它是函数式章的第三天，本仓单开一页。见 [models/dataflow.md](./models/dataflow.md)。
+
+12. **函数式并发**：可变性是并发问题的根源，先消掉它锁就没必要存在——纯函数、不可变数据、引用透明让并行成为代码的自然属性；pmap/fold 提供多核并行化，future/promise 用数据依赖表达执行顺序。见 [models/functional.md](./models/functional.md)。
+
+13. **数据并行**：同一份程序施加到数据的每个分片，并行来自数据本身；与 Actor/CSP 的任务并行方向相反。GPU 用海量线程隐藏访存延迟，kernel/work-group/NDRange 是 SIMT 的直接翻译；树形归约 O(log n)，但要求合并操作满足结合律。见 [models/data-parallel.md](./models/data-parallel.md)。
+
+14. **Lambda 架构**：算不完就拆两条路——批处理层慢算全量、速度层快算增量、服务层查询时合并；不可变主数据集让错误可以完全重算。代价是同一逻辑写两遍，Kappa 架构用日志重放换单一代码路径。见 [models/lambda-architecture.md](./models/lambda-architecture.md)。
+
+### 无锁与内存模型
+
+15. **硬件与内存层次**：缓存一致性协议（MESI/MOESI）决定多核共享内存的代价——写共享数据要先失效他人副本；store buffer 与失效队列带来重排，屏障指令与语言内存序是对它们的约束；NUMA 与内存层次划定并发收益的上限。见 [advanced/hardware.md](./advanced/hardware.md)。
+
+16. **操作系统与并发**：锁、线程池、事件循环的表象都在内核兑现——futex 决定锁竞争的真实代价（用户态快路径 + 内核挂起/唤醒），调度类与抢占决定延迟抖动，页表/TLB/缺页与 cgroup 限额决定大内存服务的周期性卡顿与容器内 OOM；两级调度把并行度从线程数里解耦出来。见 [advanced/os.md](./advanced/os.md)。
+
+17. **编程语言与并发支持**：四个语言四种责任边界——Java 库最大（并发包 + 虚拟线程 Loom），C++ 控制权最全（只有原语，内存模型与回收自理），Go 把调度做进运行时（goroutine + channel），Python 并行交给进程与事件循环（GIL 之下 asyncio 当家）。选语言即选「谁负责调度与正确性」。见 [advanced/languages.md](./advanced/languages.md)。
+
+18. **CAS 与 LL/SC**：两大硬件原语。CAS 有 ABA 问题（A→B→A 误判成功），解法是标记指针、版本号或 Hazard Pointer；LL/SC 无 ABA，但两指令间不能插入系统调用与中断。见 [advanced/lockfree.md](./advanced/lockfree.md)。
+
+19. **无锁内存回收**：无锁编程的命门。节点删除时其他线程可能仍在访问，不能立即 free；Hazard Pointer 低延迟、EBR 高吞吐、RCU 读零开销，按场景选。见 [advanced/lockfree.md](./advanced/lockfree.md)。
+
+20. **进度保证**：分 wait-free（有限步骤必完成）、lock-free（系统整体推进、个别线程可能饿）、obstruction-free（独占执行时必完成）三级，多数无锁数据结构是 lock-free 而非 wait-free。见 [advanced/lockfree.md](./advanced/lockfree.md)。
+
+21. **happens-before**：推理可见性的偏序工具，六条规则：程序顺序、监视器锁、volatile 与同变量原子、线程启动、线程终止、传递性。顺序一致性最强但性能最差。见 [advanced/memory-model.md](./advanced/memory-model.md)。
+
+22. **数据竞争四语言后果不同**：同一个「data race」，四份规范给的后果不同——C++/Rust 是 UB，Java 脱离顺序一致保证但行为仍有定义，Go 未消除竞争时 DRF-SC 保证失效、实现可检测并终止。写跨语言并发代码，这条差异先分清。来源见 [memory-model-specs.md](./research/memory-model-specs.md)，正文页 [advanced/memory-model.md](./advanced/memory-model.md)。
+
+23. **内存序三级**：seq_cst 的全部操作落在单一全序 S 上；release/acquire 只在单个对象、单条发布-订阅链上生效，跨对象不连通；relaxed 只保原子性不保顺序。先用 seq_cst 保证正确，再按压测降序。见 [advanced/memory-model.md](./advanced/memory-model.md)。
+
+### 数据结构与性能
+
+24. **队列与 Map 选型**：队列选型先看要不要背压，要背压选有界阻塞队列或 Disruptor，不要背压选无锁队列（JCTools、ConcurrentLinkedQueue）；Map 默认 ConcurrentHashMap（JDK 8+ 摒弃分段锁，改 CAS + 锁桶首节点），有序选 ConcurrentSkipListMap。见 [advanced/data-structures.md](./advanced/data-structures.md)。
+
+25. **复合操作原子化**：check-then-act 拆成两步就有竞态，用 remove(k, v)、computeIfAbsent、merge 这类原子复合方法；迭代器是弱一致的，不抛 CME，size() 是估算值。见 [advanced/data-structures.md](./advanced/data-structures.md)。
+
+26. **计数器分片与伪共享**：高并发计数用 LongAdder 不用 AtomicLong，分片消除单点 CAS 竞争，读时合并；伪共享靠 @Contended、padding 或 alignas(64) 消除，验证用 perf c2c。见 [advanced/data-structures.md](./advanced/data-structures.md)。
+
+27. **容量规划**：Little's Law，并发数 = 吞吐率 × 平均延迟，W 取均值不取 p99，用 p99 会系统性高估线程数。见 [advanced/performance.md](./advanced/performance.md)。
+
+28. **调优闭环**：测量、分析、优化、验证四步；RED（请求视角）与 USE（资源视角）定指标，火焰图读宽度与平顶，不测不改。见 [advanced/performance.md](./advanced/performance.md)。
+
+29. **扩容与缓存的两级放大**：单机到头后靠负载均衡与缓存放大——一致性哈希摊最稳（虚拟节点不足会倾斜），重试放大与健康检查误判窗口是均衡器自身的成本；缓存穿透用布隆过滤器/空值短 TTL、击穿用单飞重建、雪崩用 TTL 抖动，失效通知不可靠时强一致场景走双删或 binlog 订阅失效。压测要先于扩容找拐点与失效模式。见 [advanced/performance.md](./advanced/performance.md)。
+
+### 实战
+
+30. **线程池参数组合**：坑集中在队列类型，无界队列让 maxPoolSize 永不生效，任务堆积直到 OOM；有界队列才让拒绝策略有机会执行。CPU 密集配核数、IO 密集配 2×核数是起点不是答案。见 [practice/thread-pool.md](./practice/thread-pool.md)。
+
+31. **生产者-消费者**：工程三角是缓冲、同步、背压。有界是铁律；背压六策略（阻塞、丢新、丢旧、降级、扩容、Reactive Streams）按业务选；多消费者分竞争消费、广播、分片有序三种模式。见 [practice/producer-consumer.md](./practice/producer-consumer.md)。
+
+32. **读者-写者**：三变体是读者优先（写可能饿）、写者优先（读可能饿）、公平轮转；锁降级支持、锁升级死锁；StampedLock 不可重入、不支持 Condition，乐观读失败率超 5% 就该退回悲观。见 [practice/reader-writer.md](./practice/reader-writer.md)。
+
+33. **框架选型**：架构决策，四维权衡是问题域、一致性要求、团队栈、运维成熟度。简单问题用简单工具：线程池 > Actor > 工作流；团队熟悉度优先于技术先进性。见 [practice/framework-selection.md](./practice/framework-selection.md)。
+
+34. **Reactor 与事件驱动**：C10K 的答案是事件驱动而非更多线程——少量线程用 I/O 多路复用等事件，就绪才分发；Handler 必须非阻塞（耗时操作下沉业务线程池），事件循环数≈核数，背压靠写缓冲水位线。主从 Reactor（Netty boss/worker）是高连接数的默认结构。见 [practice/reactor.md](./practice/reactor.md)。
+
+35. **异步编程与 Future**：把等待从线程里拿出来之后，表达方式一路收敛——回调难组合，Future/Promise 解决单结果组合，响应式流用 request(n) 补上背压，async/await 收回成顺序代码、由结构化并发兜住作用域。三条落地纪律：组合而非等待、取消贯穿全链（Go context、Kotlin 结构化作用域）、协程里不做 CPU 密集。见 [practice/async.md](./practice/async.md)。
+
+36. **可靠性设计**：可靠性不是「不出错」而是「出错还能正确地服务」。三条主线：失败是常态，超时重试降级是常态代码；超时不等于失败，重试前先答「重复执行有没有害」——幂等键先于重试、fencing token 先于信任租约；强一致要用代价换，一致性级别是业务决策不是技术默认。分布式锁不是 SETNX 加过期，锁服务要多数派、写路径要校验 token。见 [practice/reliability.md](./practice/reliability.md)。
+
+37. **并发与安全**：攻击者会主动制造交错，所以「竞态概率低」不是安全论证。竞态变漏洞的三种形态——TOCTOU 与 double-fetch 用「检查与使用同原子」根治，资源耗尽（锁、队列、连接）用「每个共享资源显式有界」根治，时序与缓存侧信道用常量时间比较与隔离压制。见 [advanced/security.md](./advanced/security.md)。
+
+38. **前沿趋势与展望**：读趋势先分档——硬件已就位（虚拟线程、io_uring）、工程已验证（结构化并发、Rust async、CRDT）、论文/早期（量子并发、CXL 池化），三档的行动含义完全不同。三条收敛线：结构化并发取代裸任务提交、虚拟线程让阻塞变便宜、Rust 把数据竞争移进编译期。量子并行与经典并发不是一回事，对并发工程直接输入目前为零。见 [advanced/trends.md](./advanced/trends.md)。
+
+39. **七周并发练习记录**：按周整理 Java 线程池与原子复合、C++ 无锁与内存序、Go 流水线与背压、Python 的 GIL 边界、Actor 监督树、Netty 事件循环纪律，以及综合压测与故障演练。见 [practice/seven-weeks.md](./practice/seven-weeks.md)。
+
+40. **框架与工具的五种责任边界**：五个生态五种答案——Java 只给原语、调度自理，Akka 把状态与调度都收走只留消息，Netty 只管事件循环、业务纪律归你，Go 把并发做进语言、纪律留给人，Python 把并行交给进程、异步交给事件循环。工具换不掉原理：临界区、有界缓冲、内存模型三条在每个生态里都成立。见 [practice/frameworks.md](./practice/frameworks.md)。
+
+## 二、权威书籍要点
+
+四本书撑起本仓骨架，完整版本、章节结构与本仓对应关系见 [books.md](./research/books.md)。
+
+41. **Java Concurrency in Practice**：Brian Goetz 等六人著，Addison-Wesley；中文版《Java并发编程实战》童云兰译，机械工业出版社 2012-2。对应知识点：线程安全性→对象共享→构建模块→任务执行的骨架，线程池参数、阻塞队列、并发容器、原子变量，落点在 [thread-pool.md](./practice/thread-pool.md)、[data-structures.md](./advanced/data-structures.md)、[producer-consumer.md](./practice/producer-consumer.md)。书站上 Doron Rajwan 的推荐语被引作 Amdahl 定律在并发书里的出处，见 [concepts.md](./basics/concepts.md)。
+
+42. **C++ Concurrency in Action（第 2 版）**：Anthony Williams 著，Manning 2019-02；中文版吴天明译，人民邮电出版社·异步图书 2021-11。对应知识点：内存序先讲、无锁算法后讲的章节顺序，CAS、内存回收、std::lock 多锁获取，落点在 [memory-model.md](./advanced/memory-model.md)、[lockfree.md](./advanced/lockfree.md)、[locks.md](./sync/locks.md)。
+
+43. **The Rustonomicon**：Rust 官方 unsafe 专著，副标题 The Dark Arts of Unsafe Rust，官方自述仍不完整。对应知识点：别名规则、Send/Sync 契约、unsafe 边界，配合 Rust Reference 的 UB 清单读，落点在 [locks.md](./sync/locks.md)、[memory-model.md](./advanced/memory-model.md)。
+
+44. **七周七并发模型**：Paul Butcher 著，PragProg 2014-07；中文版黄炎译，人民邮电出版社 2015-3。对应知识点：七个模型的清单与排列，第 2–8 章在本仓全部落盘（线程与锁、函数式编程、Clojure 之道、Actor、CSP、数据并行、Lambda 架构），对照表见 [books.md](./research/books.md)；数据流页是本仓自加，书里它是函数式章的第三天，口径按 books.md 处理。
+
+45. **引用口径**（调研结论）：概念定义与陷阱清单参考书，能落到规范条文的以规范原文为准，书与规范冲突时按规范写并在页面注明来源；四本书只提供结构和解释，示例代码一律现写，不抄书。见 [books.md](./research/books.md)。
+
+## 三、官方文档要点（带链接）
+
+规范类结论以原文为准，六条入口如下；逐条核对过程与四语言对照表在 [memory-model-specs.md](./research/memory-model-specs.md)。
+
+46. **JLS SE21 §17.4 Threads and Locks**：[docs.oracle.com](https://docs.oracle.com/javase/specs/jls/se21/html/jls-17.html)。JMM 全章，§17.4.5 是数据竞争定义与「正确同步」判据的出处。
+
+47. **C++ 工作草案 [intro.races]**：[eel.is](https://eel.is/c++draft/intro.races)。「Any such data race results in undefined behavior」的原文。
+
+48. **C++ 工作草案 [atomics.order]**：[eel.is](https://eel.is/c++draft/atomics.order)。seq_cst 单一全序 S 与 coherence 四条约束。
+
+49. **Rust Reference: Behavior considered undefined**：[doc.rust-lang.org](https://doc.rust-lang.org/reference/behavior-considered-undefined.html)。UB 清单第一条就是 Data races，适用范围明确包含 unsafe 块；与 [The Rustonomicon](https://doc.rust-lang.org/nomicon/) 配合读，Reference 列规矩，Nomicon 讲为什么。
+
+50. **std::sync::atomic**：[doc.rust-lang.org](https://doc.rust-lang.org/std/sync/atomic/index.html)。Rust 原子操作沿用 C++20 [intro.races] 规则、去掉 consume；跨语言对照时按一条规则算，不重复计数。
+
+51. **The Go Memory Model**（2022-06-06 版）：[go.dev/ref/mem](https://go.dev/ref/mem)。DRF-SC 结论与「实现可检测竞争并终止」条款，实践中 -race 就是干这个的。
+
+## 四、应用场景
+
+两类场景的完整拆解与来源见 [applications.md](./research/applications.md)。
+
+52. **高并发服务的并发形态**：线程池加异步 IO，连接数远大于工作线程数，请求排队、处理完立刻还回去。Tomcat 默认 200 个工作线程，请求多于线程时新请求只能转圈，这是最朴素的限流（出处：腾讯云开发者社区流量治理文章）。
+
+53. **流量治理五个手段**：
+
+| 手段 | 做什么 | 关键点 |
+| --- | --- | --- |
+| 限流 | 给资源设数量上限，超出的缓冲或直接拒绝 | 计数器不平滑，工程里漏桶与令牌桶用得多；限流由服务提供方提供 |
+| 熔断 | 下游故障时切断调用，返回默认结果 | 由调用端提供，防 A→B→C 链路挂拖垮线程池 |
+| 降级 | 从入口大范围关掉非核心流量 | 适合放 Nginx、DNS 入口层 |
+| 预热 | 新节点慢慢加量 | 没 JIT 编译、缓存是冷的，直接接 1/N 流量可能打挂 |
+| 背压 | 被调用方持续反馈处理能力，调用方据此调速 | 比固定限流多一层反馈，TCP 滑动窗口是原型 |
+
+54. **这一层考验什么**：四件事——队列深度与背压（无限增长等于把故障推迟到 OOM）、临界区长度（锁里做网络调用吞吐断崖）、伪共享、优雅停机。跨机房热点缓存的标准答案是 Facebook 的 Memcache 集群（NSDI '13），用 lease 处理缓存失效与重新填充的竞态。
+
+55. **游戏服务器的并发形态**：与 Web 不同，单个玩家操作顺序执行，跨玩家交互才需要并发，状态高度共享。主流解法是把共享状态收进 actor，每个 actor 单线程处理消息。skynet 是这条路线的代表：C 写框架、Lua 写业务，每个 actor 一个独立虚拟机加消息队列，调度器公平轮转派发（出处：[cloudwu/skynet README](https://github.com/cloudwu/skynet)）。
+
+56. **游戏服务器特有的问题**：逻辑帧与定时器（单线程主循环加时间轮）、状态同步（快照插值、兴趣管理）、广播风暴（合并写、分帧发送）、断线重连（会话超时与快照回放）、热更新（脚本层热替换）、背压（写队列上限，超限踢人而不是阻塞）。帧循环对延迟抖动极敏感，GC 停顿与锁争用直接变成掉帧。
+
+57. **场景到章节的映射**：
+
+| 场景需求 | 对应页面 |
+| --- | --- |
+| 连接与任务的排队执行 | [thread-pool.md](./practice/thread-pool.md) |
+| 有界队列、背压、多消费者 | [producer-consumer.md](./practice/producer-consumer.md) |
+| 读多写少的场景状态 | [reader-writer.md](./practice/reader-writer.md) |
+| actor 化的实体与消息 | [actor.md](./models/actor.md) |
+| 管道式流水线与取消 | [csp.md](./models/csp.md) |
+| 读多写少的共享缓存 | [data-structures.md](./advanced/data-structures.md) |
+| 缓存一致性、NUMA 与内存层次 | [hardware.md](./advanced/hardware.md) |
+| 操作系统调度、上下文切换与虚拟内存 | [os.md](./advanced/os.md) |
+| 语言并发能力对比与选型 | [languages.md](./advanced/languages.md) |
+| 海量历史数据 + 实时查询并存 | [lambda-architecture.md](./models/lambda-architecture.md) |
+| 计数、延迟与容量规划 | [performance.md](./advanced/performance.md) |
+| 负载均衡、缓存失效与压测验收 | [performance.md](./advanced/performance.md) |
+| 框架与架构选型 | [framework-selection.md](./practice/framework-selection.md) |
+| 高连接数、异步 I/O 事件分发 | [reactor.md](./practice/reactor.md) |
+| 容错、分布式锁与事务 | [reliability.md](./practice/reliability.md) |
+| 生态工具速查与责任边界 | [frameworks.md](./practice/frameworks.md) |
+| 竞态漏洞、资源耗尽与侧信道 | [security.md](./advanced/security.md) |
+| 趋势判断与档位划分 | [trends.md](./advanced/trends.md) |
+| 按周推进的实战练习与验收 | [seven-weeks.md](./practice/seven-weeks.md) |
+| 异步结果组合、响应式背压与取消传播 | [async.md](./practice/async.md) |
+
+## 五、常见坑与误区
+
+### 语言与内存模型
+
+58. **把「数据竞争 = UB」当四语言通用结论**：只对 C++/Rust 成立；Java 脱离顺序一致保证但行为仍有定义，Go 是 DRF-SC 保证失效。写跨语言对照时按四份规范分述。见 [memory-model.md](./advanced/memory-model.md)。
+
+59. **volatile 挡不住复合操作**：v++ 是读-改-写三步，计数要用 AtomicLong/LongAdder；单次 volatile long 读写自 Java 5 起才是原子的。见 [memory-model.md](./advanced/memory-model.md)。
+
+60. **Go worker pool 直接 close 任务队列**：close 与并发的 ch <- task 之间没有同步手段，竞态就是 panic: send on closed channel；正确做法是 closed 标志加 context 取消，队列自始至终不关闭。见 [thread-pool.md](./practice/thread-pool.md)。
+
+61. **调偏向锁参数**：JDK 15 废弃、JDK 18 移除，JDK 21 传入直接报 Unrecognized VM option。见 [performance.md](./advanced/performance.md)。
+
+62. **容器里按宿主机核数配线程**：cgroup CPU 限额小于宿主机核数时线程过多争抢，用 ActiveProcessorCount 或 UseContainerSupport。见 [thread-pool.md](./practice/thread-pool.md)。
+
+63. **Python 多线程跑 CPU 密集**：GIL 把字节码执行串行化，核数加满也不并行；用 multiprocessing、NumPy/C 扩展释放 GIL，或 3.13+ 的 free-threaded 构建。见 [languages.md](./advanced/languages.md)。
+
+### 锁与同步原语
+
+64. **锁顺序不一致**：多锁场景不全局固定加锁顺序，死锁是必然不是偶发；嵌套锁能避就避，必要时用 std::lock 同时获取。见 [critical-section.md](./basics/critical-section.md)、[locks.md](./sync/locks.md)。
+
+65. **条件变量用 if 替代 while**：虚假唤醒与信号丢失都会让等待方错过条件变化，wait 必须包在 while 循环里。见 [condition-variables.md](./sync/condition-variables.md)。
+
+66. **Java 在锁外 signal**：Java 的 Condition.signal() 必须在持锁时调用，否则抛 IllegalMonitorStateException；POSIX 相反，锁外 signal 合法且是常见微优化。两套 API 约束方向相反，混用最容易踩。见 [condition-variables.md](./sync/condition-variables.md)。
+
+67. **StampedLock 当重入锁用**：它不可重入、不支持 Condition，同线程二次获取直接死锁；乐观读失败率持续高于 5% 就该退回悲观读。见 [reader-writer.md](./practice/reader-writer.md)。
+
+68. **读写锁升级**：读锁升写锁会死锁，ReentrantReadWriteLock 只支持降级；StampedLock 的 tryConvertToWriteLock 有竞争时返回 0，必须先放读锁再取写锁。见 [reader-writer.md](./practice/reader-writer.md)。
+
+69. **锁里做网络调用**：临界区包含 I/O、睡眠、日志，吞吐断崖式下跌，临界区只留共享数据访问。见 [critical-section.md](./basics/critical-section.md)。
+
+70. **活锁用固定退避**：双方同步退避会同步重试、永久冲突，随机退避或队列化才打破对称。见 [deadlock-livelock.md](./basics/deadlock-livelock.md)。
+
+71. **信号量 P/V 不配对**：计数器漂移导致死锁或泄漏，用 RAII 封装；信号量当互斥锁用会丢所有权保护。见 [semaphores.md](./sync/semaphores.md)。
+
+72. **优先级反转无防护**：高优先级等低优先级持有的锁，中优先级抢占 CPU，高优先级永久等待，靠优先级继承协议解。见 [deadlock-livelock.md](./basics/deadlock-livelock.md)。
+
+73. **RT 优先级线程不让出**：SCHED_FIFO 属实时调度类，永远优先于业务线程，死循环会把整机（含看门狗）饿死；限定 RLIMIT_RTPRIO、RT 线程留守护任务，或改用带宽受限的 Deadline 类。见 [os.md](./advanced/os.md)。
+
+### 无锁与并发模型
+
+74. **无锁节点立即 free**：其他线程可能仍在访问，必须走 Hazard Pointer、EBR 或 RCU 回收。见 [lockfree.md](./advanced/lockfree.md)。
+
+75. **CAS 的 ABA**：pop 期间 head A→B→A，CAS 误判成功；指针打标签或加版本号。见 [lockfree.md](./advanced/lockfree.md)。
+
+76. **Actor 无界邮箱**：慢消费者拖垮 actor，邮箱要有上限、流控、Pull 模式。见 [actor.md](./models/actor.md)。
+
+77. **忽略幂等**：分布式 actor 只能保证至少一次投递，重复消息靠幂等键去重。见 [actor.md](./models/actor.md)。
+
+78. **假不可变**：闭包捕获可变对象，不可变外壳包着可变内核，照样竞争；只捕获不可变值，可变处走 STM 或 Actor。见 [functional.md](./models/functional.md)。
+
+### 实战与架构
+
+79. **无界队列**：maxPoolSize 永不生效，任务堆积到 OOM 才暴露，线程池必须配显式拒绝策略。见 [thread-pool.md](./practice/thread-pool.md)。
+
+80. **Little's Law 用 p99 算线程数**：W 是平均逗留时间，用 p99 会系统性高估并发需求。见 [performance.md](./advanced/performance.md)。
+
+81. **忽视 GPU 传输成本**：host↔device 走 PCIe，带宽远低于显存内部，数据来回搬会把计算收益吃光；数据驻留设备端、批量传输。见 [data-parallel.md](./models/data-parallel.md)。
+
+82. **把并行归约的浮点差异当 bug**：浮点加法不满足严格结合律，树形归约与串行累加结果可能有舍入差，是固有属性，按容差验收。见 [data-parallel.md](./models/data-parallel.md)。
+
+83. **Lambda 架构同一逻辑写两遍**：批处理层与速度层用不同框架，聚合逻辑双实现，改口径要改两处；逻辑变更频繁时评估 Kappa（日志重放换单一代码路径）。见 [lambda-architecture.md](./models/lambda-architecture.md)。
+
+84. **Handler 里做阻塞调用**：事件循环单线程分派所有连接，任一 Handler 阻塞（DB 查询、磁盘 I/O、CPU 密集），整条循环上的连接一起卡；耗时操作必须下沉业务线程池。见 [reactor.md](./practice/reactor.md)。
+
+85. **异步链里逐段 get() 等待**：把 Future 当阻塞句柄用，并行任务被串行化，比同步版还慢；用组合子或 await 串起依赖。见 [async.md](./practice/async.md)。
+
+86. **取消不传播**：取消上游后下游还在算，任务泄漏、资源悬空；Go 传 context、协程用结构化作用域，让取消贯穿全链。见 [async.md](./practice/async.md)。
+
+87. **拿重试治超时**：超时的请求可能已经执行成功，盲目重试就是重复扣款、重复发消息；重试前先回答「重复执行有没有害」，幂等键先行，重试加抖动。见 [reliability.md](./practice/reliability.md)。
+
+88. **分布式锁只写 SETNX 加过期**：锁服务单点、无 fencing token，持锁者 GC 停顿后租约过期又回来写，双写照旧；锁要走多数派，token 单调递增且由存储端校验。见 [reliability.md](./practice/reliability.md)。
+
+89. **热点缓存过期瞬间裸奔回源**：单个热点 key 过期，海量请求同时打库（击穿）；热点不过期或异步重建，回源加单飞。见 [performance.md](./advanced/performance.md)。
+
+90. **多层各自重试放大**：一次下游失败在网关、服务、客户端各重试一次，下游收到的是指数级请求；重试要收敛（预算、退避、幂等），配合熔断切断。见 [performance.md](./advanced/performance.md)。
+
+91. **拿 `str` 比较比较密钥**：字符串比较提前返回，比较耗时与密钥前缀相关，时序攻击能逐字节猜出密钥；安全比较用固定时间函数（`MessageDigest.isEqual`、`CRYPTO_memcmp`）。见 [security.md](./advanced/security.md)。
+
+92. **权限检查后重新打开文件**：检查用一个路径、使用再打开一次，两步之间路径可被换成 symlink（TOCTOU）；一次 open 拿 fd，之后只用 fd，或用 `O_NOFOLLOW`。见 [security.md](./advanced/security.md)。
+
+93. **虚拟线程上再套线程池**：线程已廉价，池化反而引入第二次调度与排队，瓶颈从执行变成提交；虚拟线程直接按需起，池留给真正稀缺的资源（DB 连接、GPU）。见 [frameworks.md](./practice/frameworks.md)。
+
+## 六、来源与导航
+
+调研底稿（逐条出处、抓取日期、核对记录）：
+
+- [research/README.md](./research/README.md) — 调研总览与来源总表
+- [research/books.md](./research/books.md) — 四本书的版本、章节结构与本仓用法
+- [research/memory-model-specs.md](./research/memory-model-specs.md) — 四份规范逐条核对与四语言对照
+- [research/applications.md](./research/applications.md) — 两类场景拆解与章节映射
+- [research/coverage-audit.md](./research/coverage-audit.md) — 覆盖核对差异表（缺口 G1–G4 已全部销账）
+
+- [术语速查：术语表](./glossary.md)（中英对照、一句话定义、权威出处与相关页）。
+
+## 参考资料
+
+- [Go 内存模型](https://go.dev/ref/mem)
+- [Java 内存模型（JLS 17）](https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html)
+- [C/C++ 内存序](https://en.cppreference.com/w/cpp/atomic/memory_order)
+
+<!-- BACKLINKS-AUTO -->
+## 相关页面
+
+- [reliability](/zh/practice/reliability.md)
+- [seven-weeks](/zh/practice/seven-weeks.md)
