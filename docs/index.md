@@ -4,7 +4,7 @@ layout: home
 hero:
   name: Hello Concurrency
   text: Concurrency problems from the project
-  tagline: Project notes on concurrency: from thread cooperation and state synchronization in game development, to the tradeoffs behind locks, Actors and memory models.
+  tagline: 'Project notes on concurrency: from thread cooperation and state synchronization in game development, to the tradeoffs behind locks, Actors and memory models.'
   image:
     src: /illustrations/hero.png
     alt: hello-concurrency hero illustration

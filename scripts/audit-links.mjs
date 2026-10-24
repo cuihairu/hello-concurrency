@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // 站内链接与锚点审计：扫 dist 产物，验证页面路径存在、#锚点在目标页有对应 id。
 // VitePress 构建只查页面路径不查锚点（曾漏过 stm.md 的 Clojure 锚点 slug 错写），这里补上。
-import { readFileSync, readdirSync, statSync } from 'node:fs'
+import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs'
 import { join, relative } from 'node:path'
 
 const DIST = 'docs/.vitepress/dist'
@@ -18,7 +18,10 @@ function walk(dir, out = []) {
 
 function fileForRoute(route) {
   const clean = route.replace(/^\/+|\/+$/g, '')
-  return clean === '' ? join(DIST, 'index.html') : join(DIST, clean + '.html')
+  if (clean === '') return join(DIST, 'index.html')
+  // 目录式路由（语言子站的 /zh/ 首页）落在 index.html；其余按扁平文件解析
+  const flat = join(DIST, clean + '.html')
+  return existsSync(flat) ? flat : join(DIST, clean, 'index.html')
 }
 
 const pages = walk(DIST)
