@@ -200,9 +200,6 @@ export default defineConfig({
   // mdbook 遗留的目录文件保留在仓库作映射底稿，不作为页面构建
   srcExclude: ['**/SUMMARY.md'],
 
-  // 迁移期临时放行死链；英文翻译全部落盘后移除，恢复严格检查
-  ignoreDeadLinks: true,
-
   // 站点语言定义：英文在根目录，中文在 /zh/。
   // VitePress 用顶层 locales[x].themeConfig 做每语言主题覆盖（浅合并，同名键整键替换）；
   // 旧写法 themeConfig.locales 在 1.x 不被读取，会导致中文页渲染英文导航，故不采用。
