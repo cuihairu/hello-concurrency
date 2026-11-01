@@ -1,8 +1,24 @@
-<div align="center"><img src="docs/public/logo.svg" width="64" height="64" alt="logo" /> <img src="docs/public/badges/topic.svg" alt="topic" /> <img src="docs/public/badges/docs.svg" alt="docs" /> <img src="docs/public/badges/license.svg" alt="license" /> <img src="docs/public/badges/langs.svg" alt="langs" /> <a href="https://cuihairu.github.io/hello-concurrency/zh/"><img src="https://img.shields.io/badge/docs-文档-blue" alt="docs"></a></div>
+<div align="center">
+
+[English](README.md) | [中文](README.zh.md)
+
+<p align="center"><img src="docs/public/logo.svg" width="64" height="64" alt="logo" /> </p>
+
+# Hello Concurrency
+
+<p align="center">
+  <img src="docs/public/badges/topic.svg" alt="topic" />
+  <img src="docs/public/badges/docs.svg" alt="docs" />
+  <img src="docs/public/badges/license.svg" alt="license" />
+  <img src="docs/public/badges/langs.svg" alt="langs" />
+</p>
+
+高并发笔记与工程经验 · [在线阅读](https://cuihairu.github.io/hello-concurrency/zh//) · [知识点总纲](https://cuihairu.github.io/hello-concurrency/zh//knowledge) <a href="https://cuihairu.github.io/hello-concurrency/zh/"><img src="https://img.shields.io/badge/%E6%96%87%E6%A1%A3-blue" alt="docs"></a>
+</div>
 
 ---
 
-这里记录我作为游戏开发者在并发问题上的项目经验、技术取舍和踩坑过程，按主题整理成笔记与参考资料，供遇到类似问题时查阅。
+这里是个人关于并发的学习笔记、心得与工程经验，以游戏开发者的视角记录和分享。仓库是一组持续整理的笔记与参考资料，不是教程，也不规定学习顺序。
 
 站点导航以 [`docs/.vitepress/config.mts`](docs/.vitepress/config.mts) 中的 VitePress sidebar 为准。现有笔记按主题分为：[基础](docs/basics/)、[同步原语](docs/sync/)、[并发模型](docs/models/)、[进阶主题](docs/advanced/)和[工程实践](docs/practice/)。[知识点总纲](docs/knowledge.md)、[术语表](docs/glossary.md)与[调研底稿](docs/research/README.md)是横向参考入口。
 
