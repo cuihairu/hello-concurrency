@@ -32,6 +32,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Test (dependency security guard)
+        run: npm test
+
       - name: Build VitePress site
         run: npm run docs:build
 

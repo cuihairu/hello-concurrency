@@ -6,7 +6,8 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:audit": "node scripts/audit-links.mjs && node scripts/audit-structure.mjs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "test": "node scripts/audit-security.mjs"
   },
   "devDependencies": {
     "vitepress": "^1.6.4"
