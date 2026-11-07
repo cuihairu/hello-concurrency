@@ -52,3 +52,4 @@
 
 - [Structure Audit Report](./review/structure-audit-2026-10-19.md)
 - [Content Review Report](./review/content-review-2026-10-19.md)
+- [Source Layering Analysis](./review/source-layer-analysis-2026-11-07.md)

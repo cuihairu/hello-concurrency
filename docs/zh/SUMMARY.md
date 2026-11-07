@@ -52,3 +52,4 @@
 
 - [结构审计报告](./review/structure-audit-2026-10-19.md)
 - [内容复核报告](./review/content-review-2026-10-19.md)
+- [源码分层分析](./review/source-layer-analysis-2026-11-07.md)

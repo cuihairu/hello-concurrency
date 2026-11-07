@@ -89,7 +89,8 @@ const enSidebar: DefaultTheme.SidebarItem[] = [
     items: [
       { text: 'Research Overview and Sources', link: '/research/README' },
       { text: 'Structure Audit Report', link: '/review/structure-audit-2026-10-19' },
-      { text: 'Content Review Report', link: '/review/content-review-2026-10-19' }
+      { text: 'Content Review Report', link: '/review/content-review-2026-10-19' },
+      { text: 'Source Layering Analysis', link: '/review/source-layer-analysis-2026-11-07' }
     ]
   }
 ]
@@ -178,7 +179,8 @@ const zhSidebar: DefaultTheme.SidebarItem[] = [
     items: [
       { text: '调研总览与来源总表', link: '/zh/research/README' },
       { text: '结构审计报告', link: '/zh/review/structure-audit-2026-10-19' },
-      { text: '内容复核报告', link: '/zh/review/content-review-2026-10-19' }
+      { text: '内容复核报告', link: '/zh/review/content-review-2026-10-19' },
+      { text: '源码分层分析', link: '/zh/review/source-layer-analysis-2026-11-07' }
     ]
   }
 ]
